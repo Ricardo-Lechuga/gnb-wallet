@@ -1,26 +1,195 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+def pathVersionProperties = 'sign/version.properties'
+def pathKeystoreProperties = 'sign/keystore.properties'
+
+def nameVersionDev
+def nameVersionProd
+def codeVersion
+
+def versionPropsFile = rootProject.file(pathVersionProperties)
+
+if (versionPropsFile.canRead()) {
+	def Properties versionProps = new Properties()
+	versionProps.load(new FileInputStream(versionPropsFile))
+
+	def majorVersion = versionProps['versionNameMajor'].toInteger()
+	def minorVersion = versionProps['versionNameMinor'].toInteger()
+
+	codeVersion = majorVersion * 10000000 + minorVersion * 10000 + versionProps['versionCompilationCode'].toInteger()
+	nameVersionDev = majorVersion + "." + minorVersion + "." + versionProps['versionNameReleaseDev']
+	nameVersionProd = majorVersion + "." + minorVersion + "." + versionProps['versionNameReleaseProd']
+
+	println(":Current codeVersion = " + codeVersion);
+	println(":Current nameVersionDev = " + nameVersionDev);
+	println(":Current nameVersionProd = " + nameVersionProd);
+}
+
+task incrementVersionCodeDev << {
+	println(":incrementVersionCodeDev - Incrementing Version Code...")
+
+	def Properties versionProps = new Properties()
+	versionProps.load(new FileInputStream(versionPropsFile))
+
+	def oldCodeVersion = versionProps['versionNameReleaseDev'].toInteger()
+	def newCodeVersion = oldCodeVersion + 1
+
+	versionProps['versionNameReleaseDev'] = newCodeVersion.toString()
+	versionProps.store(versionPropsFile.newWriter(), null)
+
+	println(":incrementVersionCodeDev - old versionNameReleaseDev=" + oldCodeVersion);
+	println(":incrementVersionCodeDev - next versionNameReleaseDev=" + newCodeVersion);
+
+	incrementVersionCode
+}
+
+task incrementVersionCodeProd << {
+	println(":incrementVersionCodeProd - Incrementing Version Code...")
+
+	def Properties versionProps = new Properties()
+	versionProps.load(new FileInputStream(versionPropsFile))
+
+	def oldCodeVersion = versionProps['versionNameReleaseProd'].toInteger()
+	def newCodeVersion = oldCodeVersion + 1
+
+	versionProps['versionNameReleaseProd'] = newCodeVersion.toString()
+	versionProps.store(versionPropsFile.newWriter(), null)
+
+	println(":incrementVersionCodeProd - old versionNameReleaseProd=" + oldCodeVersion);
+	println(":incrementVersionCodeProd - next versionNameReleaseProd=" + newCodeVersion);
+
+	incrementVersionCode
+}
+
+task incrementVersionCode << {
+	println(":incrementVersionCode - Incrementing Version Code...")
+
+	def Properties versionProps = new Properties()
+	versionProps.load(new FileInputStream(versionPropsFile))
+
+	def oldCodeVersion = versionProps['versionCompilationCode'].toInteger()
+	def newCodeVersion = oldCodeVersion + 1
+
+	versionProps['versionCompilationCode'] = newCodeVersion.toString()
+	versionProps.store(versionPropsFile.newWriter(), null)
+
+	println(":incrementVersionCode - old versionCode=" + oldCodeVersion);
+	println(":incrementVersionCode - next versionCode=" + newCodeVersion);
+}
 
 android {
-	compileSdkVersion 23
-	buildToolsVersion "23.0.3"
+
+	File signFile = getRootProject().file(pathKeystoreProperties)
+	if (signFile.exists()) {
+		Properties properties = new Properties()
+		properties.load(new FileInputStream(signFile))
+		signingConfigs {
+			debug {
+				storeFile rootProject.file(properties['keystore'])
+				storePassword properties['storePassword']
+				keyAlias properties['keyAlias']
+				keyPassword properties['keyPassword']
+			}
+		}
+	}
+
+	compileSdkVersion rootProject.ext.compileSdkVersion
+	buildToolsVersion rootProject.ext.buildToolsVersion
 
 	defaultConfig {
-		applicationId "gnbwallet.rlc00008.ujaen.es.gnb_wallet"
-		minSdkVersion 19
-		targetSdkVersion 23
-		versionCode 1
-		versionName "1.0"
+		applicationId "es.ujaen.rlc00008.gnbwallet"
+		minSdkVersion rootProject.ext.minSdkVersion
+		targetSdkVersion rootProject.ext.targetSdkVersion
+		// Enabling multidex support.
+		multiDexEnabled true
 	}
+
+	productFlavors {
+		dev {
+			applicationIdSuffix '.dev'
+			signingConfig signingConfigs.debug
+			versionCode codeVersion
+			versionName nameVersionDev
+		}
+		prod {
+			signingConfig signingConfigs.debug
+			versionCode codeVersion
+			versionName nameVersionProd
+		}
+	}
+
 	buildTypes {
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
+
+	// Always show the result of every unit test, even if it passes.
+	testOptions.unitTests.all {
+		testLogging {
+			events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+		}
+	}
 }
 
+/*
+ Dependency versions are defined in the top level build.gradle file. This helps keeping track of
+ all versions in a single place. This improves readability and helps managing project complexity.
+ */
 dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
-	testCompile 'junit:junit:4.12'
-	compile 'com.android.support:appcompat-v7:23.3.0'
+
+	// Attached libs
+	compile files('libs/sqlcipher.jar') // PROGUARD OK
+
+	// Android dependencies
+	compile "com.android.support:multidex:$rootProject.ext.multidexVersion"
+	compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+	compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+	compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+	compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+	compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+
+	// Third party libs
+	compile "com.jakewharton:butterknife:$rootProject.ext.butterKnifeVersion"
+	compile "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+	compile("com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion") {
+		// exclude Retrofit’s OkHttp peer-dependency module and define your own module import
+		exclude module: 'okhttp'
+	}
+	compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+	compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
+	compile "com.squareup.okhttp3:okhttp-urlconnection:$rootProject.ext.okHttpVersion"
+	compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
+
+	// Google-Dagger dependencies
+	apt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+	provided 'org.glassfish:javax.annotation:10.0-b28'
+	compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+
+	// Dependencies for local unit tests
+	testCompile "junit:junit:$rootProject.ext.junitVersion"
+	testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+	testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+
+	// Android Testing Support Library's runner and rules
+	androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+	androidTestCompile "com.android.support.test:rules:$rootProject.ext.runnerVersion"
+
+	// Dependencies for Android unit tests
+	androidTestCompile "junit:junit:$rootProject.ext.junitVersion"
+	androidTestCompile "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
+	androidTestCompile "com.google.dexmaker:dexmaker:$rootProject.ext.dexMakerVersion"
+	androidTestCompile "com.google.dexmaker:dexmaker-mockito:$rootProject.ext.dexMakerVersion"
+
+	// Espresso UI Testing
+	androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+	androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
+	androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
+
+	// Resolve conflicts between main and test APK:
+	androidTestCompile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
+	androidTestCompile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+	androidTestCompile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
 }
