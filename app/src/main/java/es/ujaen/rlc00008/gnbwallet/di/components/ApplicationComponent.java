@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import es.ujaen.rlc00008.gnbwallet.GNBApplication;
+import es.ujaen.rlc00008.gnbwallet.data.GNBRepository;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.GNBServices;
 import es.ujaen.rlc00008.gnbwallet.di.modules.ApplicationModule;
 import es.ujaen.rlc00008.gnbwallet.di.modules.GNBRepositoryModule;
 import es.ujaen.rlc00008.gnbwallet.di.modules.MemoryModule;
@@ -25,8 +27,10 @@ public interface ApplicationComponent {
 	// Exported to child components
 	GNBApplication application();
 
-	//GNBRepository gnbRepository();
-	//
+	GNBRepository gnbRepository();
+
+	GNBServices gnbServices();
+
 	//KidsServices restServices();
 	//
 	//SantanderServices santanderServices();

@@ -1,7 +1,6 @@
 package es.ujaen.rlc00008.gnbwallet.di.modules;
 
 import android.app.Service;
-import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,9 +24,9 @@ public class ServiceModule {
 		return this.service;
 	}
 
-	@Provides
-	@ActivityScope
-	Context getContext() {
-		return this.service;
-	}
+	//@Provides
+	//@ActivityScope
+	//Context getContext() {
+	//	return this.service;
+	//}
 }

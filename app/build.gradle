@@ -151,17 +151,24 @@ dependencies {
 	compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
 	compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
 
-	// Third party libs
+	// ButterKnife
+	apt 'com.jakewharton:butterknife-compiler:8.0.1'
 	compile "com.jakewharton:butterknife:$rootProject.ext.butterKnifeVersion"
+
+	//Gson
 	compile "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+
+	// OkHttp
+	compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
+	compile "com.squareup.okhttp3:okhttp-urlconnection:$rootProject.ext.okHttpVersion"
+	compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
+
+	// Retrofit
 	compile("com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion") {
 		// exclude Retrofit’s OkHttp peer-dependency module and define your own module import
 		exclude module: 'okhttp'
 	}
 	compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
-	compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
-	compile "com.squareup.okhttp3:okhttp-urlconnection:$rootProject.ext.okHttpVersion"
-	compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
 
 	// Google-Dagger dependencies
 	apt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"

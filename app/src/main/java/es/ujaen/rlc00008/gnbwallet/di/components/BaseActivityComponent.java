@@ -4,6 +4,7 @@ import dagger.Component;
 import es.ujaen.rlc00008.gnbwallet.di.modules.ActivityModule;
 import es.ujaen.rlc00008.gnbwallet.di.scopes.ActivityScope;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
+import es.ujaen.rlc00008.gnbwallet.ui.base.BaseDialogFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseViewHolder;
 
@@ -24,6 +25,8 @@ public interface BaseActivityComponent {
 	void inject(BaseActivity activity);
 
 	void inject(BaseFragment baseFragment);
+
+	void inject(BaseDialogFragment baseFragment);
 
 	void inject(BaseViewHolder baseViewHolder);
 }

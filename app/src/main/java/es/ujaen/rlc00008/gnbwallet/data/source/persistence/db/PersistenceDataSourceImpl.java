@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.PersistenceDataSource;
@@ -15,6 +17,7 @@ public class PersistenceDataSourceImpl implements PersistenceDataSource {
 
 	private GNBCipheredDatabase gnbCipheredDatabase;
 
+	@Inject
 	public PersistenceDataSourceImpl(Context context) {
 		gnbCipheredDatabase = new GNBCipheredDatabase(context);
 	}
