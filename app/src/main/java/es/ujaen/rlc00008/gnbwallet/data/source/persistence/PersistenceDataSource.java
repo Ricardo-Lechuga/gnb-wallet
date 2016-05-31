@@ -12,8 +12,6 @@ public interface PersistenceDataSource {
 
 	UserDTO getStoredUser();
 
-	void cleanStoredUser();
-
 	void setStoredUser(UserDTO userDTO);
 
 	List<CardDTO> getUserCards(String userId);

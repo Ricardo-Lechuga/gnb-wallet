@@ -1,4 +1,4 @@
-package es.ujaen.rlc00008.gnbwallet.data.source.persistence.db;
+package es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.user;
 
 import android.provider.BaseColumns;
 

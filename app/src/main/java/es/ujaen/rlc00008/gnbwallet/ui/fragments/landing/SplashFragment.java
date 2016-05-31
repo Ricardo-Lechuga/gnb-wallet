@@ -1,5 +1,6 @@
-package es.ujaen.rlc00008.gnbwallet.ui.fragments;
+package es.ujaen.rlc00008.gnbwallet.ui.fragments.landing;
 
+import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
@@ -14,10 +15,24 @@ import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 public class SplashFragment extends BaseFragment implements
 		InitInteractor.InitCallback {
 
+	private static final long SPLASH_MIN_TIME = 3000;
+
 	public interface SplashListener {
 		void loadNoUser();
 
 		void loadUserOk();
+	}
+
+	private SplashListener mCallback;
+
+	@Override
+	public void onAttach(Context context) {
+		try {
+			mCallback = (SplashListener) context;
+		} catch (ClassCastException e) {
+			throw new RuntimeException(context + " must implement SplashListener!");
+		}
+		super.onAttach(context);
 	}
 
 	@Override
@@ -32,24 +47,22 @@ public class SplashFragment extends BaseFragment implements
 			public void run() {
 				initInteractor.loadInitialData(SplashFragment.this);
 			}
-		}, 1000);
+		}, SPLASH_MIN_TIME);
 	}
 
 	@Override
 	public void noUser() {
-		//TODO
-		Toast.makeText(context, "No user!", Toast.LENGTH_SHORT).show();
+		mCallback.loadNoUser();
 	}
 
 	@Override
 	public void userOk() {
-		//TODO
-		Toast.makeText(context, "User OK!", Toast.LENGTH_SHORT).show();
+		mCallback.loadUserOk();
 	}
 
 	@Override
 	public void operativeError(String message) {
-		//TODO
+		//TODO Dialog
 		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 	}
 

@@ -22,6 +22,13 @@ public class UserDTO {
 		this.nif = userDTO.nif;
 	}
 
+	public UserDTO(String name, String surname, String userId, String nif) {
+		this.name = name;
+		this.surname = surname;
+		this.userId = userId;
+		this.nif = nif;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -61,5 +68,4 @@ public class UserDTO {
 		UserDTO userDTO = (UserDTO) o;
 		return Objects.equals(userId, userDTO.userId);
 	}
-
 }

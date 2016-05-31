@@ -7,6 +7,7 @@ import java.util.Objects;
  */
 public class CardDTO {
 
+	private String userId;
 	private String pan;
 	private boolean nfc;
 	private boolean enabled;
@@ -23,6 +24,7 @@ public class CardDTO {
 	}
 
 	public CardDTO(CardDTO cardDTO) {
+		this.userId = cardDTO.userId;
 		this.pan = cardDTO.pan;
 		this.nfc = cardDTO.nfc;
 		this.enabled = cardDTO.enabled;
@@ -34,6 +36,29 @@ public class CardDTO {
 		this.availableCredit = cardDTO.availableCredit;
 		this.creditLimit = cardDTO.creditLimit;
 		this.balance = cardDTO.balance;
+	}
+
+	public CardDTO(String userId, String pan, boolean nfc, boolean enabled, String beneficiary, String visualCode, String type) {
+		this.userId = userId;
+		this.pan = pan;
+		this.nfc = nfc;
+		this.enabled = enabled;
+		this.expirationDate = null;
+		this.beneficiary = beneficiary;
+		this.visualCode = visualCode;
+		this.type = type;
+		this.currentBalance = null;
+		this.availableCredit = null;
+		this.creditLimit = null;
+		this.balance = null;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getPan() {
@@ -131,5 +156,4 @@ public class CardDTO {
 		CardDTO other = (CardDTO) o;
 		return Objects.equals(pan, other.pan);
 	}
-
 }

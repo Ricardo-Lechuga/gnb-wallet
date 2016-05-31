@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="top|left"
+	android:orientation="vertical">
+
+	<include
+		layout="@layout/view_toolbar"/>
+
+	<ImageView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_marginTop="8dp"
+		android:src="@drawable/logo_no_logged"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="36dp"
+		android:layout_marginTop="6dp"
+		android:text="@string/login_user"
+		android:textColor="@color/ui_text_gray"
+		android:textSize="13dp"/>
+
+	<EditText
+		android:id="@+id/login_user_edittext"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="8dp"
+		android:layout_marginRight="8dp"
+		android:imeOptions="actionNext"
+		android:inputType="textNoSuggestions"
+		android:maxLength="9"
+		android:maxLines="1"
+		android:privateImeOptions="nm"
+		android:singleLine="true"
+		android:text=""
+		android:textColor="@color/ui_text_black"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="36dp"
+		android:layout_marginTop="6dp"
+		android:text="@string/login_pass"
+		android:textColor="@color/ui_text_gray"
+		android:textSize="13dp"/>
+
+	<EditText
+		android:id="@+id/login_password_edittext"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="8dp"
+		android:layout_marginRight="8dp"
+		android:imeOptions="actionUnspecified|actionDone"
+		android:inputType="numberPassword"
+		android:maxLength="8"
+		android:privateImeOptions="nm"
+		android:text=""
+		android:textColor="@color/ui_text_black"/>
+
+	<Button
+		android:id="@+id/login_access_button"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/login_go"
+		style="@style/ButtonGreen"/>
+
+</LinearLayout>

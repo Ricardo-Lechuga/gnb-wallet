@@ -141,7 +141,8 @@ android {
 dependencies {
 
 	// Attached libs
-	compile files('libs/sqlcipher.jar') // PROGUARD OK
+	compile files('libs/sqlcipher.jar')
+	compile files('libs/valnif.jar')
 
 	// Android dependencies
 	compile "com.android.support:multidex:$rootProject.ext.multidexVersion"
@@ -169,6 +170,9 @@ dependencies {
 		exclude module: 'okhttp'
 	}
 	compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+
+	// Guava
+	compile 'com.google.guava:guava:19.0'
 
 	// Google-Dagger dependencies
 	apt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"

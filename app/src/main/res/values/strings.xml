@@ -1,3 +1,45 @@
 <resources>
-	<string name="app_name">GNB-Wallet</string>
+
+	<!-- Generic string resources -->
+	<string name="_yes">Sí</string>
+	<string name="_no">No</string>
+	<string name="_ok">Aceptar</string>
+	<string name="_cancel">Cancelar</string>
+	<string name="_confirm">Confirmar</string>
+	<string name="_confirm_operation">Confirmar operación</string>
+	<string name="_continue">Continuar</string>
+	<string name="_delete">Eliminar</string>
+	<string name="_annulate">Anular</string>
+	<string name="_sign">Firmar</string>
+	<string name="_open">Abrir</string>
+	<string name="_enter">Entrar</string>
+	<string name="_close">Cerrar</string>
+	<string name="_exit">Salir</string>
+	<string name="_reload_pg">Recargando Posición Global&#8230;</string>
+	<string name="_reload_pg_fail">Se ha producido un error al recargar la Posición Global. Posiblemente la aplicación no muestre información actualizada de tus productos.</string>
+	<string name="_loading">Comprobando operación&#8230;</string>
+	<string name="_loading_detail">Cargando detalle&#8230;</string>
+	<string name="_loading_pdf">Descargando pdf&#8230;</string>
+	<string name="_loading_transactions">Cargando movimientos&#8230;</string>
+	<string name="_loading_more_transactions">Cargando más movimientos&#8230;</string>
+	<string name="_setup">Configurar</string>
+	<string name="_options">Opciones</string>
+	<string name="_amount">Importe</string>
+	<string name="_generic_error_title">Servicio no disponible</string>
+	<string name="_generic_error_message">Se ha producido un error en la conexión. Por favor, inténtelo de nuevo más tarde.</string>
+	<string name="_activity_not_found">No se ha encontrado la aplicación</string>
+	<string name="_invalid_login">Las credenciales proporcionadas no corresponden a ningún cliente</string>
+	<string name="_invalid_url">La URL no es válida</string>
+	<string name="_credit">Crédito</string>
+	<string name="_debit">Débito</string>
+	<string name="_ecash">Tarjeta eCash</string>
+	<string name="_logout_confirm">¿Desea cerrar la sesión?</string>
+	<string name="_asterisk">*</string>
+
+	<!-- Login -->
+	<string name="login_user">Usuario</string>
+	<string name="login_pass">Contraseña</string>
+	<string name="login_go">Login</string>
+	<string name="login_remember">Recordar</string>
+
 </resources>

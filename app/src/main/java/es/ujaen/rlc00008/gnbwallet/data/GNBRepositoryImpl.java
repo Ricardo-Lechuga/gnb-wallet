@@ -2,9 +2,13 @@ package es.ujaen.rlc00008.gnbwallet.data;
 
 import android.content.Context;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.FallbackMemory;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.MainMemory;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.MemoryDataSource;
@@ -33,6 +37,25 @@ public class GNBRepositoryImpl implements GNBRepository {
 		this.memoryFallbackDataSource = memoryFallbackDataSource;
 		this.persistenceDataSource = persistenceDataSource;
 		this.gnbServices = gnbServices;
+	}
+
+	@Override
+	public UserDTO getPersistedUser() {
+		return persistenceDataSource.getStoredUser();
+	}
+
+	@Override
+	public List<CardDTO> getPersistedCards() {
+		UserDTO userDTO = persistenceDataSource.getStoredUser();
+		if (userDTO != null) {
+			return persistenceDataSource.getUserCards(userDTO.getUserId());
+		}
+		return null;
+	}
+
+	@Override
+	public UserDTO getCurrentUser() {
+		return null;
 	}
 
 	@Override

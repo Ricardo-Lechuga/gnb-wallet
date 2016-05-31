@@ -6,6 +6,8 @@ import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
 import es.ujaen.rlc00008.gnbwallet.MyLog;
+import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.cards.CardPersistenceContract;
+import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.user.UserPersistenceContract;
 import es.ujaen.rlc00008.gnbwallet.utils.Installation;
 
 /**
@@ -62,7 +64,7 @@ public class GNBCipheredDatabase extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-	static String getDBPassword(Context context) {
+	public static String getDBPassword(Context context) {
 		return Installation.id(context);
 	}
 
