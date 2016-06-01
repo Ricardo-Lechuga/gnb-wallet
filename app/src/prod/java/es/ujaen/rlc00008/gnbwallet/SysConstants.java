@@ -8,6 +8,6 @@ public class SysConstants {
 	/**
 	 * Public Xml Base URL
 	 */
-	public static final String HOST_BASE_URL = "http://aws01-preproduction01.taksee.com/pfc/ws/";
+	public static final String HOST_BASE_URL = "http://aws01-preproduction01.taksee.com";
 
 }

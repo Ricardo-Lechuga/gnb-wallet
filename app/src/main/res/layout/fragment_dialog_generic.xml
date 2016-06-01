@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/ui_translucent">
+
+	<LinearLayout
+		android:id="@+id/generic_buttons_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:orientation="horizontal">
+
+		<Button
+			android:id="@+id/generic_left_button"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/_cancel"
+			android:visibility="gone"
+			tools:visibility="gone"
+			style="@style/ButtonGreen"/>
+
+		<Button
+			android:id="@+id/generic_right_button"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/_ok"
+			style="@style/ButtonGreen"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="280dp"
+		android:layout_height="match_parent"
+		android:layout_above="@+id/generic_buttons_layout"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/ui_background_gray"
+			android:padding="6dp"
+			android:scaleType="centerInside"
+			android:src="@drawable/logo_alert"/>
+
+		<ImageView
+			android:id="@+id/generic_icon_imageview"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/ui_white"
+			android:padding="12dp"
+			android:scaleType="centerInside"
+			android:visibility="gone"
+			tools:src="@drawable/icn_check"
+			tools:visibility="visible"/>
+
+		<TextView
+			android:id="@+id/generic_message_textview"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/ui_white"
+			android:gravity="center"
+			android:paddingBottom="20dp"
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+			android:textColor="@color/ui_text_black"
+			android:textSize="16dp"
+			tools:text="Texto de prueba"/>
+
+	</LinearLayout>
+
+</RelativeLayout>

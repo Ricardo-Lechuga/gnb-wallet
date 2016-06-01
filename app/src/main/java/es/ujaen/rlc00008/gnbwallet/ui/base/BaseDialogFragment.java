@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,9 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import es.ujaen.rlc00008.gnbwallet.MyLog;
+import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
 
 /**
  * Created by Ricardo on 22/5/16.
@@ -28,14 +31,13 @@ public abstract class BaseDialogFragment extends DialogFragment {
 	@Inject protected Context context;
 
 	@Inject protected InitInteractor initInteractor;
-
-	//protected MyProgressDialog myProgressDialog;
+	@Inject protected LoginInteractor loginInteractor;
 
 	protected View mainView;
 
 	@Override
 	public void onAttach(Context context) {
-
+		this.context = context;
 		if (context instanceof BaseActivity) {
 			((BaseActivity) this.context).component().inject(this);
 		} else {
@@ -43,6 +45,13 @@ public abstract class BaseDialogFragment extends DialogFragment {
 		}
 		super.onAttach(context);
 	}
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setStyle(DialogFragment.STYLE_NO_TITLE, R.style.AppTheme_Transparent);
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mainView = inflater.inflate(getContentView(), container, false);
@@ -106,107 +115,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
 		}
 	}
 
-	protected BaseDialogFragment findFragmentById(int containerId) {
-		try {
-			return (BaseDialogFragment) getChildFragmentManager().findFragmentById(containerId);
-		} catch (Exception e) {
-			MyLog.printStackTrace(e);
-		}
-		return null;
-	}
-
-	protected void replaceFragment(BaseDialogFragment fragment, int containerId) {
-		getChildFragmentManager().
-				beginTransaction().
-				replace(containerId, fragment)
-				.commit();
-		getActivity().overridePendingTransition(0, 0);
-	}
-
-	protected void replaceFragment(BaseDialogFragment fragment, int containerId, String backStackName) {
-		getChildFragmentManager()
-				.beginTransaction()
-				.addToBackStack(backStackName)
-				.replace(containerId, fragment)
-				.commit();
-		getActivity().overridePendingTransition(0, 0);
-	}
-
-	protected void replaceFragment(BaseDialogFragment fragment, int containerId, int enterAnim, int exitAnim) {
-		getChildFragmentManager()
-				.beginTransaction()
-				.replace(containerId, fragment)
-				.setCustomAnimations(enterAnim, exitAnim)
-				.commit();
-	}
-
-	protected void removeFragment(int containerId) {
-		try {
-			BaseDialogFragment fragment = findFragmentById(containerId);
-			if (fragment != null) {
-				getChildFragmentManager().beginTransaction()
-						.remove(getChildFragmentManager().findFragmentById(containerId)).commit();
-			}
-		} catch (Exception e) {
-			MyLog.printStackTrace(e);
-		}
-	}
-
-	//public void showLoading() {
-	//
-	//	myProgressDialog = MyProgressDialog.ctor(getActivity());
-	//	myProgressDialog.show();
-	//}
-	//
-	//public void hideLoading() {
-	//
-	//	if (myProgressDialog != null && myProgressDialog.isShowing()) {
-	//		myProgressDialog.dismiss();
-	//	}
-	//}
-	//
-	//public void showError(String message) {
-	//	MyAlertDialog.showGenericError(getActivity(), message);
-	//}
-
-	/**
-	 * Muestra un DialogFragment - fullScreen
-	 */
-	public void showPopUpFragment(BaseDialogFragment fragment) {
-		try {
-			fragment.show(getChildFragmentManager(), POPUP_FRAGMENT_TAG);
-		} catch (Exception e) {
-			MyLog.printStackTrace(e);
-		}
-	}
-
-	/**
-	 * Oculta el pop-up fragment en la vista superior de la Activity
-	 */
-	public void hidePopUpFragment() {
-		try {
-			BaseDialogFragment fragment = (BaseDialogFragment) getChildFragmentManager().findFragmentByTag(POPUP_FRAGMENT_TAG);
-			if (fragment != null) {
-				fragment.dismiss();
-			}
-		} catch (Exception e) {
-			MyLog.printStackTrace(e);
-		}
-	}
-
-	/**
-	 * Devuelve true si se está visualizando el pop-up fragment en la vista superior de la Activity
-	 */
-	public boolean isPopUpFragmentShowing() {
-		try {
-			BaseDialogFragment fragment = (BaseDialogFragment) getChildFragmentManager().findFragmentByTag(POPUP_FRAGMENT_TAG);
-			return (fragment != null);
-		} catch (Exception e) {
-			MyLog.printStackTrace(e);
-		}
-		return false;
-	}
-
 	protected abstract int getContentView();
 
 	protected abstract void prepareInterface(View mainView);
@@ -220,5 +128,4 @@ public abstract class BaseDialogFragment extends DialogFragment {
 			}
 		};
 	}
-
 }

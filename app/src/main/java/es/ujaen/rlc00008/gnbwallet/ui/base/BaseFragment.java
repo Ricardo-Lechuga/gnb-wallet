@@ -15,18 +15,23 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import es.ujaen.rlc00008.gnbwallet.MyLog;
+import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 
 /**
  * Created by Ricardo on 22/5/16.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements
+		GenericDialogFragment.GenericDialogListener {
 
 	private static final String POPUP_FRAGMENT_TAG = "POPUP_FRAGMENT_TAG";
 
 	@Inject protected Context context;
 
 	@Inject protected InitInteractor initInteractor;
+	@Inject protected LoginInteractor loginInteractor;
 
 	//protected MyProgressDialog myProgressDialog;
 
@@ -181,6 +186,22 @@ public abstract class BaseFragment extends Fragment {
 	}
 
 	/**
+	 * Shows a DialogFragment - fullScreen with OK icon
+	 */
+	public void showOkFragment(String message) {
+		BaseDialogFragment baseDialogFragment = GenericDialogFragment.newInstance(R.drawable.icn_check, message);
+		showPopUpFragment(baseDialogFragment);
+	}
+
+	/**
+	 * Muestra un DialogFragment - fullScreen with Error icon
+	 */
+	public void showErrorFragment(String message) {
+		BaseDialogFragment baseDialogFragment = GenericDialogFragment.newInstance(R.drawable.icn_cancelled, message);
+		showPopUpFragment(baseDialogFragment);
+	}
+
+	/**
 	 * Oculta el pop-up fragment en la vista superior de la Activity
 	 */
 	public void hidePopUpFragment() {
@@ -205,6 +226,21 @@ public abstract class BaseFragment extends Fragment {
 			MyLog.printStackTrace(e);
 		}
 		return false;
+	}
+
+	@Override
+	public void genericDialogCancel() {
+		hidePopUpFragment();
+	}
+
+	@Override
+	public void genericDialogLeftClick() {
+		hidePopUpFragment();
+	}
+
+	@Override
+	public void genericDialogRightClick() {
+		hidePopUpFragment();
 	}
 
 	protected abstract int getContentView();

@@ -8,7 +8,7 @@ import net.sqlcipher.database.SQLiteOpenHelper;
 import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.cards.CardPersistenceContract;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.user.UserPersistenceContract;
-import es.ujaen.rlc00008.gnbwallet.utils.Installation;
+import es.ujaen.rlc00008.gnbwallet.data.Installation;
 
 /**
  * La clase GNBCipheredDatabase representa la base de datos de nuestro sistema. Los

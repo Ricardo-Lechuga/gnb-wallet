@@ -41,5 +41,9 @@
 	<string name="login_pass">Contraseña</string>
 	<string name="login_go">Login</string>
 	<string name="login_remember">Recordar</string>
+	<string name="login_mandatory_user">El campo \'Usuario\' es obligatorio</string>
+	<string name="login_mandatory_password">La contraseña es obligatoria</string>
+	<string name="login_validate_password_min_length">La contraseña no es válida</string>
+	<string name="login_validate_user">El campo \'Usuario\' no es válido</string>
 
 </resources>

@@ -45,16 +45,16 @@ public class GNBRepositoryModule {
 			Gson gson = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).
 					create();
 
-	Retrofit retrofit = new Retrofit.Builder()
-			.baseUrl(SysConstants.HOST_BASE_URL + "/")
-			.addConverterFactory(GsonConverterFactory.create(gson))
-			.client(httpClient)
-			.build();
+			Retrofit retrofit = new Retrofit.Builder()
+					.baseUrl(SysConstants.HOST_BASE_URL + "/")
+					.addConverterFactory(GsonConverterFactory.create(gson))
+					.client(httpClient)
+					.build();
 
-	service = retrofit.create(GNBServices.class);
-}
-return service;
+			service = retrofit.create(GNBServices.class);
 		}
+		return service;
+	}
 
 	@Provides
 	@Singleton

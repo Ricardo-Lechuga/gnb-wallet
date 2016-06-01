@@ -1,4 +1,4 @@
-package es.ujaen.rlc00008.gnbwallet.utils;
+package es.ujaen.rlc00008.gnbwallet.data;
 
 import android.content.Context;
 

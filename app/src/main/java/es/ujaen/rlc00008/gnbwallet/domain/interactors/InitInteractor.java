@@ -2,6 +2,7 @@ package es.ujaen.rlc00008.gnbwallet.domain.interactors;
 
 import javax.inject.Inject;
 
+import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.domain.BaseInteractor;
 
@@ -25,21 +26,26 @@ public class InitInteractor extends BaseInteractor {
 		new Thread() {
 			@Override
 			public void run() {
+				try {
+					final UserDTO userDTO = repository.getPersistedUser();
 
-				final UserDTO userDTO = repository.getPersistedUser();
-
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						if (initCallback != null) {
-							if (userDTO != null) {
-								initCallback.userOk();
-							} else {
-								initCallback.noUser();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							if (initCallback != null) {
+								if (userDTO != null) {
+									initCallback.userOk();
+								} else {
+									initCallback.noUser();
+								}
 							}
 						}
+					});
+				} catch (Exception e) {
+					if (initCallback != null) {
+						initCallback.operativeError(context.getString(R.string._generic_error_message));
 					}
-				});
+				}
 			}
 		}.start();
 	}
