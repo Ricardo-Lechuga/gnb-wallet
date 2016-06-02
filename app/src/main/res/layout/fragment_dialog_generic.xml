@@ -21,7 +21,7 @@
 			android:text="@string/_cancel"
 			android:visibility="gone"
 			tools:visibility="gone"
-			style="@style/ButtonGreen"/>
+			style="@style/AppButton.Black"/>
 
 		<Button
 			android:id="@+id/generic_right_button"
@@ -29,7 +29,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:text="@string/_ok"
-			style="@style/ButtonGreen"/>
+			style="@style/AppButton.Green"/>
 
 	</LinearLayout>
 
@@ -54,7 +54,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@color/ui_white"
-			android:padding="12dp"
+			android:paddingTop="12dp"
 			android:scaleType="centerInside"
 			android:visibility="gone"
 			tools:src="@drawable/icn_check"
@@ -66,9 +66,7 @@
 			android:layout_height="wrap_content"
 			android:background="@color/ui_white"
 			android:gravity="center"
-			android:paddingBottom="20dp"
-			android:paddingLeft="20dp"
-			android:paddingRight="20dp"
+			android:padding="20dp"
 			android:textColor="@color/ui_text_black"
 			android:textSize="16dp"
 			tools:text="Texto de prueba"/>

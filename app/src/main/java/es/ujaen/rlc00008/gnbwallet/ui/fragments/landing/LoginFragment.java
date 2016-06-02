@@ -1,10 +1,10 @@
 package es.ujaen.rlc00008.gnbwallet.ui.fragments.landing;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,12 +24,24 @@ public class LoginFragment extends BaseFragment {
 		void loginOk();
 	}
 
+	private LoginListener callback;
+
 	private String loginFormatted;
 	private String passwordFormatted;
 
 	@BindView(R.id.login_user_edittext) EditText userEditText;
 	@BindView(R.id.login_password_edittext) EditText passwordEditText;
 	@BindView(R.id.login_access_button) Button accessButton;
+
+	@Override
+	public void onAttach(Context context) {
+		try {
+			callback = (LoginListener) context;
+		} catch (ClassCastException e) {
+			throw new RuntimeException(context + " must implement LoginListener!");
+		}
+		super.onAttach(context);
+	}
 
 	@Override
 	protected int getContentView() {
@@ -43,16 +55,21 @@ public class LoginFragment extends BaseFragment {
 
 	@OnClick(R.id.login_access_button)
 	void tryLogin() {
+		hideKeyBoard(userEditText);
 		if(localValidations(userEditText.getText().toString(), passwordEditText.getText().toString())){
+			showLoading();
 			loginInteractor.login(loginFormatted, passwordFormatted, new LoginInteractor.LoginCallback() {
 				@Override
 				public void loginOk() {
-					//TODO
-					Toast.makeText(context, "Login OK!", Toast.LENGTH_SHORT).show();
+					hideLoading();
+					userEditText.setText("");
+					passwordEditText.setText("");
+					callback.loginOk();
 				}
 
 				@Override
 				public void operativeError(String message) {
+					hideLoading();
 					showErrorFragment(message);
 				}
 			});

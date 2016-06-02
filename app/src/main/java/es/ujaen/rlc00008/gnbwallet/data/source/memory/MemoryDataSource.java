@@ -10,6 +10,14 @@ import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
  */
 public interface MemoryDataSource {
 
+	String getUserToken();
+
+	void setUserToken(String userToken);
+
+	String getFavoriteCard();
+
+	void setFavoriteCard(String favoriteCard);
+
 	UserDTO getUserData();
 
 	void setUserData(UserDTO userDTO);

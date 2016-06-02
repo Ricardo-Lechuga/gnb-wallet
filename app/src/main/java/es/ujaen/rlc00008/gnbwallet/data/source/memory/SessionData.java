@@ -10,10 +10,20 @@ import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
  */
 public class SessionData {
 
+	private String userToken;
 	private UserDTO currentUser;
 	private ArrayList<CardDTO> userCards;
+	private String favoriteCard;
 
 	public SessionData() {
+	}
+
+	public String getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
 	}
 
 	public UserDTO getCurrentUser() {
@@ -30,5 +40,13 @@ public class SessionData {
 
 	public void setUserCards(ArrayList<CardDTO> userCards) {
 		this.userCards = userCards;
+	}
+
+	public String getFavoriteCard() {
+		return favoriteCard;
+	}
+
+	public void setFavoriteCard(String favoriteCard) {
+		this.favoriteCard = favoriteCard;
 	}
 }

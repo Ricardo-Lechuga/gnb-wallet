@@ -23,6 +23,26 @@ public class MemoryDataSourceImpl implements MemoryDataSource {
 	}
 
 	@Override
+	public String getUserToken() {
+		return sessionData.getUserToken();
+	}
+
+	@Override
+	public void setUserToken(String userToken) {
+		sessionData.setUserToken(userToken);
+	}
+
+	@Override
+	public String getFavoriteCard() {
+		return sessionData.getFavoriteCard();
+	}
+
+	@Override
+	public void setFavoriteCard(String favoriteCard) {
+		sessionData.setFavoriteCard(favoriteCard);
+	}
+
+	@Override
 	public UserDTO getUserData() {
 		return new UserDTO(sessionData.getCurrentUser());
 	}

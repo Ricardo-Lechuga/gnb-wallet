@@ -22,8 +22,10 @@ public class MemoryFallbackDataSource implements MemoryDataSource {
 
 	private static final String GNB_FALLBACK_SP_NAME = "fallback_preferences";
 
-	private static final String TAG_USER = "";
-	private static final String TAG_CARDS = "";
+	private static final String TAG_TOKEN = "TAG_TOKEN";
+	private static final String TAG_USER = "TAG_USER";
+	private static final String TAG_CARDS = "TAG_CARDS";
+	private static final String TAG_FAVORITE_CARD = "TAG_FAVORITE_CARD";
 
 	private SharedPreferences sharedPreferences;
 
@@ -31,6 +33,16 @@ public class MemoryFallbackDataSource implements MemoryDataSource {
 	public MemoryFallbackDataSource(Context context) {
 		Preconditions.checkNotNull(context);
 		this.sharedPreferences = context.getSharedPreferences(GNB_FALLBACK_SP_NAME, Context.MODE_PRIVATE);
+	}
+
+	@Override
+	public String getUserToken() {
+		return sharedPreferences.getString(TAG_TOKEN, "");
+	}
+
+	@Override
+	public void setUserToken(String userToken) {
+		sharedPreferences.edit().putString(TAG_TOKEN, userToken).apply();
 	}
 
 	@Override
@@ -65,6 +77,16 @@ public class MemoryFallbackDataSource implements MemoryDataSource {
 			cardDTOList.set(position, cardDTO);
 		}
 		setUserCards(cardDTOList);
+	}
+
+	@Override
+	public String getFavoriteCard() {
+		return sharedPreferences.getString(TAG_FAVORITE_CARD, "");
+	}
+
+	@Override
+	public void setFavoriteCard(String favoriteCard) {
+		sharedPreferences.edit().putString(TAG_FAVORITE_CARD, favoriteCard).apply();
 	}
 
 	@Override

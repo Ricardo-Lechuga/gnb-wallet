@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,9 +31,13 @@ public class GenericDialogFragment extends BaseDialogFragment {
 
 	private int iconResId;
 	private String message;
+	private String leftButtonText;
+	private String rightButtonText;
 
 	@BindView(R.id.generic_icon_imageview) ImageView iconImageView;
 	@BindView(R.id.generic_message_textview) TextView messageTextView;
+	@BindView(R.id.generic_left_button) Button leftButton;
+	@BindView(R.id.generic_right_button) Button rightButton;
 
 	public static GenericDialogFragment newInstance(int iconResId, String message) {
 		GenericDialogFragment fragment = new GenericDialogFragment();
@@ -43,10 +48,35 @@ public class GenericDialogFragment extends BaseDialogFragment {
 		return fragment;
 	}
 
+	public static GenericDialogFragment newInstance(int iconResId, String message, String buttonText) {
+		GenericDialogFragment fragment = new GenericDialogFragment();
+		Bundle bundle = new Bundle();
+		bundle.putInt("iconResId", iconResId);
+		bundle.putString("message", message);
+		bundle.putString("rightButtonText", buttonText);
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+
+	public static GenericDialogFragment newInstance(int iconResId, String message, String leftButtonText, String rightButtonText) {
+		GenericDialogFragment fragment = new GenericDialogFragment();
+		Bundle bundle = new Bundle();
+		bundle.putInt("iconResId", iconResId);
+		bundle.putString("message", message);
+		bundle.putString("leftButtonText", leftButtonText);
+		bundle.putString("rightButtonText", rightButtonText);
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+
 	@Override
 	public void onAttach(Context context) {
 		try {
-			mCallback = (GenericDialogListener) getParentFragment();
+			if(context instanceof GenericDialogListener) {
+				mCallback = (GenericDialogListener) context;
+			} else {
+				mCallback = (GenericDialogListener) getParentFragment();
+			}
 		} catch (ClassCastException e) {
 			throw new RuntimeException(getParentFragment() + " must implement GenericDialogListener!");
 		}
@@ -58,6 +88,8 @@ public class GenericDialogFragment extends BaseDialogFragment {
 		super.onCreate(savedInstanceState);
 		iconResId = getArguments().getInt("iconResId");
 		message = getArguments().getString("message");
+		leftButtonText = getArguments().getString("leftButtonText");
+		rightButtonText = getArguments().getString("rightButtonText");
 	}
 
 	@Override
@@ -73,9 +105,23 @@ public class GenericDialogFragment extends BaseDialogFragment {
 
 	@Override
 	protected void prepareInterface(View mainView) {
+
 		if (iconResId > 0) {
 			iconImageView.setImageResource(iconResId);
 			iconImageView.setVisibility(View.VISIBLE);
+		} else {
+			iconImageView.setVisibility(View.GONE);
+		}
+
+		if (leftButtonText != null) {
+			leftButton.setText(leftButtonText);
+			leftButton.setVisibility(View.VISIBLE);
+		} else {
+			leftButton.setVisibility(View.GONE);
+		}
+
+		if (rightButtonText != null) {
+			rightButton.setText(rightButtonText);
 		}
 
 		messageTextView.setText(message);

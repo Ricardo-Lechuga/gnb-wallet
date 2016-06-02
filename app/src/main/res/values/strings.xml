@@ -46,4 +46,8 @@
 	<string name="login_validate_password_min_length">La contraseña no es válida</string>
 	<string name="login_validate_user">El campo \'Usuario\' no es válido</string>
 
+	<!-- Logout -->
+	<string name="logout_question">¿Quieres cerrar sesión?</string>
+	<string name="logout_exit">Salir</string>
+	<string name="logout_cancel">Cancelar</string>
 </resources>

@@ -1,5 +1,6 @@
 package es.ujaen.rlc00008.gnbwallet.data.source.net;
 
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,4 +19,11 @@ public interface GNBServices {
 	Call<ResponseWrapper<LoginResponse>> userLogin(
 			@Path("login") String userLogin
 	);
+
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/getGlobalPosition.json")
+	Call<ResponseWrapper<GlobalPositionResponse>> getGlobalPosition();
+
 }

@@ -2,10 +2,10 @@ package es.ujaen.rlc00008.gnbwallet.domain.interactors;
 
 import javax.inject.Inject;
 
-import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.RepositoryCallback;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
 import es.ujaen.rlc00008.gnbwallet.domain.BaseInteractor;
 
@@ -31,7 +31,6 @@ public class LoginInteractor extends BaseInteractor {
 				repository.userLogin(userDoc, password, new RepositoryCallback<LoginResponse>() {
 					@Override
 					public void resultOk(LoginResponse response) {
-						MyLog.d("uu", "TOKEN: " + response.getToken());
 						loadGlobalPosition(loginCallback);
 					}
 
@@ -50,8 +49,23 @@ public class LoginInteractor extends BaseInteractor {
 	}
 
 	private void loadGlobalPosition(final LoginCallback loginCallback) {
-		//TODO
-		loadGlobalPositionOk(loginCallback);
+
+		repository.getGlobalPosition(new RepositoryCallback<GlobalPositionResponse>() {
+			@Override
+			public void resultOk(GlobalPositionResponse response) {
+				loadGlobalPositionOk(loginCallback);
+			}
+
+			@Override
+			public void resultError(Meta meta) {
+				loginCallback.operativeError(meta.getErrorMessage());
+			}
+
+			@Override
+			public void genericException(Throwable t) {
+				loginCallback.operativeError(context.getString(R.string._generic_error_message));
+			}
+		});
 	}
 
 	private void loadGlobalPositionOk(final LoginCallback loginCallback) {
@@ -63,6 +77,5 @@ public class LoginInteractor extends BaseInteractor {
 				}
 			}
 		});
-
 	}
 }

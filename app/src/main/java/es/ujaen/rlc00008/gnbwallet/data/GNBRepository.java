@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
 
 /**
@@ -18,4 +19,8 @@ public interface GNBRepository {
 	UserDTO getCurrentUser();
 
 	void userLogin(String userDoc, String password, RepositoryCallback<LoginResponse> callback);
+
+	void getGlobalPosition(RepositoryCallback<GlobalPositionResponse> callback);
+
+	void logout();
 }

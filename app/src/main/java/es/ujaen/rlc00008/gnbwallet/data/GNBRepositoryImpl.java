@@ -2,11 +2,13 @@ package es.ujaen.rlc00008.gnbwallet.data;
 
 import android.content.Context;
 
+import java.io.EOFException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.FallbackMemory;
@@ -16,6 +18,7 @@ import es.ujaen.rlc00008.gnbwallet.data.source.memory.fallback.MemoryFallbackDat
 import es.ujaen.rlc00008.gnbwallet.data.source.net.GNBServices;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.ResponseWrapper;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.PersistenceDataSourceImpl;
 import retrofit2.Call;
@@ -72,8 +75,10 @@ public class GNBRepositoryImpl implements GNBRepository {
 			public void onResponse(Call<ResponseWrapper<LoginResponse>> call, Response<ResponseWrapper<LoginResponse>> response) {
 				if(response.isSuccessful()) {
 					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
-						// TODO Save user...
-						callback.resultOk(response.body().getResponse());
+						LoginResponse loginResponse = response.body().getResponse();
+						memoryDataSource.setUserToken(loginResponse.getToken());
+						memoryFallbackDataSource.setUserToken(loginResponse.getToken());
+						callback.resultOk(loginResponse);
 					} else {
 						callback.resultError(response.body().getMeta());
 					}
@@ -84,8 +89,51 @@ public class GNBRepositoryImpl implements GNBRepository {
 
 			@Override
 			public void onFailure(Call<ResponseWrapper<LoginResponse>> call, Throwable t) {
+				if(t instanceof EOFException) {
+					Meta meta = new Meta();
+					meta.setErrorMessage(context.getString(R.string._invalid_login));
+					callback.resultError(meta);
+				} else {
+					callback.genericException(t);
+				}
+			}
+		});
+	}
+
+	@Override
+	public void getGlobalPosition(final RepositoryCallback<GlobalPositionResponse> callback) {
+		Call<ResponseWrapper<GlobalPositionResponse>> call = gnbServices.getGlobalPosition();
+		call.enqueue(new Callback<ResponseWrapper<GlobalPositionResponse>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<GlobalPositionResponse>> call, Response<ResponseWrapper<GlobalPositionResponse>> response) {
+				if(response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						GlobalPositionResponse globalPositionResponse = response.body().getResponse();
+						memoryDataSource.setUserData(globalPositionResponse.getUserData());
+						memoryFallbackDataSource.setUserData(globalPositionResponse.getUserData());
+						memoryDataSource.setUserCards(globalPositionResponse.getCards());
+						memoryFallbackDataSource.setUserCards(globalPositionResponse.getCards());
+						memoryDataSource.setFavoriteCard(globalPositionResponse.getFavoriteCard());
+						memoryFallbackDataSource.setFavoriteCard(globalPositionResponse.getFavoriteCard());
+						callback.resultOk(globalPositionResponse);
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<GlobalPositionResponse>> call, Throwable t) {
 				callback.genericException(t);
 			}
 		});
+	}
+
+	@Override
+	public void logout() {
+		memoryDataSource.cleanSessionData();
+		memoryFallbackDataSource.cleanSessionData();
 	}
 }

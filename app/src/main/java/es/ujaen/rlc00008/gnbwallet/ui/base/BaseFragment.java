@@ -1,5 +1,6 @@
 package es.ujaen.rlc00008.gnbwallet.ui.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.LogoutInteractor;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 
 /**
@@ -32,8 +34,9 @@ public abstract class BaseFragment extends Fragment implements
 
 	@Inject protected InitInteractor initInteractor;
 	@Inject protected LoginInteractor loginInteractor;
+	@Inject protected LogoutInteractor logoutInteractor;
 
-	//protected MyProgressDialog myProgressDialog;
+	protected ProgressDialog progressDialog;
 
 	protected View mainView;
 
@@ -157,22 +160,20 @@ public abstract class BaseFragment extends Fragment implements
 		}
 	}
 
-	//public void showLoading() {
-	//
-	//	myProgressDialog = MyProgressDialog.ctor(getActivity());
-	//	myProgressDialog.show();
-	//}
-	//
-	//public void hideLoading() {
-	//
-	//	if (myProgressDialog != null && myProgressDialog.isShowing()) {
-	//		myProgressDialog.dismiss();
-	//	}
-	//}
-	//
-	//public void showError(String message) {
-	//	MyAlertDialog.showGenericError(getActivity(), message);
-	//}
+	public void showLoading() {
+
+		progressDialog = new ProgressDialog(getActivity());
+		progressDialog.setMessage(getResources().getString(R.string._loading));
+		progressDialog.setCancelable(false);
+		progressDialog.show();
+	}
+
+	public void hideLoading() {
+
+		if (progressDialog != null && progressDialog.isShowing()) {
+			progressDialog.dismiss();
+		}
+	}
 
 	/**
 	 * Muestra un DialogFragment - fullScreen
