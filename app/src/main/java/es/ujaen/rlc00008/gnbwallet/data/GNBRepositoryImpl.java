@@ -63,17 +63,12 @@ public class GNBRepositoryImpl implements GNBRepository {
 	}
 
 	@Override
-	public UserDTO getCurrentUser() {
-		return null;
-	}
-
-	@Override
-	public void userLogin(String userDoc, String password, final RepositoryCallback<LoginResponse> callback) {
+	public void authenticateUser(String userDoc, String password, final RepositoryCallback<LoginResponse> callback) {
 		Call<ResponseWrapper<LoginResponse>> call = gnbServices.userLogin(userDoc);
 		call.enqueue(new Callback<ResponseWrapper<LoginResponse>>() {
 			@Override
 			public void onResponse(Call<ResponseWrapper<LoginResponse>> call, Response<ResponseWrapper<LoginResponse>> response) {
-				if(response.isSuccessful()) {
+				if (response.isSuccessful()) {
 					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
 						LoginResponse loginResponse = response.body().getResponse();
 						memoryDataSource.setUserToken(loginResponse.getToken());
@@ -89,7 +84,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 
 			@Override
 			public void onFailure(Call<ResponseWrapper<LoginResponse>> call, Throwable t) {
-				if(t instanceof EOFException) {
+				if (t instanceof EOFException) {
 					Meta meta = new Meta();
 					meta.setErrorMessage(context.getString(R.string._invalid_login));
 					callback.resultError(meta);
@@ -101,12 +96,12 @@ public class GNBRepositoryImpl implements GNBRepository {
 	}
 
 	@Override
-	public void getGlobalPosition(final RepositoryCallback<GlobalPositionResponse> callback) {
+	public void loadGlobalPosition(final RepositoryCallback<GlobalPositionResponse> callback) {
 		Call<ResponseWrapper<GlobalPositionResponse>> call = gnbServices.getGlobalPosition();
 		call.enqueue(new Callback<ResponseWrapper<GlobalPositionResponse>>() {
 			@Override
 			public void onResponse(Call<ResponseWrapper<GlobalPositionResponse>> call, Response<ResponseWrapper<GlobalPositionResponse>> response) {
-				if(response.isSuccessful()) {
+				if (response.isSuccessful()) {
 					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
 						GlobalPositionResponse globalPositionResponse = response.body().getResponse();
 						memoryDataSource.setUserData(globalPositionResponse.getUserData());
@@ -135,5 +130,28 @@ public class GNBRepositoryImpl implements GNBRepository {
 	public void logout() {
 		memoryDataSource.cleanSessionData();
 		memoryFallbackDataSource.cleanSessionData();
+	}
+
+	@Override
+	public UserDTO getCurrentUser() {
+		UserDTO currentUser = memoryDataSource.getUserData();
+		if (currentUser == null) {
+			currentUser = memoryFallbackDataSource.getUserData();
+		}
+		return currentUser;
+	}
+
+	@Override
+	public List<CardDTO> getCards() {
+
+		UserDTO currentUser = getCurrentUser();
+		List<CardDTO> cards = null;
+		if (currentUser != null) {
+			cards = memoryDataSource.getUserCards(currentUser.getUserId());
+			if (cards == null) {
+				cards = memoryFallbackDataSource.getUserCards(currentUser.getUserId());
+			}
+		}
+		return cards;
 	}
 }

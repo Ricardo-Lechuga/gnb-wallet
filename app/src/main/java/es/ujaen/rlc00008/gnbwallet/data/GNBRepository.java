@@ -1,5 +1,7 @@
 package es.ujaen.rlc00008.gnbwallet.data;
 
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
@@ -12,15 +14,21 @@ import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
  */
 public interface GNBRepository {
 
+	@Nullable
 	UserDTO getPersistedUser();
 
+	@Nullable
 	List<CardDTO> getPersistedCards();
 
-	UserDTO getCurrentUser();
+	void authenticateUser(String userDoc, String password, RepositoryCallback<LoginResponse> callback);
 
-	void userLogin(String userDoc, String password, RepositoryCallback<LoginResponse> callback);
-
-	void getGlobalPosition(RepositoryCallback<GlobalPositionResponse> callback);
+	void loadGlobalPosition(RepositoryCallback<GlobalPositionResponse> callback);
 
 	void logout();
+
+	@Nullable
+	UserDTO getCurrentUser();
+
+	@Nullable
+	List<CardDTO> getCards();
 }

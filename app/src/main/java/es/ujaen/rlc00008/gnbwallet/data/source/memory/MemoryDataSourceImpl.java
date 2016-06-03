@@ -44,7 +44,13 @@ public class MemoryDataSourceImpl implements MemoryDataSource {
 
 	@Override
 	public UserDTO getUserData() {
-		return new UserDTO(sessionData.getCurrentUser());
+
+		UserDTO userDTO = null;
+
+		if (sessionData.getCurrentUser() != null) {
+			userDTO = new UserDTO(sessionData.getCurrentUser());
+		}
+		return userDTO;
 	}
 
 	@Override
@@ -54,8 +60,9 @@ public class MemoryDataSourceImpl implements MemoryDataSource {
 
 	@Override
 	public List<CardDTO> getUserCards(String userId) {
-		ArrayList<CardDTO> cards = new ArrayList<>();
+		ArrayList<CardDTO> cards = null;
 		if (sessionData.getUserCards() != null) {
+			cards = new ArrayList<>();
 			for (CardDTO cardDTO : sessionData.getUserCards()) {
 				cards.add(new CardDTO(cardDTO));
 			}

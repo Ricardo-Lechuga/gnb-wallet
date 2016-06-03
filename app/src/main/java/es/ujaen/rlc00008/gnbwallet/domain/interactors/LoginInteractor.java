@@ -28,7 +28,7 @@ public class LoginInteractor extends BaseInteractor {
 			@Override
 			public void run() {
 
-				repository.userLogin(userDoc, password, new RepositoryCallback<LoginResponse>() {
+				repository.authenticateUser(userDoc, password, new RepositoryCallback<LoginResponse>() {
 					@Override
 					public void resultOk(LoginResponse response) {
 						loadGlobalPosition(loginCallback);
@@ -50,7 +50,7 @@ public class LoginInteractor extends BaseInteractor {
 
 	private void loadGlobalPosition(final LoginCallback loginCallback) {
 
-		repository.getGlobalPosition(new RepositoryCallback<GlobalPositionResponse>() {
+		repository.loadGlobalPosition(new RepositoryCallback<GlobalPositionResponse>() {
 			@Override
 			public void resultOk(GlobalPositionResponse response) {
 				loadGlobalPositionOk(loginCallback);
