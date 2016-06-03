@@ -3,6 +3,7 @@ package es.ujaen.rlc00008.gnbwallet.data.source.memory.fallback;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -10,7 +11,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.internal.Preconditions;
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.MemoryDataSource;

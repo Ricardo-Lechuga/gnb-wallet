@@ -18,8 +18,10 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.R;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.LogoutInteractor;
 
 /**
  * Created by Ricardo on 22/5/16.
@@ -32,6 +34,8 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
 	@Inject protected InitInteractor initInteractor;
 	@Inject protected LoginInteractor loginInteractor;
+	@Inject protected LogoutInteractor logoutInteractor;
+	@Inject protected GetDataInteractor getDataInteractor;
 
 	protected View mainView;
 
