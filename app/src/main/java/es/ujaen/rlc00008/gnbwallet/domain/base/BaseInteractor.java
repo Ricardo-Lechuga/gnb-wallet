@@ -1,4 +1,4 @@
-package es.ujaen.rlc00008.gnbwallet.domain;
+package es.ujaen.rlc00008.gnbwallet.domain.base;
 
 import android.content.Context;
 import android.os.Handler;

@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
-import es.ujaen.rlc00008.gnbwallet.domain.BaseInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.base.BaseInteractor;
 
 /**
  * Created by Ricardo on 22/5/16.

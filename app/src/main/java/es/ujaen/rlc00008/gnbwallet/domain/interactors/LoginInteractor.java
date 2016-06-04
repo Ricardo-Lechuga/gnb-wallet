@@ -7,7 +7,7 @@ import es.ujaen.rlc00008.gnbwallet.data.RepositoryCallback;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
-import es.ujaen.rlc00008.gnbwallet.domain.BaseInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.base.BaseInteractor;
 
 /**
  * Created by Ricardo on 22/5/16.

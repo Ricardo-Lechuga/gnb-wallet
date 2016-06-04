@@ -7,6 +7,10 @@ import java.util.Objects;
  */
 public class CardDTO {
 
+	public static final String TYPE_CREDIT = "credit";
+	public static final String TYPE_DEBIT = "debit";
+	public static final String TYPE_PREPAID = "prepaid";
+
 	private String userId;
 	private String pan;
 	private boolean nfc;
