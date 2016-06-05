@@ -1,7 +1,11 @@
 package es.ujaen.rlc00008.gnbwallet.data.source.net;
 
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CCVResponse;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CardTransactionsResponse;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.PinResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -30,14 +34,48 @@ public interface GNBServices {
 			"Content-Type: application/json",
 	})
 	@GET("/pfc/ws/cardTransactions.json")
-	Call<ResponseWrapper<GlobalPositionResponse>> getCardTransactions();
+	Call<ResponseWrapper<CardTransactionsResponse>> getCardTransactions();
 
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/getPin.json")
+	Call<ResponseWrapper<PinResponse>> getPin();
 
-	//disableCard.json
-	//enableCard.json
-	//generateChallenge.json
-	//getCCV.json
-	//getPin.json
-	//setFavorite.json
-	//unsetFavorite.json
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/getCCV.json")
+	Call<ResponseWrapper<CCVResponse>> getCCV();
+
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/generateChallenge.json")
+	Call<ResponseWrapper<ChallengeResponse>> generateChallenge();
+
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/disableCard.json")
+	Call<ResponseWrapper<Void>> disableCard();
+
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/enableCard.json")
+	Call<ResponseWrapper<Void>> enableCard();
+
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/setFavorite.json")
+	Call<ResponseWrapper<Void>> setFavorite();
+
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/unsetFavorite.json")
+	Call<ResponseWrapper<Void>> unsetFavorite();
+
 }
