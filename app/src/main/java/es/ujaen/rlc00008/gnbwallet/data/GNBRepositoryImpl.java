@@ -1,6 +1,7 @@
 package es.ujaen.rlc00008.gnbwallet.data;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import java.io.EOFException;
 import java.util.List;
@@ -48,11 +49,13 @@ public class GNBRepositoryImpl implements GNBRepository {
 		this.gnbServices = gnbServices;
 	}
 
+	@Nullable
 	@Override
 	public UserDTO getPersistedUser() {
 		return persistenceDataSource.getStoredUser();
 	}
 
+	@Nullable
 	@Override
 	public List<CardDTO> getPersistedCards() {
 		UserDTO userDTO = persistenceDataSource.getStoredUser();
@@ -132,6 +135,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 		memoryFallbackDataSource.cleanSessionData();
 	}
 
+	@Nullable
 	@Override
 	public UserDTO getCurrentUser() {
 		UserDTO currentUser = memoryDataSource.getUserData();
@@ -141,6 +145,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 		return currentUser;
 	}
 
+	@Nullable
 	@Override
 	public List<CardDTO> getCards() {
 
@@ -153,5 +158,17 @@ public class GNBRepositoryImpl implements GNBRepository {
 			}
 		}
 		return cards;
+	}
+
+	@Nullable
+	@Override
+	public String getFavoriteCardPan() {
+
+		String favorite = memoryDataSource.getFavoriteCard();
+		if (favorite == null) {
+			favorite = memoryFallbackDataSource.getFavoriteCard();
+		}
+
+		return favorite;
 	}
 }

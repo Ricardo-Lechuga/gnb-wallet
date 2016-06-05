@@ -31,12 +31,13 @@ public class LoggedDataInteractor extends BaseInteractor {
 
 	public List<Card> getCards() {
 		List<CardDTO> cardDTOList = repository.getCards();
+		String favorite = repository.getFavoriteCardPan();
 		if (cardDTOList == null) {
 			throw new RuntimeException("user is null! Call after loadGlobalPosition() and before logout()");
 		}
 		List<Card> cards = new ArrayList<>();
 		for (CardDTO cardDTO : cardDTOList) {
-			cards.add(CardFactory.get(cardDTO));
+			cards.add(CardFactory.get(cardDTO, cardDTO.getPan().equals(favorite)));
 		}
 		return cards;
 	}

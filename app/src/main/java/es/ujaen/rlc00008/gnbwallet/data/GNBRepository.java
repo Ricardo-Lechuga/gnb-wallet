@@ -31,4 +31,7 @@ public interface GNBRepository {
 
 	@Nullable
 	List<CardDTO> getCards();
+
+	@Nullable
+	String getFavoriteCardPan();
 }

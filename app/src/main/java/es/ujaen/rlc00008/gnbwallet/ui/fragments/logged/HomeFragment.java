@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,12 +17,14 @@ import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 import es.ujaen.rlc00008.gnbwallet.ui.adapters.pagers.CardsPagerAdapter;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.views.ZoomOutPageTransformer;
 
 /**
  * Created by Ricardo on 4/6/16.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements
+		GenericDialogFragment.GenericDialogListener {
 
 	public interface HomeListener {
 
@@ -53,6 +56,17 @@ public class HomeFragment extends BaseFragment {
 	@BindView(R.id.home_cards_viewpager) ViewPager viewPager;
 	@BindView(R.id.home_card_alias_textview) TextView aliasTextView;
 	@BindView(R.id.home_card_branch_imageview) ImageView branchImageView;
+	@BindView(R.id.home_activation_clickable_view) View activationClickableView;
+	@BindView(R.id.home_activation_icon_imageview) ImageView activationIconImageView;
+	@BindView(R.id.home_activation_textview) TextView activationTextView;
+	@BindView(R.id.home_transactions_clickable_view) View transactionsClickableView;
+	@BindView(R.id.home_transactions_icon_imageview) ImageView transactionsIconImageView;
+	@BindView(R.id.home_transactions_textview) TextView transactionsTextView;
+	@BindView(R.id.home_favorite_clickable_view) View favoriteClickableView;
+	@BindView(R.id.home_favorite_icon_imageview) ImageView favoriteIconImageView;
+	@BindView(R.id.home_favorite_textview) TextView favoriteTextView;
+	@BindView(R.id.home_activate_button) Button activateButton;
+	@BindView(R.id.home_pay_button) Button payButton;
 
 	@Override
 	public void onAttach(Context context) {
@@ -68,7 +82,7 @@ public class HomeFragment extends BaseFragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		cards = loggedDataInteractor.getCards();
-		if(savedInstanceState != null) {
+		if (savedInstanceState != null) {
 			selectedIndex = savedInstanceState.getInt("selectedIndex");
 		} else {
 			selectedIndex = 0;
@@ -108,6 +122,7 @@ public class HomeFragment extends BaseFragment {
 
 			@Override
 			public void onPageSelected(int position) {
+				selectedIndex = position;
 				selectCard(getSelectedCard());
 			}
 
@@ -116,7 +131,6 @@ public class HomeFragment extends BaseFragment {
 				//
 			}
 		});
-
 	}
 
 	@OnClick(R.id.toolbar_logout_imageview)
@@ -139,6 +153,38 @@ public class HomeFragment extends BaseFragment {
 		callback.homeSeePin(getSelectedCard());
 	}
 
+	@OnClick(R.id.home_activation_clickable_view)
+	void activationClick() {
+		Card selectedCard = getSelectedCard();
+		if (getSelectedCard().isEnabled()) {
+			callback.homeDeactivateCard(selectedCard);
+		} else {
+			callback.homeActivateCard(selectedCard);
+		}
+	}
+
+	@OnClick(R.id.home_transactions_clickable_view)
+	void transactionsClick() {
+		callback.homeTransactionsSelected(getSelectedCard());
+	}
+
+	@OnClick(R.id.home_activate_button)
+	void activateClick() {
+		callback.homeActivateCard(getSelectedCard());
+	}
+
+	@OnClick(R.id.home_favorite_clickable_view)
+	void favoriteClick() {
+		Card selectedCard = getSelectedCard();
+		if (!selectedCard.isEnabled()) {
+			showErrorFragment(getString(R.string.home_error_activate_before_favorite));
+		} else if (selectedCard.isFavorite()) {
+			//TODO Deactivate
+		} else {
+			//TODO Activate
+		}
+	}
+
 	private Card getSelectedCard() {
 		return cards.get(selectedIndex);
 	}
@@ -146,6 +192,28 @@ public class HomeFragment extends BaseFragment {
 	private void selectCard(Card card) {
 
 		aliasTextView.setText(card.getAlias());
+
+		if (card.isEnabled()) {
+			activationIconImageView.setImageResource(R.drawable.icn_deactivate);
+			activationTextView.setText(R.string.home_deactivate);
+			activateButton.setVisibility(View.GONE);
+		} else {
+			activationIconImageView.setImageResource(R.drawable.icn_activate);
+			activationTextView.setText(R.string.home_activate);
+			activateButton.setVisibility(View.VISIBLE);
+		}
+
+		if (card.isFavorite()) {
+			favoriteIconImageView.setImageResource(R.drawable.icn_favs_on);
+		} else {
+			favoriteIconImageView.setImageResource(R.drawable.icn_favs_off);
+		}
+
+		if (card.isNfc()) {
+			payButton.setVisibility(View.VISIBLE);
+		} else {
+			payButton.setVisibility(View.GONE);
+		}
 	}
 
 }

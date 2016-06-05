@@ -13,11 +13,13 @@ import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 public abstract class Card implements Parcelable {
 
 	protected final CardDTO cardDTO;
+	protected final boolean isFavorite;
 	protected String type;
 
-	public Card(CardDTO cardDTO) {
+	public Card(CardDTO cardDTO, boolean isFavorite) {
 		Preconditions.checkNotNull(cardDTO);
 		this.cardDTO = cardDTO;
+		this.isFavorite = isFavorite;
 		this.type = cardDTO.getType();
 	}
 
@@ -57,6 +59,10 @@ public abstract class Card implements Parcelable {
 
 	public String getVisualCode() {
 		return cardDTO.getVisualCode();
+	}
+
+	public boolean isFavorite() {
+		return isFavorite;
 	}
 
 	@Nullable

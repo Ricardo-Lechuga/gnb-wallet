@@ -10,8 +10,8 @@ import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
  */
 public class DebitCard extends Card implements Parcelable {
 
-	public DebitCard(CardDTO cardDTO) {
-		super(cardDTO);
+	public DebitCard(CardDTO cardDTO, boolean isFavorite) {
+		super(cardDTO, isFavorite);
 	}
 
 	/*
@@ -19,7 +19,7 @@ public class DebitCard extends Card implements Parcelable {
 	 */
 
 	protected DebitCard(Parcel in) {
-		super((CardDTO) in.readValue(CardDTO.class.getClassLoader()));
+		super((CardDTO) in.readValue(CardDTO.class.getClassLoader()), in.readInt() == 1);
 	}
 
 	@Override
@@ -30,6 +30,7 @@ public class DebitCard extends Card implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeValue(cardDTO);
+		dest.writeInt(isFavorite ? 1 : 0);
 	}
 
 	@SuppressWarnings("unused")

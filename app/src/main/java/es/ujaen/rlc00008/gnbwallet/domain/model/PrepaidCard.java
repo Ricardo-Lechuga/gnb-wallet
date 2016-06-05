@@ -10,8 +10,8 @@ import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
  */
 public class PrepaidCard extends Card implements Parcelable {
 
-	public PrepaidCard(CardDTO cardDTO) {
-		super(cardDTO);
+	public PrepaidCard(CardDTO cardDTO, boolean isFavorite) {
+		super(cardDTO, isFavorite);
 	}
 
 	public Amount getBalance() {
@@ -23,7 +23,7 @@ public class PrepaidCard extends Card implements Parcelable {
 	 */
 
 	protected PrepaidCard(Parcel in) {
-		super((CardDTO) in.readValue(CardDTO.class.getClassLoader()));
+		super((CardDTO) in.readValue(CardDTO.class.getClassLoader()), in.readInt() == 1);
 	}
 
 	@Override
@@ -34,6 +34,7 @@ public class PrepaidCard extends Card implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeValue(cardDTO);
+		dest.writeInt(isFavorite ? 1 : 0);
 	}
 
 	@SuppressWarnings("unused")

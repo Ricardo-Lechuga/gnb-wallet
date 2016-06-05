@@ -16,6 +16,16 @@ public class AmountDTO implements Parcelable {
 	public AmountDTO() {
 	}
 
+	public AmountDTO(AmountDTO amountDTO) {
+		this.amount = amountDTO.amount;
+		this.currency = amountDTO.currency;
+	}
+
+	public AmountDTO(BigDecimal amount, String currency) {
+		this.amount = amount;
+		this.currency = currency;
+	}
+
 	public BigDecimal getAmount() {
 		return amount;
 	}

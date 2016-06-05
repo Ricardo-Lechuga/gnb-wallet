@@ -10,8 +10,8 @@ import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
  */
 public class CreditCard extends Card implements Parcelable {
 
-	public CreditCard(CardDTO cardDTO) {
-		super(cardDTO);
+	public CreditCard(CardDTO cardDTO, boolean isFavorite) {
+		super(cardDTO, isFavorite);
 	}
 
 	public Amount getCurrentBalance() {
@@ -31,7 +31,7 @@ public class CreditCard extends Card implements Parcelable {
 	 */
 
 	protected CreditCard(Parcel in) {
-		super((CardDTO) in.readValue(CardDTO.class.getClassLoader()));
+		super((CardDTO) in.readValue(CardDTO.class.getClassLoader()), in.readInt() == 1);
 	}
 
 	@Override
@@ -42,6 +42,7 @@ public class CreditCard extends Card implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeValue(cardDTO);
+		dest.writeInt(isFavorite ? 1 : 0);
 	}
 
 	@SuppressWarnings("unused")

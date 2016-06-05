@@ -11,7 +11,7 @@ import es.ujaen.rlc00008.gnbwallet.domain.model.PrepaidCard;
  */
 public abstract class CardFactory {
 
-	public static final Card get(CardDTO cardDTO) {
+	public static final Card get(CardDTO cardDTO, boolean isFavorite) {
 
 		if (cardDTO == null) {
 			return null;
@@ -20,11 +20,11 @@ public abstract class CardFactory {
 		Card card = null;
 
 		if (CardDTO.TYPE_CREDIT.equals(cardDTO.getType())) {
-			card = new CreditCard(cardDTO);
+			card = new CreditCard(cardDTO, isFavorite);
 		} else if (CardDTO.TYPE_DEBIT.equals(cardDTO.getType())) {
-			card = new DebitCard(cardDTO);
+			card = new DebitCard(cardDTO, isFavorite);
 		} else if (CardDTO.TYPE_PREPAID.equals(cardDTO.getType())) {
-			card = new PrepaidCard(cardDTO);
+			card = new PrepaidCard(cardDTO, isFavorite);
 		}
 
 		return card;

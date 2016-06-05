@@ -72,10 +72,10 @@ public class GenericDialogFragment extends BaseDialogFragment {
 	@Override
 	public void onAttach(Context context) {
 		try {
-			if(context instanceof GenericDialogListener) {
-				mCallback = (GenericDialogListener) context;
-			} else {
+			if(getParentFragment() instanceof GenericDialogListener) {
 				mCallback = (GenericDialogListener) getParentFragment();
+			} else {
+				mCallback = (GenericDialogListener) context;
 			}
 		} catch (ClassCastException e) {
 			throw new RuntimeException(getParentFragment() + " must implement GenericDialogListener!");

@@ -26,4 +26,18 @@ public interface GNBServices {
 	@GET("/pfc/ws/getGlobalPosition.json")
 	Call<ResponseWrapper<GlobalPositionResponse>> getGlobalPosition();
 
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/cardTransactions.json")
+	Call<ResponseWrapper<GlobalPositionResponse>> getCardTransactions();
+
+
+	//disableCard.json
+	//enableCard.json
+	//generateChallenge.json
+	//getCCV.json
+	//getPin.json
+	//setFavorite.json
+	//unsetFavorite.json
 }
