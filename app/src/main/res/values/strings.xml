@@ -16,7 +16,9 @@
 	<string name="_close">Cerrar</string>
 	<string name="_exit">Salir</string>
 	<string name="_reload_pg">Recargando Posición Global&#8230;</string>
-	<string name="_reload_pg_fail">Se ha producido un error al recargar la Posición Global. Posiblemente la aplicación no muestre información actualizada de tus productos.</string>
+	<string name="_reload_pg_fail">Se ha producido un error al recargar la Posición Global. Posiblemente la aplicación no muestre información actualizada de tus
+		productos.
+	</string>
 	<string name="_loading">Comprobando operación&#8230;</string>
 	<string name="_loading_detail">Cargando detalle&#8230;</string>
 	<string name="_loading_pdf">Descargando pdf&#8230;</string>
@@ -50,4 +52,15 @@
 	<string name="logout_question">¿Quieres cerrar sesión?</string>
 	<string name="logout_exit">Salir</string>
 	<string name="logout_cancel">Cancelar</string>
+
+	<!-- Home -->
+	<string name="home_detail">Detalle</string>
+	<string name="home_ccv">CCV</string>
+	<string name="home_pin">Pin</string>
+	<string name="home_activate">Activar</string>
+	<string name="home_deactivate">Desactivar</string>
+	<string name="home_transactions">Movimientos</string>
+	<string name="home_favorite">Favorita</string>
+	<string name="home_pay">Realizar Pago</string>
+
 </resources>

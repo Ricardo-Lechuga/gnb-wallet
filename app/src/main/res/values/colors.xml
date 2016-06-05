@@ -4,15 +4,19 @@
 	<color name="colorPrimaryDark">#23282D</color>
 	<color name="colorAccent">@color/ui_green</color>
 
+	<color name="ui_divider">#C8C8C8</color>
+
 	<color name="ui_translucent">#E02C3239</color>
 
 	<color name="ui_white">#FFFFFF</color>
 	<color name="ui_green">#06BEBD</color>
 
 	<color name="ui_background_black">#2C3239</color>
+	<color name="ui_background_black_tabs">#191F28</color>
 	<color name="ui_background_gray">#F7F7F7</color>
 
 	<color name="ui_text_black">#3C433C</color>
 	<color name="ui_text_gray">#818B92</color>
+	<color name="ui_text_light_gray">#B3BDC2</color>
 
 </resources>

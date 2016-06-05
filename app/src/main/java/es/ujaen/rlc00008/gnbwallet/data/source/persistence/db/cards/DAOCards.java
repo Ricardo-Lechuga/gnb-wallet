@@ -17,6 +17,7 @@ public class DAOCards {
 	private static final String[] allColumns = {
 			CardPersistenceContract.Entry.COLUMN_NAME_USER_ID,
 			CardPersistenceContract.Entry.COLUMN_NAME_PAN,
+			CardPersistenceContract.Entry.COLUMN_NAME_ALIAS,
 			CardPersistenceContract.Entry.COLUMN_NAME_NFC,
 			CardPersistenceContract.Entry.COLUMN_NAME_ENABLED,
 			CardPersistenceContract.Entry.COLUMN_NAME_BENEFICIARY,
@@ -28,13 +29,14 @@ public class DAOCards {
 
 		String userId = cursor.getString(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_USER_ID));
 		String pan = cursor.getString(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_PAN));
+		String alias = cursor.getString(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_ALIAS));
 		boolean nfc = cursor.getInt(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_NFC)) == 1;
 		boolean enabled = cursor.getInt(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_ENABLED)) == 1;
 		String beneficiary = cursor.getString(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_BENEFICIARY));
 		String visualCode = cursor.getString(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_VISUAL_CODE));
 		String type = cursor.getString(cursor.getColumnIndex(CardPersistenceContract.Entry.COLUMN_NAME_TYPE));
 
-		return new CardDTO(userId, pan, nfc, enabled, beneficiary, visualCode, type);
+		return new CardDTO(userId, pan, alias, nfc, enabled, beneficiary, visualCode, type);
 	}
 
 	private static ContentValues cardDTOToContentValues(CardDTO cardDTO) {
@@ -43,6 +45,7 @@ public class DAOCards {
 
 		values.put(CardPersistenceContract.Entry.COLUMN_NAME_USER_ID, cardDTO.getUserId());
 		values.put(CardPersistenceContract.Entry.COLUMN_NAME_PAN, cardDTO.getPan());
+		values.put(CardPersistenceContract.Entry.COLUMN_NAME_ALIAS, cardDTO.getAlias());
 		values.put(CardPersistenceContract.Entry.COLUMN_NAME_NFC, cardDTO.isNfc() ? 1 : 0);
 		values.put(CardPersistenceContract.Entry.COLUMN_NAME_ENABLED, cardDTO.isEnabled() ? 1 : 0);
 		values.put(CardPersistenceContract.Entry.COLUMN_NAME_BENEFICIARY, cardDTO.getBeneficiary());

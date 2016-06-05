@@ -1,0 +1,18 @@
+<resources>
+
+	<!-- CARD CARROUSEL-->
+	<dimen name="cards_pager_width">252dp</dimen>
+	<dimen name="cards_pager_heigth">169dp</dimen>
+	<dimen name="cards_view_width">252dp</dimen>
+	<dimen name="cards_view_heigth">159dp</dimen>
+	<dimen name="cards_view_box_padding">46dp</dimen>
+	<dimen name="cards_view_number_font">13dp</dimen>
+	<dimen name="cards_view_date_font">9dp</dimen>
+	<dimen name="cards_view_name_font">8dp</dimen>
+	<dimen name="card_view_pan_font">14dp</dimen>
+	<dimen name="card_view_date_margin_left">118dp</dimen>
+	<dimen name="card_view_date_margin_bottom">35dp</dimen>
+	<dimen name="card_view_name_margin_left">13dp</dimen>
+	<dimen name="card_view_name_margin_bottom">10dp</dimen>
+
+</resources>

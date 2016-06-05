@@ -1,5 +1,18 @@
 <resources>
-	<!-- Default screen margins, per the Android Design guidelines. -->
-	<dimen name="activity_horizontal_margin">16dp</dimen>
-	<dimen name="activity_vertical_margin">16dp</dimen>
+
+	<!-- CARD CARROUSEL-->
+	<dimen name="cards_pager_width">210dp</dimen>
+	<dimen name="cards_pager_heigth">141dp</dimen>
+	<dimen name="cards_view_width">210dp</dimen>
+	<dimen name="cards_view_heigth">133dp</dimen>
+	<dimen name="cards_view_box_padding">38dp</dimen>
+	<dimen name="cards_view_number_font">11dp</dimen>
+	<dimen name="cards_view_date_font">8dp</dimen>
+	<dimen name="cards_view_name_font">7dp</dimen>
+	<dimen name="card_view_pan_font">12dp</dimen>
+	<dimen name="card_view_date_margin_left">98dp</dimen>
+	<dimen name="card_view_date_margin_bottom">29dp</dimen>
+	<dimen name="card_view_name_margin_left">11dp</dimen>
+	<dimen name="card_view_name_margin_bottom">8dp</dimen>
+
 </resources>

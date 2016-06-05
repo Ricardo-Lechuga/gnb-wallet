@@ -1,11 +1,14 @@
 package es.ujaen.rlc00008.gnbwallet.data.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
 /**
  * Created by Ricardo on 16/5/16.
  */
-public class UserDTO {
+public class UserDTO implements Parcelable {
 
 	private String name;
 	private String surname;
@@ -68,4 +71,41 @@ public class UserDTO {
 		UserDTO userDTO = (UserDTO) o;
 		return Objects.equals(userId, userDTO.userId);
 	}
+
+	/*
+	 * Parcelable
+	 */
+
+	protected UserDTO(Parcel in) {
+		name = in.readString();
+		surname = in.readString();
+		userId = in.readString();
+		nif = in.readString();
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(name);
+		dest.writeString(surname);
+		dest.writeString(userId);
+		dest.writeString(nif);
+	}
+
+	@SuppressWarnings("unused")
+	public static final Parcelable.Creator<UserDTO> CREATOR = new Parcelable.Creator<UserDTO>() {
+		@Override
+		public UserDTO createFromParcel(Parcel in) {
+			return new UserDTO(in);
+		}
+
+		@Override
+		public UserDTO[] newArray(int size) {
+			return new UserDTO[size];
+		}
+	};
 }

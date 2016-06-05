@@ -41,20 +41,23 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+	public final void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
 		super.onCreate(savedInstanceState, persistentState);
 
 		setOnCreate();
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected final void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setOnCreate();
 	}
 
-	private void setOnCreate() {
+	protected void setOnCreate() {
+		if (getIntent() != null && getIntent().getExtras() != null){
+			readArguments(getIntent().getExtras());
+		}
 		if (getContentView() > 0) {
 			setContentView(getContentView());
 			ButterKnife.bind(this);
@@ -62,6 +65,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 			prepareInterface();
 		}
 	}
+
+	protected void readArguments(Bundle bundle){};
 
 	protected abstract int getContentView();
 

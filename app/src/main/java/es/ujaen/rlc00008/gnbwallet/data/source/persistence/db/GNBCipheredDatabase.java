@@ -50,6 +50,7 @@ public class GNBCipheredDatabase extends SQLiteOpenHelper {
 					CardPersistenceContract.Entry._ID + TYPE_TEXT + " PRIMARY KEY," +
 					CardPersistenceContract.Entry.COLUMN_NAME_USER_ID + TYPE_TEXT + COMMA +
 					CardPersistenceContract.Entry.COLUMN_NAME_PAN + TYPE_TEXT + COMMA +
+					CardPersistenceContract.Entry.COLUMN_NAME_ALIAS + TYPE_TEXT + COMMA +
 					CardPersistenceContract.Entry.COLUMN_NAME_NFC + TYPE_INTEGER + COMMA +
 					CardPersistenceContract.Entry.COLUMN_NAME_ENABLED + TYPE_INTEGER + COMMA +
 					CardPersistenceContract.Entry.COLUMN_NAME_BENEFICIARY + TYPE_TEXT + COMMA +

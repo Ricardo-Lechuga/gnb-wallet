@@ -16,6 +16,7 @@ public final class CardPersistenceContract {
 		public static final String TABLE_NAME = "cards";
 		public static final String COLUMN_NAME_USER_ID = "user_id";
 		public static final String COLUMN_NAME_PAN = "pan";
+		public static final String COLUMN_NAME_ALIAS = "alias";
 		public static final String COLUMN_NAME_NFC = "nfc";
 		public static final String COLUMN_NAME_ENABLED = "enabled";
 		public static final String COLUMN_NAME_BENEFICIARY = "beneficiary";

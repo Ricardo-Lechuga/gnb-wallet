@@ -1,11 +1,14 @@
 package es.ujaen.rlc00008.gnbwallet.data.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
 /**
  * Created by Ricardo on 16/5/16.
  */
-public class CardDTO {
+public class CardDTO implements Parcelable {
 
 	public static final String TYPE_CREDIT = "credit";
 	public static final String TYPE_DEBIT = "debit";
@@ -13,6 +16,7 @@ public class CardDTO {
 
 	private String userId;
 	private String pan;
+	private String alias;
 	private boolean nfc;
 	private boolean enabled;
 	private String expirationDate;
@@ -30,6 +34,7 @@ public class CardDTO {
 	public CardDTO(CardDTO cardDTO) {
 		this.userId = cardDTO.userId;
 		this.pan = cardDTO.pan;
+		this.alias = cardDTO.alias;
 		this.nfc = cardDTO.nfc;
 		this.enabled = cardDTO.enabled;
 		this.expirationDate = cardDTO.expirationDate;
@@ -42,9 +47,10 @@ public class CardDTO {
 		this.balance = cardDTO.balance;
 	}
 
-	public CardDTO(String userId, String pan, boolean nfc, boolean enabled, String beneficiary, String visualCode, String type) {
+	public CardDTO(String userId, String pan, String alias, boolean nfc, boolean enabled, String beneficiary, String visualCode, String type) {
 		this.userId = userId;
 		this.pan = pan;
+		this.alias = alias;
 		this.nfc = nfc;
 		this.enabled = enabled;
 		this.expirationDate = null;
@@ -71,6 +77,14 @@ public class CardDTO {
 
 	public void setPan(String pan) {
 		this.pan = pan;
+	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	public boolean isNfc() {
@@ -160,4 +174,59 @@ public class CardDTO {
 		CardDTO other = (CardDTO) o;
 		return Objects.equals(pan, other.pan);
 	}
+
+	/*
+	 * Parcelable
+	 */
+
+	protected CardDTO(Parcel in) {
+		userId = in.readString();
+		pan = in.readString();
+		alias = in.readString();
+		nfc = in.readByte() != 0x00;
+		enabled = in.readByte() != 0x00;
+		expirationDate = in.readString();
+		beneficiary = in.readString();
+		visualCode = in.readString();
+		type = in.readString();
+		currentBalance = (AmountDTO) in.readValue(AmountDTO.class.getClassLoader());
+		availableCredit = (AmountDTO) in.readValue(AmountDTO.class.getClassLoader());
+		creditLimit = (AmountDTO) in.readValue(AmountDTO.class.getClassLoader());
+		balance = (AmountDTO) in.readValue(AmountDTO.class.getClassLoader());
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(userId);
+		dest.writeString(pan);
+		dest.writeString(alias);
+		dest.writeByte((byte) (nfc ? 0x01 : 0x00));
+		dest.writeByte((byte) (enabled ? 0x01 : 0x00));
+		dest.writeString(expirationDate);
+		dest.writeString(beneficiary);
+		dest.writeString(visualCode);
+		dest.writeString(type);
+		dest.writeValue(currentBalance);
+		dest.writeValue(availableCredit);
+		dest.writeValue(creditLimit);
+		dest.writeValue(balance);
+	}
+
+	@SuppressWarnings("unused")
+	public static final Parcelable.Creator<CardDTO> CREATOR = new Parcelable.Creator<CardDTO>() {
+		@Override
+		public CardDTO createFromParcel(Parcel in) {
+			return new CardDTO(in);
+		}
+
+		@Override
+		public CardDTO[] newArray(int size) {
+			return new CardDTO[size];
+		}
+	};
 }

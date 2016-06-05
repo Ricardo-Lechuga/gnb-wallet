@@ -23,7 +23,7 @@ public interface GNBServices {
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/loadGlobalPosition.json")
+	@GET("/pfc/ws/getGlobalPosition.json")
 	Call<ResponseWrapper<GlobalPositionResponse>> getGlobalPosition();
 
 }
