@@ -27,8 +27,18 @@ public interface GNBServices {
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/getGlobalPosition.json")
-	Call<ResponseWrapper<GlobalPositionResponse>> getGlobalPosition();
+	@GET("/pfc/ws/users/{login}/getGlobalPosition.json")
+	Call<ResponseWrapper<GlobalPositionResponse>> getGlobalPosition(
+			@Path("login") String userLogin
+	);
+
+	@Headers({
+			"Content-Type: application/json",
+	})
+	@GET("/pfc/ws/users/{login}/generateChallenge.json")
+	Call<ResponseWrapper<ChallengeResponse>> generateChallenge(
+			@Path("login") String userLogin
+	);
 
 	@Headers({
 			"Content-Type: application/json",
@@ -47,12 +57,6 @@ public interface GNBServices {
 	})
 	@GET("/pfc/ws/getCCV.json")
 	Call<ResponseWrapper<CCVResponse>> getCCV();
-
-	@Headers({
-			"Content-Type: application/json",
-	})
-	@GET("/pfc/ws/generateChallenge.json")
-	Call<ResponseWrapper<ChallengeResponse>> generateChallenge();
 
 	@Headers({
 			"Content-Type: application/json",
@@ -77,5 +81,4 @@ public interface GNBServices {
 	})
 	@GET("/pfc/ws/unsetFavorite.json")
 	Call<ResponseWrapper<Void>> unsetFavorite();
-
 }

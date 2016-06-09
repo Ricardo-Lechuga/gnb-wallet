@@ -1,7 +1,9 @@
 package es.ujaen.rlc00008.gnbwallet.ui.base;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -10,25 +12,38 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import es.ujaen.rlc00008.gnbwallet.GNBApplication;
 import es.ujaen.rlc00008.gnbwallet.MyLog;
+import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.di.components.BaseActivityComponent;
 import es.ujaen.rlc00008.gnbwallet.di.components.DaggerBaseActivityComponent;
 import es.ujaen.rlc00008.gnbwallet.di.modules.ActivityModule;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LogoutInteractor;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 
 /**
  * Created by Ricardo on 22/5/16.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements
+		GenericDialogFragment.GenericDialogListener {
 
 	private static final String POPUP_FRAGMENT_TAG = "POPUP_FRAGMENT_TAG";
 
 	BaseActivityComponent component;
 
+	protected ProgressDialog progressDialog;
+
 	@Inject protected InitInteractor initInteractor;
 	@Inject protected LoginInteractor loginInteractor;
 	@Inject protected LogoutInteractor logoutInteractor;
+	@Inject protected LoggedDataInteractor loggedDataInteractor;
+	@Inject protected ChallengeInteractor challengeInteractor;
+	@Inject protected ActivateInteractor activateInteractor;
+	@Inject protected DeactivateInteractor deactivateInteractor;
 
 	public BaseActivityComponent component() {
 		if (component == null) {
@@ -44,20 +59,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 	public final void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
 		super.onCreate(savedInstanceState, persistentState);
 
-		setOnCreate();
+		setOnCreate(savedInstanceState);
 	}
 
 	@Override
 	protected final void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setOnCreate();
+		setOnCreate(savedInstanceState);
 	}
 
-	protected void setOnCreate() {
-		if (getIntent() != null && getIntent().getExtras() != null){
-			readArguments(getIntent().getExtras());
-		}
+	protected void setOnCreate(Bundle savedInstanceState) {
+		initState(savedInstanceState);
 		if (getContentView() > 0) {
 			setContentView(getContentView());
 			ButterKnife.bind(this);
@@ -66,7 +79,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 		}
 	}
 
-	protected void readArguments(Bundle bundle){};
+	protected void initState(Bundle savedInstanceState) {
+	}
 
 	protected abstract int getContentView();
 
@@ -74,6 +88,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 	protected void replaceFragment(BaseFragment fragment, View containerView) {
 		getSupportFragmentManager().beginTransaction().replace(containerView.getId(), fragment).commit();
+		overridePendingTransition(0, 0);
+	}
+
+	protected void replaceFragment(Fragment fragment, View containerView, String backStackName) {
+		getSupportFragmentManager()
+				.beginTransaction()
+				.addToBackStack(backStackName)
+				.replace(containerView.getId(), fragment)
+				.commit();
 		overridePendingTransition(0, 0);
 	}
 
@@ -85,6 +108,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 		return (GNBApplication) getApplication();
 	}
 
+	public void showLoading() {
+
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setMessage(getResources().getString(R.string._loading));
+		progressDialog.setCancelable(false);
+		progressDialog.show();
+	}
+
+	public void hideLoading() {
+
+		if (progressDialog != null && progressDialog.isShowing()) {
+			progressDialog.dismiss();
+		}
+	}
+
 	/**
 	 * Muestra un DialogFragment - fullScreen
 	 */
@@ -94,6 +132,22 @@ public abstract class BaseActivity extends AppCompatActivity {
 		} catch (Exception e) {
 			MyLog.printStackTrace(e);
 		}
+	}
+
+	/**
+	 * Shows a DialogFragment - fullScreen with OK icon
+	 */
+	public void showOkFragment(String message) {
+		BaseDialogFragment baseDialogFragment = GenericDialogFragment.newInstance(R.drawable.icn_check, message);
+		showPopUpFragment(baseDialogFragment);
+	}
+
+	/**
+	 * Muestra un DialogFragment - fullScreen with Error icon
+	 */
+	public void showErrorFragment(String message) {
+		BaseDialogFragment baseDialogFragment = GenericDialogFragment.newInstance(R.drawable.icn_cancelled, message);
+		showPopUpFragment(baseDialogFragment);
 	}
 
 	/**
@@ -110,4 +164,31 @@ public abstract class BaseActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Devuelve true si se está visualizando el pop-up fragment en la vista superior de la Activity
+	 */
+	public boolean isPopUpFragmentShowing() {
+		try {
+			BaseDialogFragment fragment = (BaseDialogFragment) getSupportFragmentManager().findFragmentByTag(POPUP_FRAGMENT_TAG);
+			return (fragment != null);
+		} catch (Exception e) {
+			MyLog.printStackTrace(e);
+		}
+		return false;
+	}
+
+	@Override
+	public void genericDialogCancel() {
+		hidePopUpFragment();
+	}
+
+	@Override
+	public void genericDialogLeftClick() {
+		hidePopUpFragment();
+	}
+
+	@Override
+	public void genericDialogRightClick() {
+		hidePopUpFragment();
+	}
 }

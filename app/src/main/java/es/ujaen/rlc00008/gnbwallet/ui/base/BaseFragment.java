@@ -17,6 +17,9 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.R;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
@@ -37,6 +40,9 @@ public abstract class BaseFragment extends Fragment implements
 	@Inject protected LoginInteractor loginInteractor;
 	@Inject protected LogoutInteractor logoutInteractor;
 	@Inject protected LoggedDataInteractor loggedDataInteractor;
+	@Inject protected ChallengeInteractor challengeInteractor;
+	@Inject protected ActivateInteractor activateInteractor;
+	@Inject protected DeactivateInteractor deactivateInteractor;
 
 	protected ProgressDialog progressDialog;
 

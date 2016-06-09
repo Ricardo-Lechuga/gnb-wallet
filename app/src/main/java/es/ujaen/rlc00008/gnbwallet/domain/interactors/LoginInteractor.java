@@ -35,13 +35,27 @@ public class LoginInteractor extends BaseInteractor {
 					}
 
 					@Override
-					public void resultError(Meta meta) {
-						loginCallback.operativeError(meta.getErrorMessage());
+					public void resultError(final Meta meta) {
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if(loginCallback != null) {
+									loginCallback.operativeError(meta.getErrorMessage());
+								}
+							}
+						});
 					}
 
 					@Override
 					public void genericException(Throwable t) {
-						loginCallback.operativeError(context.getString(R.string._generic_error_message));
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if(loginCallback != null) {
+									loginCallback.operativeError(context.getString(R.string._generic_error_message));
+								}
+							}
+						});
 					}
 				});
 			}
@@ -57,13 +71,27 @@ public class LoginInteractor extends BaseInteractor {
 			}
 
 			@Override
-			public void resultError(Meta meta) {
-				loginCallback.operativeError(meta.getErrorMessage());
+			public void resultError(final Meta meta) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if(loginCallback != null) {
+							loginCallback.operativeError(meta.getErrorMessage());
+						}
+					}
+				});
 			}
 
 			@Override
 			public void genericException(Throwable t) {
-				loginCallback.operativeError(context.getString(R.string._generic_error_message));
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if(loginCallback != null) {
+							loginCallback.operativeError(context.getString(R.string._generic_error_message));
+						}
+					}
+				});
 			}
 		});
 	}

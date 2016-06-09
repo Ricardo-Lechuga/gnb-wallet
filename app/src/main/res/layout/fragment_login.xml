@@ -56,7 +56,7 @@
 		android:layout_marginLeft="8dp"
 		android:layout_marginRight="8dp"
 		android:imeOptions="actionUnspecified|actionDone"
-		android:inputType="numberPassword"
+		android:inputType="textNoSuggestions"
 		android:maxLength="8"
 		android:privateImeOptions="nm"
 		android:text=""

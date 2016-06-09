@@ -4,6 +4,7 @@
 	<string name="_yes">Sí</string>
 	<string name="_no">No</string>
 	<string name="_ok">Aceptar</string>
+	<string name="_ok_short">OK</string>
 	<string name="_cancel">Cancelar</string>
 	<string name="_confirm">Confirmar</string>
 	<string name="_confirm_operation">Confirmar operación</string>
@@ -16,9 +17,7 @@
 	<string name="_close">Cerrar</string>
 	<string name="_exit">Salir</string>
 	<string name="_reload_pg">Recargando Posición Global&#8230;</string>
-	<string name="_reload_pg_fail">Se ha producido un error al recargar la Posición Global. Posiblemente la aplicación no muestre información actualizada de tus
-		productos.
-	</string>
+	<string name="_reload_pg_fail">Se ha producido un error al recargar la Posición Global. Posiblemente la aplicación no muestre información actualizada de tus productos.</string>
 	<string name="_loading">Comprobando operación&#8230;</string>
 	<string name="_loading_detail">Cargando detalle&#8230;</string>
 	<string name="_loading_pdf">Descargando pdf&#8230;</string>
@@ -37,6 +36,18 @@
 	<string name="_ecash">Tarjeta eCash</string>
 	<string name="_logout_confirm">¿Desea cerrar la sesión?</string>
 	<string name="_asterisk">*</string>
+
+	<!-- Numbers -->
+	<string name="_0">0</string>
+	<string name="_1">1</string>
+	<string name="_2">2</string>
+	<string name="_3">3</string>
+	<string name="_4">4</string>
+	<string name="_5">5</string>
+	<string name="_6">6</string>
+	<string name="_7">7</string>
+	<string name="_8">8</string>
+	<string name="_9">9</string>
 
 	<!-- Login -->
 	<string name="login_user">Usuario</string>
@@ -64,5 +75,9 @@
 	<string name="home_favorite">Favorita</string>
 	<string name="home_pay">Realizar Pago</string>
 	<string name="home_error_activate_before_favorite">Debes activar esta tarjeta antes de establecerla como favorita</string>
+
+	<!-- Operation Signature-->
+	<string name="operation_signature_enter">Introduce tu clave de coordenadas para el código\n<b>%1$s</b></string>
+	<string name="operation_signature_invalid">La clave de operaciones introducida no es válida. Por favor, vuelva a introducir su clave.</string>
 
 </resources>

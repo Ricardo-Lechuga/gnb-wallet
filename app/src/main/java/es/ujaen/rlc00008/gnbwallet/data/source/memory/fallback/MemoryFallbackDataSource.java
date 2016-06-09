@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.data.entities.ChallengeDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.MemoryDataSource;
 
@@ -23,9 +24,11 @@ public class MemoryFallbackDataSource implements MemoryDataSource {
 	private static final String GNB_FALLBACK_SP_NAME = "fallback_preferences";
 
 	private static final String TAG_TOKEN = "TAG_TOKEN";
+	private static final String TAG_LOGIN = "TAG_LOGIN";
 	private static final String TAG_USER = "TAG_USER";
 	private static final String TAG_CARDS = "TAG_CARDS";
 	private static final String TAG_FAVORITE_CARD = "TAG_FAVORITE_CARD";
+	private static final String TAG_CHALLENGE = "TAG_CHALLENGE";
 
 	private SharedPreferences sharedPreferences;
 
@@ -43,6 +46,16 @@ public class MemoryFallbackDataSource implements MemoryDataSource {
 	@Override
 	public void setUserToken(String userToken) {
 		sharedPreferences.edit().putString(TAG_TOKEN, userToken).apply();
+	}
+
+	@Override
+	public String getUserLogin() {
+		return sharedPreferences.getString(TAG_LOGIN, "");
+	}
+
+	@Override
+	public void setUserLogin(String login) {
+		sharedPreferences.edit().putString(TAG_LOGIN, login).apply();
 	}
 
 	@Override
@@ -92,5 +105,15 @@ public class MemoryFallbackDataSource implements MemoryDataSource {
 	@Override
 	public void cleanSessionData() {
 		sharedPreferences.edit().clear().apply();
+	}
+
+	@Override
+	public ChallengeDTO getChallengeDTO() {
+		return new Gson().fromJson(sharedPreferences.getString(TAG_CHALLENGE, ""), ChallengeDTO.class);
+	}
+
+	@Override
+	public void setChallengeDTO(ChallengeDTO challengeDTO) {
+		sharedPreferences.edit().putString(TAG_CHALLENGE, new Gson().toJson(challengeDTO)).apply();
 	}
 }

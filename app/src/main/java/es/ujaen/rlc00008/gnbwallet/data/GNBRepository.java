@@ -6,6 +6,7 @@ import java.util.List;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
 
@@ -34,4 +35,6 @@ public interface GNBRepository {
 
 	@Nullable
 	String getFavoriteCardPan();
+
+	void generateChallenge(RepositoryCallback<ChallengeResponse> callback);
 }

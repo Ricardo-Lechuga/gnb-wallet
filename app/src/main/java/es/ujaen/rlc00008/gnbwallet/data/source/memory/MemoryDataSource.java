@@ -3,6 +3,7 @@ package es.ujaen.rlc00008.gnbwallet.data.source.memory;
 import java.util.List;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.data.entities.ChallengeDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 
 /**
@@ -13,6 +14,10 @@ public interface MemoryDataSource {
 	String getUserToken();
 
 	void setUserToken(String userToken);
+
+	String getUserLogin();
+
+	void setUserLogin(String login);
 
 	String getFavoriteCard();
 
@@ -29,4 +34,8 @@ public interface MemoryDataSource {
 	void updateUserCard(CardDTO cardDTO);
 
 	void cleanSessionData();
+
+	ChallengeDTO getChallengeDTO();
+
+	void setChallengeDTO(ChallengeDTO challengeDTO);
 }

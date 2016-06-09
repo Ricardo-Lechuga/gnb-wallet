@@ -16,4 +16,14 @@
 		<item name="android:textColor">@color/button_black_text_selector</item>
 	</style>
 
+	<style name="OperationButton" parent="android:Widget.Button">
+		<item name="android:layout_width">@dimen/login_button_width</item>
+		<item name="android:layout_height">@dimen/login_button_height</item>
+		<item name="android:background">@drawable/button_operation_background_selector</item>
+		<item name="android:textColor">@color/button_operation_text_selector</item>
+		<item name="android:gravity">center</item>
+		<item name="android:textSize">@dimen/login_button_text_size</item>
+		<item name="android:fontFamily">@string/font_fontFamily_light</item>
+	</style>
+
 </resources>

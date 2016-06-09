@@ -15,4 +15,9 @@
 	<dimen name="card_view_name_margin_left">14dp</dimen>
 	<dimen name="card_view_name_margin_bottom">11dp</dimen>
 
+	<!--Operation Button-->
+	<dimen name="login_button_width">133dp</dimen>
+	<dimen name="login_button_height">66dp</dimen>
+	<dimen name="login_button_text_size">39dp</dimen>
+
 </resources>

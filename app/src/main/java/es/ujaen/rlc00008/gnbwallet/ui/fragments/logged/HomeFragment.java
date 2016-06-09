@@ -18,6 +18,7 @@ import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 import es.ujaen.rlc00008.gnbwallet.ui.adapters.pagers.CardsPagerAdapter;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
+import es.ujaen.rlc00008.gnbwallet.ui.utils.BranchImages;
 import es.ujaen.rlc00008.gnbwallet.ui.views.ZoomOutPageTransformer;
 
 /**
@@ -179,10 +180,15 @@ public class HomeFragment extends BaseFragment implements
 		if (!selectedCard.isEnabled()) {
 			showErrorFragment(getString(R.string.home_error_activate_before_favorite));
 		} else if (selectedCard.isFavorite()) {
-			//TODO Deactivate
+			//TODO unset favorite
 		} else {
-			//TODO Activate
+			//TODO set favorite
 		}
+	}
+
+	@OnClick(R.id.home_pay_button)
+	void payClick() {
+		callback.homePay(getSelectedCard());
 	}
 
 	private Card getSelectedCard() {
@@ -192,6 +198,8 @@ public class HomeFragment extends BaseFragment implements
 	private void selectCard(Card card) {
 
 		aliasTextView.setText(card.getAlias());
+
+		branchImageView.setImageResource(BranchImages.getResId(card));
 
 		if (card.isEnabled()) {
 			activationIconImageView.setImageResource(R.drawable.icn_deactivate);
@@ -215,5 +223,4 @@ public class HomeFragment extends BaseFragment implements
 			payButton.setVisibility(View.GONE);
 		}
 	}
-
 }

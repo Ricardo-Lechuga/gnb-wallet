@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.data.entities.ChallengeDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.FallbackMemory;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.MainMemory;
@@ -19,6 +20,7 @@ import es.ujaen.rlc00008.gnbwallet.data.source.memory.fallback.MemoryFallbackDat
 import es.ujaen.rlc00008.gnbwallet.data.source.net.GNBServices;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.ResponseWrapper;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.PersistenceDataSourceImpl;
@@ -66,7 +68,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 	}
 
 	@Override
-	public void authenticateUser(String userDoc, String password, final RepositoryCallback<LoginResponse> callback) {
+	public void authenticateUser(final String userDoc, String password, final RepositoryCallback<LoginResponse> callback) {
 		Call<ResponseWrapper<LoginResponse>> call = gnbServices.userLogin(userDoc);
 		call.enqueue(new Callback<ResponseWrapper<LoginResponse>>() {
 			@Override
@@ -76,6 +78,8 @@ public class GNBRepositoryImpl implements GNBRepository {
 						LoginResponse loginResponse = response.body().getResponse();
 						memoryDataSource.setUserToken(loginResponse.getToken());
 						memoryFallbackDataSource.setUserToken(loginResponse.getToken());
+						memoryDataSource.setUserLogin(userDoc);
+						memoryFallbackDataSource.setUserLogin(userDoc);
 						callback.resultOk(loginResponse);
 					} else {
 						callback.resultError(response.body().getMeta());
@@ -100,7 +104,8 @@ public class GNBRepositoryImpl implements GNBRepository {
 
 	@Override
 	public void loadGlobalPosition(final RepositoryCallback<GlobalPositionResponse> callback) {
-		Call<ResponseWrapper<GlobalPositionResponse>> call = gnbServices.getGlobalPosition();
+
+		Call<ResponseWrapper<GlobalPositionResponse>> call = gnbServices.getGlobalPosition(getUserLogin());
 		call.enqueue(new Callback<ResponseWrapper<GlobalPositionResponse>>() {
 			@Override
 			public void onResponse(Call<ResponseWrapper<GlobalPositionResponse>> call, Response<ResponseWrapper<GlobalPositionResponse>> response) {
@@ -170,5 +175,45 @@ public class GNBRepositoryImpl implements GNBRepository {
 		}
 
 		return favorite;
+	}
+
+	@Override
+	public void generateChallenge(final RepositoryCallback<ChallengeResponse> callback) {
+
+		Call<ResponseWrapper<ChallengeResponse>> call = gnbServices.generateChallenge(getUserLogin());
+		call.enqueue(new Callback<ResponseWrapper<ChallengeResponse>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<ChallengeResponse>> call, Response<ResponseWrapper<ChallengeResponse>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						ChallengeResponse challengeResponse = response.body().getResponse();
+						ChallengeDTO challengeDTO = new ChallengeDTO(challengeResponse.getIdChallenge(), challengeResponse.getQuestion());
+						memoryDataSource.setChallengeDTO(challengeDTO);
+						memoryFallbackDataSource.setChallengeDTO(challengeDTO);
+						callback.resultOk(response.body().getResponse());
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<ChallengeResponse>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
+	private String getUserLogin() {
+		String userLogin = memoryDataSource.getUserLogin();
+		if (userLogin == null) {
+			userLogin = memoryFallbackDataSource.getUserLogin();
+		}
+		if (userLogin == null) {
+			throw new RuntimeException("user must be logged!");
+		}
+		return userLogin;
 	}
 }

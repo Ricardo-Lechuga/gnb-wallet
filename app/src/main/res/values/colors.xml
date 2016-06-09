@@ -7,6 +7,7 @@
 	<color name="ui_divider">#C8C8C8</color>
 
 	<color name="ui_translucent">#E02C3239</color>
+	<color name="ui_black_semi_transparent">#40000000</color>
 
 	<color name="ui_white">#FFFFFF</color>
 	<color name="ui_green">#06BEBD</color>

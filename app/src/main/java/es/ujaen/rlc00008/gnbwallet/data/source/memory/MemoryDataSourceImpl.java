@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.data.entities.ChallengeDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 
 /**
@@ -25,6 +26,16 @@ public class MemoryDataSourceImpl implements MemoryDataSource {
 	@Override
 	public String getUserToken() {
 		return sessionData.getUserToken();
+	}
+
+	@Override
+	public String getUserLogin() {
+		return sessionData.getUserLogin();
+	}
+
+	@Override
+	public void setUserLogin(String login) {
+		sessionData.setUserLogin(login);
 	}
 
 	@Override
@@ -90,5 +101,15 @@ public class MemoryDataSourceImpl implements MemoryDataSource {
 	@Override
 	public void cleanSessionData() {
 		this.sessionData = new SessionData();
+	}
+
+	@Override
+	public ChallengeDTO getChallengeDTO() {
+		return sessionData.getChallengeDTO();
+	}
+
+	@Override
+	public void setChallengeDTO(ChallengeDTO challengeDTO) {
+		sessionData.setChallengeDTO(challengeDTO);
 	}
 }
