@@ -51,7 +51,7 @@ public class DAOUser {
 		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			isInsert = false;
 		}
-		if (cursor != null && !cursor.isClosed()) {
+		if (!cursor.isClosed()) {
 			cursor.close();
 		}
 		if (isInsert) {
@@ -71,7 +71,7 @@ public class DAOUser {
 		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			userDTO = cursorToUserDTO(cursor);
 		}
-		if (cursor != null && !cursor.isClosed()) {
+		if (!cursor.isClosed()) {
 			cursor.close();
 		}
 		database.close();

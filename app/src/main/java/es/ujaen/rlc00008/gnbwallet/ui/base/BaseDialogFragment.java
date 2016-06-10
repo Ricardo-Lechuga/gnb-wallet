@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -134,6 +135,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 	protected abstract void prepareInterface(View mainView);
 
 	@Override
+	@NonNull
 	public final Dialog onCreateDialog(Bundle savedInstanceState) {
 		return new Dialog(getActivity(), getTheme()) {
 			@Override

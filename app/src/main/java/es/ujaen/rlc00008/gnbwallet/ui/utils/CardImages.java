@@ -10,7 +10,7 @@ import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
  */
 public class CardImages {
 
-	public static final int getResId(Card card) {
+	public static int getResId(Card card) {
 		Preconditions.checkNotNull(card);
 
 		int resId = 0;

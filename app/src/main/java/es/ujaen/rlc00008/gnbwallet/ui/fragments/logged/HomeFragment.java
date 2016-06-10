@@ -244,6 +244,14 @@ public class HomeFragment extends BaseFragment implements
 		} else {
 			favoriteIconImageView.setImageResource(R.drawable.icn_favs_off);
 		}
+
+		//if (card instanceof DebitCard) {
+		//	debit
+		//} else if (card instanceof CreditCard) {
+		//
+		//} else if (card instanceof PrepaidCard) {
+		//
+		//}
 	}
 
 	private void setFavorite() {

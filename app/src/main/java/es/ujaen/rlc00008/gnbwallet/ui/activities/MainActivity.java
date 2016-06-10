@@ -29,8 +29,7 @@ public class MainActivity extends BaseActivity implements
 	}
 
 	private static Intent getStartIntent(Context context) {
-		Intent intent = new Intent(context, MainActivity.class);
-		return intent;
+		return new Intent(context, MainActivity.class);
 	}
 
 	private static final int SIGNATURE_PURPOSE_ACTIVATE = 1;

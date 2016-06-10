@@ -11,7 +11,7 @@ import es.ujaen.rlc00008.gnbwallet.domain.model.PrepaidCard;
  */
 public abstract class CardFactory {
 
-	public static final Card get(CardDTO cardDTO, boolean isFavorite) {
+	public static Card get(CardDTO cardDTO, boolean isFavorite) {
 
 		if (cardDTO == null) {
 			return null;

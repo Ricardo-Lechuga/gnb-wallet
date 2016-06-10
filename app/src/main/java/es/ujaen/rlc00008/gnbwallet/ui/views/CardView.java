@@ -7,7 +7,6 @@ import com.google.common.base.Preconditions;
 
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
-import es.ujaen.rlc00008.gnbwallet.ui.utils.BranchImages;
 import es.ujaen.rlc00008.gnbwallet.ui.utils.CardImages;
 
 /**
@@ -15,7 +14,7 @@ import es.ujaen.rlc00008.gnbwallet.ui.utils.CardImages;
  */
 public class CardView {
 
-	public static final void paint(View cardView, Card card) {
+	public static void paint(View cardView, Card card) {
 		Preconditions.checkNotNull(cardView);
 		Preconditions.checkNotNull(card);
 

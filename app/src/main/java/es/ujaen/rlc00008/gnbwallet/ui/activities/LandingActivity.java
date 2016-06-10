@@ -3,12 +3,8 @@ package es.ujaen.rlc00008.gnbwallet.ui.activities;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import java.util.List;
-
 import butterknife.BindView;
 import es.ujaen.rlc00008.gnbwallet.R;
-import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
-import es.ujaen.rlc00008.gnbwallet.domain.model.User;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.landing.LoginFragment;
