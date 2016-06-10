@@ -20,8 +20,8 @@ import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
-import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LogoutInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.SetFavoriteInteractor;
@@ -77,10 +77,8 @@ public abstract class BaseFragment extends Fragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		try {
+		if (getView() != null) {
 			hideKeyBoard(getView().getWindowToken());
-		} catch (Exception e) {
-			//
 		}
 	}
 
@@ -259,5 +257,4 @@ public abstract class BaseFragment extends Fragment implements
 	protected abstract int getContentView();
 
 	protected abstract void prepareInterface(View mainView);
-
 }
