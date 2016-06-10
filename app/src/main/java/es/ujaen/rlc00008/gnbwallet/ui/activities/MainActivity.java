@@ -173,8 +173,9 @@ public class MainActivity extends BaseActivity implements
 	public void homeDeactivateCard(Card card) {
 		selectedCard = card;
 		dialogPurpose = DIALOG_PURPOSE_CONFIRM_DEACTIVATE;
+		String message = card.isFavorite() ? getString(R.string.deactivate_favorite_question) : getString(R.string.deactivate_question);
 		GenericDialogFragment confirmDeactivateFragment =
-				GenericDialogFragment.newInstance(0, getString(R.string.deactivate_question), getString(R.string._cancel), getString(R.string.deactivate_confirm));
+				GenericDialogFragment.newInstance(0, message, getString(R.string._cancel), getString(R.string.deactivate_confirm));
 		showPopUpFragment(confirmDeactivateFragment);
 	}
 

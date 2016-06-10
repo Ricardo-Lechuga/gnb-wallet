@@ -3,7 +3,6 @@ package es.ujaen.rlc00008.gnbwallet.ui.adapters.pagers;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 
 import java.util.List;
 
@@ -38,5 +37,10 @@ public class CardsPagerAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public Fragment getItem(int position) {
 		return CardPageFragment.newInstance(data.get(position));
+	}
+
+	@Override
+	public int getItemPosition(Object object) {
+		return POSITION_NONE;
 	}
 }

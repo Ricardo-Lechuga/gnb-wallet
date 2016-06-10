@@ -41,4 +41,8 @@ public interface GNBRepository {
 	void activateCard(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
 
 	void deactivateCard(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
+
+	void setFavorite(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
+
+	void unsetFavorite(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
 }

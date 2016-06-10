@@ -31,12 +31,16 @@ public class DeactivateInteractor extends BaseInteractor {
 				repository.deactivateCard(card.getCardDTO(), new RepositoryCallback<CardDTO>() {
 					@Override
 					public void resultOk(final CardDTO cardDTO) {
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								callback.deactivationOk(CardFactory.get(cardDTO, card.isFavorite()));
-							}
-						});
+						if (card.isFavorite()) {
+							unsetFavoriteAfterDeactivateCard(card, callback);
+						} else {
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									callback.deactivationOk(CardFactory.get(cardDTO, card.isFavorite()));
+								}
+							});
+						}
 					}
 
 					@Override
@@ -65,5 +69,43 @@ public class DeactivateInteractor extends BaseInteractor {
 				});
 			}
 		}.start();
+	}
+
+	private void unsetFavoriteAfterDeactivateCard(final Card card, final DeactivateCallback callback) {
+		repository.unsetFavorite(card.getCardDTO(), new RepositoryCallback<CardDTO>() {
+			@Override
+			public void resultOk(final CardDTO cardDTO) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						callback.deactivationOk(CardFactory.get(cardDTO, card.isFavorite()));
+					}
+				});
+			}
+
+			@Override
+			public void resultError(final Meta meta) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if (callback != null) {
+							callback.operativeError(meta.getErrorMessage());
+						}
+					}
+				});
+			}
+
+			@Override
+			public void genericException(Throwable t) {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						if (callback != null) {
+							callback.operativeError(context.getString(R.string._generic_error_message));
+						}
+					}
+				});
+			}
+		});
 	}
 }

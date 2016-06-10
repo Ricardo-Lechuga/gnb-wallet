@@ -132,7 +132,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="76dp"
 				android:background="@color/ui_white"
-				android:orientation="horizontal">
+				android:orientation="horizontal"
+				android:weightSum="3">
 
 				<LinearLayout
 					android:id="@+id/home_activation_clickable_view"

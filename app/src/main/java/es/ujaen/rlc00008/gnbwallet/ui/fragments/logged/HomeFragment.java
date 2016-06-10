@@ -14,6 +14,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import es.ujaen.rlc00008.gnbwallet.R;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.SetFavoriteInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.UnsetFavoriteInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 import es.ujaen.rlc00008.gnbwallet.ui.adapters.pagers.CardsPagerAdapter;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
@@ -193,9 +195,9 @@ public class HomeFragment extends BaseFragment implements
 		if (!selectedCard.isEnabled()) {
 			showErrorFragment(getString(R.string.home_error_activate_before_favorite));
 		} else if (selectedCard.isFavorite()) {
-			//TODO unset favorite
+			unsetFavorite();
 		} else {
-			//TODO set favorite
+			setFavorite();
 		}
 	}
 
@@ -231,10 +233,54 @@ public class HomeFragment extends BaseFragment implements
 			payButton.setVisibility(View.GONE);
 		}
 
+		if (card.isNfc()) {
+			favoriteClickableView.setVisibility(View.VISIBLE);
+		} else {
+			favoriteClickableView.setVisibility(View.GONE);
+		}
+
 		if (card.isFavorite()) {
 			favoriteIconImageView.setImageResource(R.drawable.icn_favs_on);
 		} else {
 			favoriteIconImageView.setImageResource(R.drawable.icn_favs_off);
 		}
+	}
+
+	private void setFavorite() {
+		showLoading();
+		setFavoriteInteractor.setFavorite(getSelectedCard(), new SetFavoriteInteractor.SetFavoriteCallback() {
+			@Override
+			public void setFavoriteOk(Card card) {
+				cards = loggedDataInteractor.getCards();
+				mAdapter.refreshList(cards);
+				selectCard(getSelectedCard());
+				hideLoading();
+			}
+
+			@Override
+			public void operativeError(String message) {
+				hideLoading();
+				showErrorFragment(message);
+			}
+		});
+	}
+
+	private void unsetFavorite() {
+		showLoading();
+		unsetFavoriteInteractor.unsetFavorite(getSelectedCard(), new UnsetFavoriteInteractor.UnsetFavoriteCallback() {
+			@Override
+			public void unsetFavoriteOk(Card card) {
+				cards = loggedDataInteractor.getCards();
+				mAdapter.refreshList(cards);
+				selectCard(getSelectedCard());
+				hideLoading();
+			}
+
+			@Override
+			public void operativeError(String message) {
+				hideLoading();
+				showErrorFragment(message);
+			}
+		});
 	}
 }

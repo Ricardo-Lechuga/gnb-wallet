@@ -260,6 +260,58 @@ public class GNBRepositoryImpl implements GNBRepository {
 		});
 	}
 
+	@Override
+	public void setFavorite(final CardDTO cardDTO, final RepositoryCallback<CardDTO> callback) {
+		Call<ResponseWrapper<Void>> call = gnbServices.setFavorite(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<Void>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<Void>> call, Response<ResponseWrapper<Void>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						memoryDataSource.setFavoriteCard(cardDTO.getPan());
+						memoryFallbackDataSource.setFavoriteCard(cardDTO.getPan());
+						callback.resultOk(cardDTO);
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<Void>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
+	@Override
+	public void unsetFavorite(final CardDTO cardDTO, final RepositoryCallback<CardDTO> callback) {
+		Call<ResponseWrapper<Void>> call = gnbServices.unsetFavorite(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<Void>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<Void>> call, Response<ResponseWrapper<Void>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						memoryDataSource.setFavoriteCard(null);
+						memoryFallbackDataSource.setFavoriteCard(null);
+						callback.resultOk(cardDTO);
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<Void>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
 	private String getUserLogin() {
 		String userLogin = memoryDataSource.getUserLogin();
 		if (userLogin == null) {

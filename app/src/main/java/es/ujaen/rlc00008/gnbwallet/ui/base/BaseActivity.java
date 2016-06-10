@@ -23,6 +23,8 @@ import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LogoutInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.SetFavoriteInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.UnsetFavoriteInteractor;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 
 /**
@@ -44,6 +46,8 @@ public abstract class BaseActivity extends AppCompatActivity implements
 	@Inject protected ChallengeInteractor challengeInteractor;
 	@Inject protected ActivateInteractor activateInteractor;
 	@Inject protected DeactivateInteractor deactivateInteractor;
+	@Inject protected SetFavoriteInteractor setFavoriteInteractor;
+	@Inject protected UnsetFavoriteInteractor unsetFavoriteInteractor;
 
 	public BaseActivityComponent component() {
 		if (component == null) {
