@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
+import java.util.Objects;
+
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 
 /**
@@ -21,6 +23,10 @@ public abstract class Card implements Parcelable {
 		this.cardDTO = cardDTO;
 		this.isFavorite = isFavorite;
 		this.type = cardDTO.getType();
+	}
+
+	public CardDTO getCardDTO() {
+		return cardDTO;
 	}
 
 	public String getPan() {
@@ -86,5 +92,13 @@ public abstract class Card implements Parcelable {
 		}
 
 		return brandType;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Card other = (Card) o;
+		return Objects.equals(cardDTO, other.cardDTO);
 	}
 }

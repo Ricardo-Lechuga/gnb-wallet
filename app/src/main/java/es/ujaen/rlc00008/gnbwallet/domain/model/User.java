@@ -12,11 +12,15 @@ import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
  */
 public class User implements Parcelable {
 
-	private UserDTO userDTO;
+	private final UserDTO userDTO;
 
 	public User(UserDTO userDTO) {
 		Preconditions.checkNotNull(userDTO);
 		this.userDTO = userDTO;
+	}
+
+	public UserDTO getUserDTO() {
+		return userDTO;
 	}
 
 	public String getName() {

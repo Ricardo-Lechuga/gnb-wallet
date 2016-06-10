@@ -37,4 +37,8 @@ public interface GNBRepository {
 	String getFavoriteCardPan();
 
 	void generateChallenge(RepositoryCallback<ChallengeResponse> callback);
+
+	void activateCard(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
+
+	void deactivateCard(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
 }

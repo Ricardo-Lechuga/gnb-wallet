@@ -69,6 +69,14 @@ public class HomeFragment extends BaseFragment implements
 	@BindView(R.id.home_activate_button) Button activateButton;
 	@BindView(R.id.home_pay_button) Button payButton;
 
+	public static HomeFragment newInstance(Card initialCard) {
+		Bundle bundle = new Bundle();
+		bundle.putParcelable("initialCard", initialCard);
+		HomeFragment fragment = new HomeFragment();
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+
 	@Override
 	public void onAttach(Context context) {
 		try {
@@ -86,7 +94,12 @@ public class HomeFragment extends BaseFragment implements
 		if (savedInstanceState != null) {
 			selectedIndex = savedInstanceState.getInt("selectedIndex");
 		} else {
-			selectedIndex = 0;
+			Card initialCard = getArguments().getParcelable("initialCard");
+			if (initialCard != null) {
+				selectedIndex = cards.indexOf(initialCard);
+			} else {
+				selectedIndex = 0;
+			}
 		}
 	}
 
@@ -205,22 +218,23 @@ public class HomeFragment extends BaseFragment implements
 			activationIconImageView.setImageResource(R.drawable.icn_deactivate);
 			activationTextView.setText(R.string.home_deactivate);
 			activateButton.setVisibility(View.GONE);
+
+			if (card.isNfc()) {
+				payButton.setVisibility(View.VISIBLE);
+			} else {
+				payButton.setVisibility(View.GONE);
+			}
 		} else {
 			activationIconImageView.setImageResource(R.drawable.icn_activate);
 			activationTextView.setText(R.string.home_activate);
 			activateButton.setVisibility(View.VISIBLE);
+			payButton.setVisibility(View.GONE);
 		}
 
 		if (card.isFavorite()) {
 			favoriteIconImageView.setImageResource(R.drawable.icn_favs_on);
 		} else {
 			favoriteIconImageView.setImageResource(R.drawable.icn_favs_off);
-		}
-
-		if (card.isNfc()) {
-			payButton.setVisibility(View.VISIBLE);
-		} else {
-			payButton.setVisibility(View.GONE);
 		}
 	}
 }

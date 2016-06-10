@@ -23,6 +23,10 @@ public class Amount implements Parcelable {
 		this.amountDTO = amountDTO;
 	}
 
+	public AmountDTO getAmountDTO() {
+		return amountDTO;
+	}
+
 	public double getAmountValue() {
 		return amountDTO.getAmount().doubleValue();
 	}

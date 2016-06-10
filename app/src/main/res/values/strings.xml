@@ -80,4 +80,13 @@
 	<string name="operation_signature_enter">Introduce tu clave de coordenadas para el código\n<b>%1$s</b></string>
 	<string name="operation_signature_invalid">La clave de operaciones introducida no es válida. Por favor, vuelva a introducir su clave.</string>
 
+	<!-- Activate card-->
+	<string name="activate_ok">Tarjeta activada con éxito</string>
+
+	<!-- Deactivate card-->
+	<string name="deactivate_question">¿Seguro que quieres desactivar esta tarjeta temporalmente?</string>
+	<string name="deactivate_confirm">Desactivar</string>
+	<string name="deactivate_ok">Tarjeta desactivada con éxito.\nPuedes volver a activarla en cualquier momento.</string>
+
+
 </resources>

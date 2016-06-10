@@ -206,6 +206,60 @@ public class GNBRepositoryImpl implements GNBRepository {
 		});
 	}
 
+	@Override
+	public void activateCard(final CardDTO cardDTO, final RepositoryCallback<CardDTO> callback) {
+		Call<ResponseWrapper<Void>> call = gnbServices.enableCard(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<Void>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<Void>> call, Response<ResponseWrapper<Void>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						cardDTO.setEnabled(true);
+						memoryDataSource.updateUserCard(cardDTO);
+						memoryFallbackDataSource.updateUserCard(cardDTO);
+						callback.resultOk(cardDTO);
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<Void>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
+	@Override
+	public void deactivateCard(final CardDTO cardDTO, final RepositoryCallback<CardDTO> callback) {
+		Call<ResponseWrapper<Void>> call = gnbServices.disableCard(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<Void>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<Void>> call, Response<ResponseWrapper<Void>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						cardDTO.setEnabled(false);
+						memoryDataSource.updateUserCard(cardDTO);
+						memoryFallbackDataSource.updateUserCard(cardDTO);
+						callback.resultOk(cardDTO);
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<Void>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
 	private String getUserLogin() {
 		String userLogin = memoryDataSource.getUserLogin();
 		if (userLogin == null) {
