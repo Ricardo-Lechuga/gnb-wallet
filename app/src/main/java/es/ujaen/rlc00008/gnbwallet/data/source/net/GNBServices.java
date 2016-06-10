@@ -43,42 +43,56 @@ public interface GNBServices {
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/cardTransactions.json")
-	Call<ResponseWrapper<CardTransactionsResponse>> getCardTransactions();
+	@GET("/pfc/ws/cards/{pan}/cardTransactions.json")
+	Call<ResponseWrapper<CardTransactionsResponse>> getCardTransactions(
+			@Path("pan") String cardPan
+	);
 
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/getPin.json")
-	Call<ResponseWrapper<PinResponse>> getPin();
+	@GET("/pfc/ws/cards/{pan}/getPin.json")
+	Call<ResponseWrapper<PinResponse>> getPin(
+			@Path("pan") String cardPan
+	);
 
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/getCCV.json")
-	Call<ResponseWrapper<CCVResponse>> getCCV();
+	@GET("/pfc/ws/cards/{pan}/getCCV.json")
+	Call<ResponseWrapper<CCVResponse>> getCCV(
+			@Path("pan") String cardPan
+	);
 
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/disableCard.json")
-	Call<ResponseWrapper<Void>> disableCard();
+	@GET("/pfc/ws/cards/{pan}/disableCard.json")
+	Call<ResponseWrapper<Void>> disableCard(
+			@Path("pan") String cardPan
+	);
 
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/enableCard.json")
-	Call<ResponseWrapper<Void>> enableCard();
+	@GET("/pfc/ws/cards/{pan}/enableCard.json")
+	Call<ResponseWrapper<Void>> enableCard(
+			@Path("pan") String cardPan
+	);
 
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/setFavorite.json")
-	Call<ResponseWrapper<Void>> setFavorite();
+	@GET("/pfc/ws/cards/{pan}/setFavorite.json")
+	Call<ResponseWrapper<Void>> setFavorite(
+			@Path("pan") String cardPan
+	);
 
 	@Headers({
 			"Content-Type: application/json",
 	})
-	@GET("/pfc/ws/unsetFavorite.json")
-	Call<ResponseWrapper<Void>> unsetFavorite();
+	@GET("/pfc/ws/cards/{pan}/unsetFavorite.json")
+	Call<ResponseWrapper<Void>> unsetFavorite(
+			@Path("pan") String cardPan
+	);
 }
