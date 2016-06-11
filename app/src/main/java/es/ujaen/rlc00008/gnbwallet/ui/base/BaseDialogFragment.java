@@ -22,8 +22,8 @@ import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
-import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LogoutInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.SetFavoriteInteractor;
@@ -122,11 +122,8 @@ public abstract class BaseDialogFragment extends DialogFragment {
 	}
 
 	protected void hideKeyBoard(EditText myEditText) {
-		try {
-			InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-			imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
-		} catch (Exception e) {
-			MyLog.printStackTrace(e);
+		if (myEditText != null) {
+			hideKeyBoard(myEditText.getWindowToken());
 		}
 	}
 

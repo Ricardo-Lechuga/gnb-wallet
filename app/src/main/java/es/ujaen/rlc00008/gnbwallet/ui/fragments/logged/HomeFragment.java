@@ -17,6 +17,9 @@ import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.SetFavoriteInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.UnsetFavoriteInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
+import es.ujaen.rlc00008.gnbwallet.domain.model.CreditCard;
+import es.ujaen.rlc00008.gnbwallet.domain.model.DebitCard;
+import es.ujaen.rlc00008.gnbwallet.domain.model.PrepaidCard;
 import es.ujaen.rlc00008.gnbwallet.ui.adapters.pagers.CardsPagerAdapter;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
@@ -69,6 +72,10 @@ public class HomeFragment extends BaseFragment implements
 	@BindView(R.id.home_favorite_icon_imageview) ImageView favoriteIconImageView;
 	@BindView(R.id.home_favorite_textview) TextView favoriteTextView;
 	@BindView(R.id.home_activate_button) Button activateButton;
+	@BindView(R.id.home_debit_textview) TextView debitTextView;
+	@BindView(R.id.home_credit_balance_imageview) ImageView creditBalanceImageView;
+	@BindView(R.id.home_prepaid_view) View prepaidView;
+	@BindView(R.id.home_prepaid_textview) TextView prepaidTextView;
 	@BindView(R.id.home_pay_button) Button payButton;
 
 	public static HomeFragment newInstance(Card initialCard) {
@@ -245,13 +252,53 @@ public class HomeFragment extends BaseFragment implements
 			favoriteIconImageView.setImageResource(R.drawable.icn_favs_off);
 		}
 
-		//if (card instanceof DebitCard) {
-		//	debit
-		//} else if (card instanceof CreditCard) {
-		//
-		//} else if (card instanceof PrepaidCard) {
-		//
-		//}
+		if (card instanceof DebitCard) {
+			setDebitCardView((DebitCard) card);
+		} else if (card instanceof CreditCard) {
+			setCreditCardView((CreditCard) card);
+		} else if (card instanceof PrepaidCard) {
+			setPrepaidCardView((PrepaidCard) card);
+		}
+	}
+
+	private void setDebitCardView(DebitCard debitCard) {
+		creditBalanceImageView.setVisibility(View.GONE);
+		prepaidView.setVisibility(View.GONE);
+		debitTextView.setVisibility(View.VISIBLE);
+	}
+
+	private void setCreditCardView(CreditCard creditCard) {
+		debitTextView.setVisibility(View.GONE);
+		prepaidView.setVisibility(View.GONE);
+
+		double ratio = creditCard.getCurrentBalance().getAmountValue() / creditCard.getCreditLimit().getAmountValue();
+
+		final int imageResId;
+
+		if (ratio < 0.2) {
+			imageResId = R.drawable.bground_progress_0;
+		} else if (ratio < 0.4) {
+			imageResId = R.drawable.bground_progress_1;
+		} else if (ratio < 0.6) {
+			imageResId = R.drawable.bground_progress_2;
+		} else if (ratio < 0.8) {
+			imageResId = R.drawable.bground_progress_3;
+		} else {
+			imageResId = R.drawable.bground_progress_4;
+		}
+
+		creditBalanceImageView.setImageResource(imageResId);
+
+		creditBalanceImageView.setVisibility(View.VISIBLE);
+	}
+
+	private void setPrepaidCardView(PrepaidCard prepaidCard) {
+		debitTextView.setVisibility(View.GONE);
+		creditBalanceImageView.setVisibility(View.GONE);
+
+		prepaidTextView.setText(prepaidCard.getBalance().getAmountFormatted());
+
+		prepaidView.setVisibility(View.VISIBLE);
 	}
 
 	private void setFavorite() {

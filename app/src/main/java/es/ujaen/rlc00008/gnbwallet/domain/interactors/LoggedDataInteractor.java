@@ -37,7 +37,10 @@ public class LoggedDataInteractor extends BaseInteractor {
 		}
 		List<Card> cards = new ArrayList<>();
 		for (CardDTO cardDTO : cardDTOList) {
-			cards.add(CardFactory.get(cardDTO, cardDTO.getPan().equals(favorite)));
+			Card card = CardFactory.get(cardDTO, cardDTO.getPan().equals(favorite));
+			if (card != null) {
+				cards.add(card);
+			}
 		}
 		return cards;
 	}

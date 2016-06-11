@@ -33,7 +33,7 @@
 	<string name="_invalid_url">La URL no es válida</string>
 	<string name="_credit">Crédito</string>
 	<string name="_debit">Débito</string>
-	<string name="_ecash">Tarjeta eCash</string>
+	<string name="_prepaid">Prepago</string>
 	<string name="_logout_confirm">¿Desea cerrar la sesión?</string>
 	<string name="_asterisk">*</string>
 
@@ -74,6 +74,7 @@
 	<string name="home_transactions">Movimientos</string>
 	<string name="home_favorite">Favorita</string>
 	<string name="home_pay">Realizar Pago</string>
+	<string name="home_prepaid_balance">Saldo:</string>
 	<string name="home_error_activate_before_favorite">Debes activar esta tarjeta antes de establecerla como favorita</string>
 
 	<!-- Operation Signature-->
