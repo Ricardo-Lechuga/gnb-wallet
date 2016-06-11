@@ -7,7 +7,6 @@ import com.google.common.base.Preconditions;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.AmountDTO;
 
@@ -31,12 +30,17 @@ public class Amount implements Parcelable {
 		return amountDTO.getAmount().doubleValue();
 	}
 
-	public String getAmountValueAsString() {
-		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-		symbols.setGroupingSeparator(',');
-		symbols.setDecimalSeparator('.');
-		NumberFormat formatter = new DecimalFormat("###########0.00", symbols);
-		return formatter.format(amountDTO.getAmount());
+	public String getValueFormatted() {
+		try {
+			DecimalFormat formato = new DecimalFormat("#,##0.00");
+			DecimalFormatSymbols s = new DecimalFormatSymbols();
+			s.setDecimalSeparator(',');
+			s.setGroupingSeparator('.');
+			formato.setDecimalFormatSymbols(s);
+			return formato.format(amountDTO.getAmount());
+		} catch (Exception e) {
+			return "0";
+		}
 	}
 
 	public String getCurrency() {
@@ -64,7 +68,7 @@ public class Amount implements Parcelable {
 	}
 
 	public String getAmountFormatted() {
-		return getAmountValueAsString() + getCurrencySymbol();
+		return getValueFormatted() + getCurrencySymbol();
 	}
 
 	/*
