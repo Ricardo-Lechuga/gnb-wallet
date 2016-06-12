@@ -24,11 +24,11 @@ public class DeactivateInteractor extends BaseInteractor {
 	public DeactivateInteractor() {
 	}
 
-	public void deactivateCard(final Card card, final DeactivateCallback callback) {
+	public void deactivateCard(final Card card, final String operationSignature, final DeactivateCallback callback) {
 		new Thread() {
 			@Override
 			public void run() {
-				repository.deactivateCard(card.getCardDTO(), new RepositoryCallback<CardDTO>() {
+				repository.deactivateCard(card.getCardDTO(), operationSignature, new RepositoryCallback<CardDTO>() {
 					@Override
 					public void resultOk(final CardDTO cardDTO) {
 						if (card.isFavorite()) {

@@ -38,15 +38,15 @@ public interface GNBRepository {
 
 	void generateChallenge(RepositoryCallback<ChallengeResponse> callback);
 
-	void activateCard(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
+	void activateCard(CardDTO cardDTO, String operationSignature, RepositoryCallback<CardDTO> callback);
 
-	void deactivateCard(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
+	void deactivateCard(CardDTO cardDTO, String operationSignature, RepositoryCallback<CardDTO> callback);
 
 	void setFavorite(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
 
 	void unsetFavorite(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
 
-	void getPIN(CardDTO cardDTO, RepositoryCallback<String> callback);
+	void getPIN(CardDTO cardDTO, String operationSignature, RepositoryCallback<String> callback);
 
-	void getCCV(CardDTO cardDTO, RepositoryCallback<String> callback);
+	void getCCV(CardDTO cardDTO, String operationSignature, RepositoryCallback<String> callback);
 }

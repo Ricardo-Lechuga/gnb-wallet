@@ -4,39 +4,34 @@ import javax.inject.Inject;
 
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.RepositoryCallback;
-import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.domain.base.BaseInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
-import es.ujaen.rlc00008.gnbwallet.domain.model.factories.CardFactory;
 
 /**
  * Created by Ricardo on 22/5/16.
  */
-public class ActivateInteractor extends BaseInteractor {
+public class GetPinInteractor extends BaseInteractor {
 
-	public interface ActivateCallback extends BaseInteractorCallback {
+	public interface GetPinCallback extends BaseInteractorCallback {
 
-		void activationOk(Card card);
+		void pinResponse(String pin);
 	}
 
 	@Inject
-	public ActivateInteractor() {
+	public GetPinInteractor() {
 	}
 
-	public void activateCard(final Card card, final String operationSignature, final ActivateCallback callback) {
+	public void seePin(final Card card, final String operationSignature, final GetPinCallback callback) {
 		new Thread() {
 			@Override
 			public void run() {
-				repository.activateCard(card.getCardDTO(), operationSignature, new RepositoryCallback<CardDTO>() {
+				repository.getPIN(card.getCardDTO(), operationSignature, new RepositoryCallback<String>() {
 					@Override
-					public void resultOk(final CardDTO cardDTO) {
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								callback.activationOk(CardFactory.get(cardDTO, card.isFavorite()));
-							}
-						});
+					public void resultOk(final String response) {
+						if (callback != null) {
+							callback.pinResponse(response);
+						}
 					}
 
 					@Override

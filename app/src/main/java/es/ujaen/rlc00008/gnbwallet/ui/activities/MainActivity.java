@@ -12,6 +12,8 @@ import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCCVInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetPinInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
@@ -195,19 +197,19 @@ public class MainActivity extends BaseActivity implements
 	public void operationSignatureEntered(String operationSignature) {
 		switch (signaturePurpose) {
 			case SIGNATURE_PURPOSE_ACTIVATE: {
-				activateSelectedCard();
+				activateSelectedCard(operationSignature);
 				break;
 			}
 			case SIGNATURE_PURPOSE_DEACTIVATE: {
-				deactivateSelectedCard();
+				deactivateSelectedCard(operationSignature);
 				break;
 			}
 			case SIGNATURE_PURPOSE_CCV: {
-				seeSelectedCardCCV();
+				seeSelectedCardCCV(operationSignature);
 				break;
 			}
 			case SIGNATURE_PURPOSE_PIN: {
-				seeSelectedCardPIN();
+				seeSelectedCardPIN(operationSignature);
 				break;
 			}
 			case SIGNATURE_PURPOSE_PAY_NOW: {
@@ -235,9 +237,9 @@ public class MainActivity extends BaseActivity implements
 		});
 	}
 
-	private void activateSelectedCard() {
+	private void activateSelectedCard(String operationSignature) {
 		showLoading();
-		activateInteractor.activateCard(selectedCard, new ActivateInteractor.ActivateCallback() {
+		activateInteractor.activateCard(selectedCard, operationSignature, new ActivateInteractor.ActivateCallback() {
 			@Override
 			public void activationOk(Card card) {
 				selectedCard = card;
@@ -255,9 +257,9 @@ public class MainActivity extends BaseActivity implements
 		});
 	}
 
-	private void deactivateSelectedCard() {
+	private void deactivateSelectedCard(String operationSignature) {
 		showLoading();
-		deactivateInteractor.deactivateCard(selectedCard, new DeactivateInteractor.DeactivateCallback() {
+		deactivateInteractor.deactivateCard(selectedCard, operationSignature, new DeactivateInteractor.DeactivateCallback() {
 			@Override
 			public void deactivationOk(Card card) {
 				selectedCard = card;
@@ -275,11 +277,39 @@ public class MainActivity extends BaseActivity implements
 		});
 	}
 
-	private void seeSelectedCardCCV() {
+	private void seeSelectedCardCCV(String operationSignature) {
+		showLoading();
+		getCCVInteractor.seeCCV(selectedCard, operationSignature, new GetCCVInteractor.GetCCVCallback() {
+			@Override
+			public void ccvResponse(String ccv) {
+				hideLoading();
+				//TODO
+				Toast.makeText(MainActivity.this, "ccv: " + ccv, Toast.LENGTH_SHORT).show();
+			}
 
+			@Override
+			public void operativeError(String message) {
+				hideLoading();
+				showErrorFragment(message);
+			}
+		});
 	}
 
-	private void seeSelectedCardPIN() {
+	private void seeSelectedCardPIN(String operationSignature) {
+		showLoading();
+		getPinInteractor.seePin(selectedCard, operationSignature, new GetPinInteractor.GetPinCallback() {
+			@Override
+			public void pinResponse(String pin) {
+				hideLoading();
+				//TODO
+				Toast.makeText(MainActivity.this, "Pin: " + pin, Toast.LENGTH_SHORT).show();
+			}
 
+			@Override
+			public void operativeError(String message) {
+				hideLoading();
+				showErrorFragment(message);
+			}
+		});
 	}
 }

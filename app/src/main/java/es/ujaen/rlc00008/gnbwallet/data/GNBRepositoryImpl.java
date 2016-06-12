@@ -209,7 +209,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 	}
 
 	@Override
-	public void activateCard(final CardDTO cardDTO, final RepositoryCallback<CardDTO> callback) {
+	public void activateCard(final CardDTO cardDTO, String operationSignature, final RepositoryCallback<CardDTO> callback) {
 		Call<ResponseWrapper<Void>> call = gnbServices.enableCard(cardDTO.getPan());
 		call.enqueue(new Callback<ResponseWrapper<Void>>() {
 			@Override
@@ -236,7 +236,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 	}
 
 	@Override
-	public void deactivateCard(final CardDTO cardDTO, final RepositoryCallback<CardDTO> callback) {
+	public void deactivateCard(final CardDTO cardDTO, String operationSignature, final RepositoryCallback<CardDTO> callback) {
 		Call<ResponseWrapper<Void>> call = gnbServices.disableCard(cardDTO.getPan());
 		call.enqueue(new Callback<ResponseWrapper<Void>>() {
 			@Override
@@ -315,7 +315,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 	}
 
 	@Override
-	public void getPIN(final CardDTO cardDTO, final RepositoryCallback<String> callback) {
+	public void getPIN(final CardDTO cardDTO, String operationSignature, final RepositoryCallback<String> callback) {
 		Call<ResponseWrapper<PinResponse>> call = gnbServices.getPin(cardDTO.getPan());
 		call.enqueue(new Callback<ResponseWrapper<PinResponse>>() {
 			@Override
@@ -339,7 +339,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 	}
 
 	@Override
-	public void getCCV(CardDTO cardDTO, final RepositoryCallback<String> callback) {
+	public void getCCV(CardDTO cardDTO, String operationSignature, final RepositoryCallback<String> callback) {
 		Call<ResponseWrapper<CCVResponse>> call = gnbServices.getCCV(cardDTO.getPan());
 		call.enqueue(new Callback<ResponseWrapper<CCVResponse>>() {
 			@Override
