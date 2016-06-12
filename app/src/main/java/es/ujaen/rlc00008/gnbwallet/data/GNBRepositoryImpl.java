@@ -20,9 +20,11 @@ import es.ujaen.rlc00008.gnbwallet.data.source.memory.fallback.MemoryFallbackDat
 import es.ujaen.rlc00008.gnbwallet.data.source.net.GNBServices;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.ResponseWrapper;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CCVResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.PinResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.PersistenceDataSourceImpl;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -307,6 +309,54 @@ public class GNBRepositoryImpl implements GNBRepository {
 
 			@Override
 			public void onFailure(Call<ResponseWrapper<Void>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
+	@Override
+	public void getPIN(final CardDTO cardDTO, final RepositoryCallback<String> callback) {
+		Call<ResponseWrapper<PinResponse>> call = gnbServices.getPin(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<PinResponse>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<PinResponse>> call, Response<ResponseWrapper<PinResponse>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						callback.resultOk(response.body().getResponse().getPin());
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<PinResponse>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
+	@Override
+	public void getCCV(CardDTO cardDTO, final RepositoryCallback<String> callback) {
+		Call<ResponseWrapper<CCVResponse>> call = gnbServices.getCCV(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<CCVResponse>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<CCVResponse>> call, Response<ResponseWrapper<CCVResponse>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						callback.resultOk(response.body().getResponse().getCcv());
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<CCVResponse>> call, Throwable t) {
 				callback.genericException(t);
 			}
 		});

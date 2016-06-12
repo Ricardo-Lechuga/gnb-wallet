@@ -203,11 +203,11 @@ public class MainActivity extends BaseActivity implements
 				break;
 			}
 			case SIGNATURE_PURPOSE_CCV: {
-				//TODO
+				seeSelectedCardCCV();
 				break;
 			}
 			case SIGNATURE_PURPOSE_PIN: {
-				//TODO
+				seeSelectedCardPIN();
 				break;
 			}
 			case SIGNATURE_PURPOSE_PAY_NOW: {
@@ -273,5 +273,13 @@ public class MainActivity extends BaseActivity implements
 				showErrorFragment(message);
 			}
 		});
+	}
+
+	private void seeSelectedCardCCV() {
+
+	}
+
+	private void seeSelectedCardPIN() {
+
 	}
 }

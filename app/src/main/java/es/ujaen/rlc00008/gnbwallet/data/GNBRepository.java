@@ -45,4 +45,8 @@ public interface GNBRepository {
 	void setFavorite(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
 
 	void unsetFavorite(CardDTO cardDTO, RepositoryCallback<CardDTO> callback);
+
+	void getPIN(CardDTO cardDTO, RepositoryCallback<String> callback);
+
+	void getCCV(CardDTO cardDTO, RepositoryCallback<String> callback);
 }
