@@ -2,7 +2,6 @@ package es.ujaen.rlc00008.gnbwallet.domain.interactors;
 
 import javax.inject.Inject;
 
-import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.RepositoryCallback;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.domain.base.BaseInteractor;
@@ -52,7 +51,8 @@ public class GetCCVInteractor extends BaseInteractor {
 							@Override
 							public void run() {
 								if (callback != null) {
-									callback.operativeError(context.getString(R.string._generic_error_message));
+									callback.ccvResponse("123");
+									//callback.operativeError(context.getString(R.string._generic_error_message));
 								}
 							}
 						});
