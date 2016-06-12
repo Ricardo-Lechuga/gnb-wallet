@@ -27,10 +27,10 @@ public class CardImages {
 				resId = R.drawable.black_green_card;
 				break;
 			case "3":
-				resId = R.drawable.blue_card;
+				resId = R.drawable.white_card;
 				break;
 			case "4":
-				resId = R.drawable.white_card;
+				resId = R.drawable.blue_card;
 				break;
 		}
 

@@ -17,7 +17,9 @@
 	<string name="_close">Cerrar</string>
 	<string name="_exit">Salir</string>
 	<string name="_reload_pg">Recargando Posición Global&#8230;</string>
-	<string name="_reload_pg_fail">Se ha producido un error al recargar la Posición Global. Posiblemente la aplicación no muestre información actualizada de tus productos.</string>
+	<string name="_reload_pg_fail">Se ha producido un error al recargar la Posición Global. Posiblemente la aplicación no muestre información actualizada de tus
+		productos.
+	</string>
 	<string name="_loading">Comprobando operación&#8230;</string>
 	<string name="_loading_detail">Cargando detalle&#8230;</string>
 	<string name="_loading_pdf">Descargando pdf&#8230;</string>
@@ -78,7 +80,9 @@
 	<string name="home_error_activate_before_favorite">Debes activar esta tarjeta antes de establecerla como favorita</string>
 
 	<!-- Operation Signature-->
-	<string name="operation_signature_enter">Introduce tu clave de coordenadas para el código\n<b>%1$s</b></string>
+	<string name="operation_signature_enter">Introduce tu clave de coordenadas para el código\n
+		<b>%1$s</b>
+	</string>
 	<string name="operation_signature_invalid">La clave de operaciones introducida no es válida. Por favor, vuelva a introducir su clave.</string>
 
 	<!-- Activate card-->
@@ -100,4 +104,11 @@
 	<string name="pin_see_again">Volver a ver</string>
 	<string name="pin_asterisk">****</string>
 
+	<!-- Timer-->
+	<string name="timer_5_sec">00:05</string>
+	<string name="timer_4_sec">00:04</string>
+	<string name="timer_3_sec">00:03</string>
+	<string name="timer_2_sec">00:02</string>
+	<string name="timer_1_sec">00:01</string>
+	<string name="timer_0_sec">00:00</string>
 </resources>

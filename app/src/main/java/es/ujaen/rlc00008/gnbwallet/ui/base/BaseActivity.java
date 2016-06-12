@@ -3,7 +3,6 @@ package es.ujaen.rlc00008.gnbwallet.ui.base;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -99,13 +98,25 @@ public abstract class BaseActivity extends AppCompatActivity implements
 		overridePendingTransition(0, 0);
 	}
 
-	protected void replaceFragment(Fragment fragment, View containerView, String backStackName) {
+	protected void replaceFragment(BaseFragment fragment, View containerView, String backStackName) {
 		getSupportFragmentManager()
 				.beginTransaction()
 				.addToBackStack(backStackName)
 				.replace(containerView.getId(), fragment)
 				.commit();
 		overridePendingTransition(0, 0);
+	}
+
+	protected void removeFragment(View containerView) {
+		try {
+			BaseFragment fragment = findFragmentById(containerView);
+			if (fragment != null) {
+				getSupportFragmentManager().beginTransaction()
+						.remove(getSupportFragmentManager().findFragmentById(containerView.getId())).commit();
+			}
+		} catch (Exception e) {
+			MyLog.printStackTrace(e);
+		}
 	}
 
 	protected BaseFragment findFragmentById(View containerView) {

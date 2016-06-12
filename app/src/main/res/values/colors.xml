@@ -15,6 +15,7 @@
 
 	<color name="ui_background_black">#2C3239</color>
 	<color name="ui_background_black_tabs">#191F28</color>
+	<color name="ui_background_black_selected_tab">#090B0F</color>
 	<color name="ui_background_gray">#F7F7F7</color>
 
 	<color name="ui_text_black">#3C433C</color>

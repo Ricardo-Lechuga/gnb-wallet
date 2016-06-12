@@ -20,11 +20,13 @@ import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.HomeFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.OperationSignatureFragment;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.PinFragment;
 
 public class MainActivity extends BaseActivity implements
 		GenericDialogFragment.GenericDialogListener,
 		HomeFragment.HomeListener,
-		OperationSignatureFragment.OperationSignatureListener {
+		OperationSignatureFragment.OperationSignatureListener,
+		PinFragment.PinListener {
 
 	public static void startActivity(Context context) {
 		context.startActivity(getStartIntent(context));
@@ -93,6 +95,7 @@ public class MainActivity extends BaseActivity implements
 		}
 		if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
 			// At least one fragment in back stack
+			removeFragment(contentFrame);
 			getSupportFragmentManager().popBackStack();
 			return;
 		}
@@ -219,6 +222,29 @@ public class MainActivity extends BaseActivity implements
 		}
 	}
 
+	@Override
+	public void pinSeeDetail() {
+
+	}
+
+	@Override
+	public void pinSeeCCV() {
+
+	}
+
+	@Override
+	public void pinClose() {
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+	}
+
+	@Override
+	public void pinSeeAgain() {
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+		generateChallenge(SIGNATURE_PURPOSE_PIN);
+	}
+
 	void generateChallenge(int signaturePurpose) {
 		this.signaturePurpose = signaturePurpose;
 		showLoading();
@@ -226,7 +252,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void challengePresented(String question) {
 				hideLoading();
-				replaceFragment(OperationSignatureFragment.newInstance(question), contentFrame, null);
+				replaceFragment(OperationSignatureFragment.newInstance(question), contentFrame, "s");
 			}
 
 			@Override
@@ -252,6 +278,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				removeFragment(contentFrame);
 				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
@@ -273,6 +300,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				removeFragment(contentFrame);
 				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
@@ -292,6 +320,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				removeFragment(contentFrame);
 				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
@@ -304,13 +333,13 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void pinResponse(String pin) {
 				hideLoading();
-				//TODO
-				Toast.makeText(MainActivity.this, "Pin: " + pin, Toast.LENGTH_SHORT).show();
+				replaceFragment(PinFragment.newInstance(selectedCard, pin), contentFrame);
 			}
 
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				removeFragment(contentFrame);
 				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
