@@ -92,12 +92,12 @@
 
 	<!-- CCV -->
 	<string name="ccv_info">Tu código CCV es:</string>
-	<string name="ccv_see_again">Volver a consultar</string>
+	<string name="ccv_see_again">Volver a ver</string>
 	<string name="ccv_asterisk">***</string>
 
 	<!-- Pin -->
 	<string name="pin_info">Tu código PIN es:</string>
-	<string name="pin_see_again">Volver a consultar</string>
+	<string name="pin_see_again">Volver a ver</string>
 	<string name="pin_asterisk">****</string>
 
 </resources>
