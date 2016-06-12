@@ -24,63 +24,63 @@ import es.ujaen.rlc00008.gnbwallet.ui.views.CardView;
 /**
  * Created by Ricardo on 12/6/16.
  */
-public class PinFragment extends BaseFragment {
+public class CCVFragment extends BaseFragment {
 
-	public interface PinListener {
+	public interface CCVListener {
 
-		void pinSeeDetail();
+		void ccvSeeDetail();
 
-		void pinSeeCCV();
+		void ccvSeePin();
 
-		void pinClose();
+		void ccvClose();
 
-		void pinSeeAgain();
+		void ccvSeeAgain();
 	}
 
-	private PinListener callback;
+	private CCVListener callback;
 
 	private Card card;
-	private String pin;
+	private String ccv;
 
 	private boolean firstLoad;
 
 	@BindView(R.id.toolbar_logout_imageview) ImageView logoutImageView;
-	@BindView(R.id.pin_card_layout) View pinCardLayout;
-	@BindView(R.id.pin_card_alias_textview) TextView aliasTextView;
-	@BindView(R.id.pin_card_branch_imageview) ImageView branchImageView;
-	@BindView(R.id.pin_debit_textview) TextView debitTextView;
-	@BindView(R.id.pin_credit_balance_imageview) ImageView creditBalanceImageView;
-	@BindView(R.id.pin_prepaid_view) View prepaidView;
-	@BindView(R.id.pin_prepaid_textview) TextView prepaidTextView;
-	@BindView(R.id.pin_info_textview) TextView pinInfoTextView;
-	@BindView(R.id.pin_timer_textview) TextView timerTextView;
-	@BindView(R.id.pin_buttons_view) View buttonsView;
+	@BindView(R.id.ccv_card_layout) View ccvCardLayout;
+	@BindView(R.id.ccv_card_alias_textview) TextView aliasTextView;
+	@BindView(R.id.ccv_card_branch_imageview) ImageView branchImageView;
+	@BindView(R.id.ccv_debit_textview) TextView debitTextView;
+	@BindView(R.id.ccv_credit_balance_imageview) ImageView creditBalanceImageView;
+	@BindView(R.id.ccv_prepaid_view) View prepaidView;
+	@BindView(R.id.ccv_prepaid_textview) TextView prepaidTextView;
+	@BindView(R.id.ccv_info_textview) TextView ccvInfoTextView;
+	@BindView(R.id.ccv_timer_textview) TextView timerTextView;
+	@BindView(R.id.ccv_buttons_view) View buttonsView;
 
-	@OnClick(R.id.pin_detail_textview)
+	@OnClick(R.id.ccv_detail_textview)
 	void detailClick() {
-		callback.pinSeeDetail();
+		callback.ccvSeeDetail();
 	}
 
-	@OnClick(R.id.pin_ccv_textview)
+	@OnClick(R.id.ccv_pin_textview)
 	void ccvClick() {
-		callback.pinSeeCCV();
+		callback.ccvSeePin();
 	}
 
-	@OnClick(R.id.pin_close_button)
+	@OnClick(R.id.ccv_close_button)
 	void closeClick() {
-		callback.pinClose();
+		callback.ccvClose();
 	}
 
-	@OnClick(R.id.pin_see_again_button)
+	@OnClick(R.id.ccv_see_again_button)
 	void seeAgainClick() {
-		callback.pinSeeAgain();
+		callback.ccvSeeAgain();
 	}
 
-	public static PinFragment newInstance(Card card, String pin) {
-		PinFragment fragment = new PinFragment();
+	public static CCVFragment newInstance(Card card, String ccv) {
+		CCVFragment fragment = new CCVFragment();
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("card", card);
-		bundle.putString("pin", pin);
+		bundle.putString("ccv", ccv);
 		fragment.setArguments(bundle);
 		return fragment;
 	}
@@ -88,9 +88,9 @@ public class PinFragment extends BaseFragment {
 	@Override
 	public void onAttach(Context context) {
 		try {
-			callback = (PinListener) context;
+			callback = (CCVListener) context;
 		} catch (ClassCastException e) {
-			throw new RuntimeException(context + " must implement PinListener!");
+			throw new RuntimeException(context + " must implement CCVListener!");
 		}
 		super.onAttach(context);
 	}
@@ -99,7 +99,7 @@ public class PinFragment extends BaseFragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		card = getArguments().getParcelable("card");
-		pin = getArguments().getString("pin");
+		ccv = getArguments().getString("ccv");
 		if (savedInstanceState != null) {
 			firstLoad = false;
 		} else {
@@ -109,13 +109,13 @@ public class PinFragment extends BaseFragment {
 
 	@Override
 	protected int getContentView() {
-		return R.layout.fragment_pin;
+		return R.layout.fragment_ccv;
 	}
 
 	@Override
 	protected void prepareInterface(View mainView) {
 
-		CardView.paint(pinCardLayout, card);
+		CardView.paint(ccvCardLayout, card);
 
 		aliasTextView.setText(card.getAlias());
 
@@ -130,9 +130,9 @@ public class PinFragment extends BaseFragment {
 		}
 
 		if (firstLoad) {
-			showPin();
+			showCCV();
 		} else {
-			hidePin();
+			hideCCV();
 		}
 	}
 
@@ -176,8 +176,8 @@ public class PinFragment extends BaseFragment {
 		prepaidView.setVisibility(View.VISIBLE);
 	}
 
-	private void hidePin() {
-		pinInfoTextView.setText(R.string.pin_asterisk);
+	private void hideCCV() {
+		ccvInfoTextView.setText(R.string.ccv_asterisk);
 		timerTextView.setText(R.string.timer_0_sec);
 
 		// Prepare the View for the animation
@@ -191,8 +191,8 @@ public class PinFragment extends BaseFragment {
 				.alpha(1.0f);
 	}
 
-	private void showPin() {
-		pinInfoTextView.setText(pin);
+	private void showCCV() {
+		ccvInfoTextView.setText(ccv);
 		TimerTask timerTask = new TimerTask();
 		AsyncTaskExecutionHelper.executeParallel(timerTask);
 	}
@@ -214,7 +214,7 @@ public class PinFragment extends BaseFragment {
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			if (PinFragment.this.isAdded()) {
+			if (CCVFragment.this.isAdded()) {
 
 				final String timerText;
 
@@ -245,8 +245,8 @@ public class PinFragment extends BaseFragment {
 		@Override
 		protected void onPostExecute(Void aVoid) {
 			super.onPostExecute(aVoid);
-			if (PinFragment.this.isAdded()) {
-				hidePin();
+			if (CCVFragment.this.isAdded()) {
+				hideCCV();
 			}
 		}
 	}

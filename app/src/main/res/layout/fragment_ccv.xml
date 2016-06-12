@@ -41,10 +41,10 @@
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
-					android:background="@drawable/tab_background_selector"
+					android:background="@color/ui_background_black_selected_tab"
 					android:gravity="center"
 					android:text="@string/home_ccv"
-					android:textColor="@color/ui_text_light_gray"
+					android:textColor="@color/ui_green"
 					android:textSize="16dp"/>
 
 				<TextView
@@ -55,7 +55,7 @@
 					android:background="@drawable/tab_background_selector"
 					android:gravity="center"
 					android:text="@string/home_pin"
-					android:textColor="@color/ui_green"
+					android:textColor="@color/ui_text_light_gray"
 					android:textSize="16dp"/>
 
 			</LinearLayout>

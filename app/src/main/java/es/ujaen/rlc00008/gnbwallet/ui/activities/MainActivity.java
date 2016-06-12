@@ -18,6 +18,7 @@ import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CCVFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.HomeFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.OperationSignatureFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.PinFragment;
@@ -26,7 +27,8 @@ public class MainActivity extends BaseActivity implements
 		GenericDialogFragment.GenericDialogListener,
 		HomeFragment.HomeListener,
 		OperationSignatureFragment.OperationSignatureListener,
-		PinFragment.PinListener {
+		PinFragment.PinListener,
+		CCVFragment.CCVListener {
 
 	public static void startActivity(Context context) {
 		context.startActivity(getStartIntent(context));
@@ -224,12 +226,14 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void pinSeeDetail() {
-
+		//TODO Go Detail!
 	}
 
 	@Override
 	public void pinSeeCCV() {
-
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+		generateChallenge(SIGNATURE_PURPOSE_CCV);
 	}
 
 	@Override
@@ -243,6 +247,31 @@ public class MainActivity extends BaseActivity implements
 		removeFragment(contentFrame);
 		getSupportFragmentManager().popBackStack();
 		generateChallenge(SIGNATURE_PURPOSE_PIN);
+	}
+
+	@Override
+	public void ccvSeeDetail() {
+		//TODO Go Detail!
+	}
+
+	@Override
+	public void ccvSeePin() {
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+		generateChallenge(SIGNATURE_PURPOSE_PIN);
+	}
+
+	@Override
+	public void ccvClose() {
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+	}
+
+	@Override
+	public void ccvSeeAgain() {
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+		generateChallenge(SIGNATURE_PURPOSE_CCV);
 	}
 
 	void generateChallenge(int signaturePurpose) {
@@ -313,8 +342,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void ccvResponse(String ccv) {
 				hideLoading();
-				//TODO
-				Toast.makeText(MainActivity.this, "ccv: " + ccv, Toast.LENGTH_SHORT).show();
+				replaceFragment(CCVFragment.newInstance(selectedCard, ccv), contentFrame);
 			}
 
 			@Override
