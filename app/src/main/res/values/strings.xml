@@ -67,7 +67,7 @@
 	<!-- Home -->
 	<string name="home_detail">Detalle</string>
 	<string name="home_ccv">CCV</string>
-	<string name="home_pin">Pin</string>
+	<string name="home_pin">PIN</string>
 	<string name="home_activate">Activar</string>
 	<string name="home_activate_card">Activar tarjeta</string>
 	<string name="home_deactivate">Desactivar</string>
@@ -90,5 +90,14 @@
 	<string name="deactivate_confirm">Desactivar</string>
 	<string name="deactivate_ok">Tarjeta desactivada con éxito.\nPuedes volver a activarla en cualquier momento.</string>
 
+	<!-- CCV -->
+	<string name="ccv_info">Tu código CCV es:</string>
+	<string name="ccv_see_again">Volver a consultar</string>
+	<string name="ccv_asterisk">***</string>
+
+	<!-- Pin -->
+	<string name="pin_info">Tu código PIN es:</string>
+	<string name="pin_see_again">Volver a consultar</string>
+	<string name="pin_asterisk">****</string>
 
 </resources>

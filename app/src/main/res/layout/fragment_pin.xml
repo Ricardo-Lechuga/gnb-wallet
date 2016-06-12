@@ -26,7 +26,7 @@
 				android:weightSum="3">
 
 				<TextView
-					android:id="@+id/home_detail_textview"
+					android:id="@+id/pin_detail_textview"
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
@@ -37,7 +37,7 @@
 					android:textSize="16dp"/>
 
 				<TextView
-					android:id="@+id/home_ccv_textview"
+					android:id="@+id/pin_ccv_textview"
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
@@ -48,14 +48,14 @@
 					android:textSize="16dp"/>
 
 				<TextView
-					android:id="@+id/home_pin_textview"
+					android:id="@+id/pin_pin_textview"
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="1"
 					android:background="@drawable/tab_background_selector"
 					android:gravity="center"
 					android:text="@string/home_pin"
-					android:textColor="@color/ui_text_light_gray"
+					android:textColor="@color/ui_green"
 					android:textSize="16dp"/>
 
 			</LinearLayout>
@@ -66,7 +66,7 @@
 				android:background="@color/ui_white">
 
 				<TextView
-					android:id="@+id/home_card_alias_textview"
+					android:id="@+id/pin_card_alias_textview"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentLeft="true"
@@ -77,7 +77,7 @@
 					tools:text="Wisa Platinum"/>
 
 				<ImageView
-					android:id="@+id/home_card_branch_imageview"
+					android:id="@+id/pin_card_branch_imageview"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignParentRight="true"
@@ -93,8 +93,9 @@
 				android:background="@color/ui_background_gray"
 				android:gravity="center">
 
-				<android.support.v4.view.ViewPager
-					android:id="@+id/home_cards_viewpager"
+				<include
+					layout="@layout/view_card_pager"
+					android:id="@+id/pin_card_layout"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/cards_pager_heigth"
 					android:layout_marginBottom="5dp"
@@ -108,7 +109,7 @@
 				android:background="@color/ui_white">
 
 				<TextView
-					android:id="@+id/home_debit_textview"
+					android:id="@+id/pin_debit_textview"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_centerInParent="true"
@@ -119,7 +120,7 @@
 					tools:visibility="gone"/>
 
 				<ImageView
-					android:id="@+id/home_credit_balance_imageview"
+					android:id="@+id/pin_credit_balance_imageview"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_centerInParent="true"
@@ -128,7 +129,7 @@
 					tools:visibility="gone"/>
 
 				<LinearLayout
-					android:id="@+id/home_prepaid_view"
+					android:id="@+id/pin_prepaid_view"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_centerInParent="true"
@@ -138,7 +139,7 @@
 					tools:visibility="visible">
 
 					<TextView
-						android:id="@+id/home_prepaid_label"
+						android:id="@+id/pin_prepaid_label"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:fontFamily="@string/font_fontFamily_light"
@@ -147,7 +148,7 @@
 						android:textSize="22dp"/>
 
 					<TextView
-						android:id="@+id/home_prepaid_textview"
+						android:id="@+id/pin_prepaid_textview"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="16dp"
@@ -159,131 +160,118 @@
 
 			</RelativeLayout>
 
-			<LinearLayout
+			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="76dp"
+				android:layout_height="96dp"
 				android:background="@color/ui_white"
-				android:orientation="horizontal"
-				android:weightSum="3">
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp">
+
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:scaleType="fitXY"
+					android:src="@drawable/bground_pin_ccv"/>
 
 				<LinearLayout
-					android:id="@+id/home_activation_clickable_view"
-					android:layout_width="0dp"
+					android:id="@+id/pin_timer_view"
+					android:layout_width="92dp"
 					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:background="@drawable/white_item_background_selector"
-					android:clickable="true"
+					android:layout_alignParentRight="true"
 					android:gravity="center"
 					android:orientation="vertical">
 
 					<ImageView
-						android:id="@+id/home_activation_icon_imageview"
-						android:layout_width="40dp"
-						android:layout_height="30dp"
-						android:scaleType="centerInside"
-						tools:src="@drawable/icn_activate"/>
-
-					<TextView
-						android:id="@+id/home_activation_textview"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:src="@drawable/icn_timer"/>
+
+					<TextView android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
 						android:layout_marginTop="10dp"
-						android:textColor="@color/ui_text_gray"
-						android:textSize="14dp"
-						tools:text="@string/home_activate"/>
+						android:fontFamily="@string/font_fontFamily_light"
+						android:textColor="@color/ui_red"
+						android:textSize="16dp"
+						tools:text="00:03"/>
 
 				</LinearLayout>
 
 				<View
+					android:id="@+id/pin_timer_divider"
 					android:layout_width="1dp"
 					android:layout_height="match_parent"
+					android:layout_marginBottom="10dp"
+					android:layout_marginTop="10dp"
+					android:layout_toLeftOf="@+id/pin_timer_view"
 					android:background="@color/ui_divider"/>
 
 				<LinearLayout
-					android:id="@+id/home_transactions_clickable_view"
-					android:layout_width="0dp"
+					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:background="@drawable/white_item_background_selector"
-					android:clickable="true"
-					android:gravity="center"
-					android:orientation="vertical">
-
-					<ImageView
-						android:id="@+id/home_transactions_icon_imageview"
-						android:layout_width="40dp"
-						android:layout_height="30dp"
-						android:scaleType="centerInside"
-						android:src="@drawable/icn_moves_on"/>
+					android:layout_toLeftOf="@+id/pin_timer_divider"
+					android:gravity="center_vertical|left"
+					android:orientation="vertical"
+					android:paddingLeft="21dp">
 
 					<TextView
-						android:id="@+id/home_transactions_textview"
+						android:id="@+id/pin_info_label"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_marginTop="10dp"
-						android:text="@string/home_transactions"
+						android:fontFamily="@string/font_fontFamily_medium"
+						android:text="@string/pin_info"
 						android:textColor="@color/ui_text_gray"
-						android:textSize="14dp"/>
+						android:textSize="13dp"/>
+
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="8dp"
+						android:gravity="center"
+						android:orientation="horizontal">
+
+						<ImageView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:src="@drawable/icn_pin"/>
+
+						<TextView
+							android:id="@+id/pin_info_textview"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="10dp"
+							android:fontFamily="@string/font_fontFamily_light"
+							android:textColor="@color/ui_text_black"
+							android:textSize="43dp"
+							tools:text="7153"/>
+
+					</LinearLayout>
 
 				</LinearLayout>
 
-				<View
-					android:layout_width="1dp"
-					android:layout_height="match_parent"
-					android:background="@color/ui_divider"/>
-
-				<LinearLayout
-					android:id="@+id/home_favorite_clickable_view"
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:background="@drawable/white_item_background_selector"
-					android:clickable="true"
-					android:gravity="center"
-					android:orientation="vertical">
-
-					<ImageView
-						android:id="@+id/home_favorite_icon_imageview"
-						android:layout_width="40dp"
-						android:layout_height="30dp"
-						android:scaleType="centerInside"
-						tools:src="@drawable/icn_favs_off"/>
-
-					<TextView
-						android:id="@+id/home_favorite_textview"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginTop="10dp"
-						android:text="@string/home_favorite"
-						android:textColor="@color/ui_text_gray"
-						android:textSize="14dp"/>
-
-				</LinearLayout>
-
-			</LinearLayout>
+			</RelativeLayout>
 
 			<LinearLayout
+				android:id="@+id/pin_buttons_view"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:background="@color/ui_white"
 				android:gravity="bottom"
-				android:orientation="vertical">
+				android:orientation="horizontal">
 
 				<Button
-					android:id="@+id/home_activate_button"
-					android:layout_width="match_parent"
+					android:id="@+id/pin_close_button"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="10dp"
-					android:text="@string/home_activate_card"
-					android:visibility="gone"
+					android:layout_weight="1"
+					android:text="@string/_close"
 					style="@style/AppButton.Black"/>
 
 				<Button
-					android:id="@+id/home_pay_button"
-					android:layout_width="match_parent"
+					android:id="@+id/pin_see_again_button"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="10dp"
-					android:text="@string/home_pay"
+					android:layout_weight="1"
+					android:text="@string/pin_see_again"
 					style="@style/AppButton.Green"/>
 
 			</LinearLayout>

@@ -11,6 +11,7 @@
 
 	<color name="ui_white">#FFFFFF</color>
 	<color name="ui_green">#06BEBD</color>
+	<color name="ui_red">#EC0000</color>
 
 	<color name="ui_background_black">#2C3239</color>
 	<color name="ui_background_black_tabs">#191F28</color>
