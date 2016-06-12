@@ -252,6 +252,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
 		});
@@ -272,6 +273,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
 		});
@@ -290,6 +292,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
 		});
@@ -308,6 +311,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void operativeError(String message) {
 				hideLoading();
+				getSupportFragmentManager().popBackStack();
 				showErrorFragment(message);
 			}
 		});
