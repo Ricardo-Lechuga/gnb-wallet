@@ -28,7 +28,7 @@
 		android:paddingRight="20dp">
 
 		<TextView
-			android:id="@+id/card_alias"
+			android:id="@+id/card_alias_textview"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="left"
@@ -37,10 +37,10 @@
 			tools:text="Wisa Professional"/>
 
 		<TextView
-			android:id="@+id/card_pan"
+			android:id="@+id/card_pan_textview"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="6dp"
+			android:layout_marginTop="2dp"
 			android:fontFamily="@string/font_fontFamily_medium"
 			android:gravity="left"
 			android:textColor="@color/ui_text_gray"

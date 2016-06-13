@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import java.util.List;
-
 import butterknife.BindView;
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
@@ -16,13 +14,12 @@ import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCCVInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetPinInteractor;
-import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetTransactionsInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
-import es.ujaen.rlc00008.gnbwallet.domain.model.CardTransaction;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CCVFragment;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CardTransactionsFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.HomeFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.OperationSignatureFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.PinFragment;
@@ -32,7 +29,8 @@ public class MainActivity extends BaseActivity implements
 		HomeFragment.HomeListener,
 		OperationSignatureFragment.OperationSignatureListener,
 		PinFragment.PinListener,
-		CCVFragment.CCVListener {
+		CCVFragment.CCVListener,
+		CardTransactionsFragment.CardTransactionsListener {
 
 	public static void startActivity(Context context) {
 		context.startActivity(getStartIntent(context));
@@ -192,21 +190,7 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void homeTransactionsSelected(Card card) {
 		selectedCard = card;
-		//TODO!
-		showLoading();
-		getTransactionsInteractor.getTransactions(selectedCard, new GetTransactionsInteractor.GetTransactionsCallback() {
-			@Override
-			public void transactionsResponse(List<CardTransaction> cardTransactions) {
-				hideLoading();
-				Toast.makeText(MainActivity.this, "OK! Size: " + cardTransactions.size(), Toast.LENGTH_SHORT).show();
-			}
-
-			@Override
-			public void operativeError(String message) {
-				hideLoading();
-				showErrorFragment(message);
-			}
-		});
+		replaceFragment(CardTransactionsFragment.newInstance(selectedCard), contentFrame, "");
 	}
 
 	@Override
@@ -291,6 +275,12 @@ public class MainActivity extends BaseActivity implements
 		generateChallenge(SIGNATURE_PURPOSE_CCV);
 	}
 
+	@Override
+	public void cardTransactionsClose() {
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+	}
+
 	void generateChallenge(int signaturePurpose) {
 		this.signaturePurpose = signaturePurpose;
 		showLoading();
@@ -298,7 +288,7 @@ public class MainActivity extends BaseActivity implements
 			@Override
 			public void challengePresented(String question) {
 				hideLoading();
-				replaceFragment(OperationSignatureFragment.newInstance(question), contentFrame, "s");
+				replaceFragment(OperationSignatureFragment.newInstance(question), contentFrame, "");
 			}
 
 			@Override
