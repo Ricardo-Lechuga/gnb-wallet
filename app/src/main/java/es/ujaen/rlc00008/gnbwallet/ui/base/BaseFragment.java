@@ -22,6 +22,7 @@ import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCCVInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetPinInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetTransactionsInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
@@ -51,6 +52,7 @@ public abstract class BaseFragment extends Fragment implements
 	@Inject protected UnsetFavoriteInteractor unsetFavoriteInteractor;
 	@Inject protected GetPinInteractor getPinInteractor;
 	@Inject protected GetCCVInteractor getCCVInteractor;
+	@Inject protected GetTransactionsInteractor getTransactionsInteractor;
 
 	protected ProgressDialog progressDialog;
 

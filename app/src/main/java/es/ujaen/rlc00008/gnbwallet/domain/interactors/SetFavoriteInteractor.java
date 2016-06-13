@@ -2,6 +2,7 @@ package es.ujaen.rlc00008.gnbwallet.domain.interactors;
 
 import javax.inject.Inject;
 
+import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.RepositoryCallback;
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
@@ -53,6 +54,7 @@ public class SetFavoriteInteractor extends BaseInteractor {
 
 					@Override
 					public void genericException(Throwable t) {
+						MyLog.printStackTrace(t);
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {

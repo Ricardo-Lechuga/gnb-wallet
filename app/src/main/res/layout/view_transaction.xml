@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="66dp"
+		android:background="@color/ui_white"
+		android:paddingLeft="20dp"
+		android:paddingRight="20dp">
+
+		<TextView
+			android:id="@+id/transaction_amount_textview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:fontFamily="@string/font_fontFamily_light"
+			android:textColor="@color/ui_text_dark_black"
+			android:textSize="20dp"
+			tools:text="1.324,32 €"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_toLeftOf="@+id/transaction_amount_textview"
+			android:gravity="left|center_vertical"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/transaction_operation_date_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:fontFamily="@string/font_fontFamily_medium"
+				android:gravity="left"
+				android:textColor="@color/ui_text_gray"
+				android:textSize="14dp"
+				tools:text="3 NOV 2016"/>
+
+			<TextView
+				android:id="@+id/transaction_description_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="6dp"
+				android:textColor="@color/ui_text_black"
+				android:textSize="14dp"
+				tools:text="Pub &amp; Restaurant McLaren\'s"/>
+
+		</LinearLayout>
+
+	</RelativeLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@color/ui_divider"/>
+
+</LinearLayout>

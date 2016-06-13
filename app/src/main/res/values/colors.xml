@@ -19,6 +19,7 @@
 	<color name="ui_background_gray">#F7F7F7</color>
 
 	<color name="ui_text_black">#3C433C</color>
+	<color name="ui_text_dark_black">#11151C</color>
 	<color name="ui_text_gray">#818B92</color>
 	<color name="ui_text_light_gray">#B3BDC2</color>
 

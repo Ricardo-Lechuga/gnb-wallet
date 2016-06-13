@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="90dp"
+	android:background="@color/ui_background_gray"
+	android:orientation="horizontal">
+
+	<FrameLayout
+		android:layout_width="120dp"
+		android:layout_height="match_parent">
+
+		<ImageView
+			android:id="@+id/card_imageview"
+			android:layout_width="93dp"
+			android:layout_height="59dp"
+			android:layout_gravity="center"
+			android:scaleType="centerInside"
+			tools:src="@drawable/black_card"/>
+
+	</FrameLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:gravity="center_vertical"
+		android:orientation="vertical"
+		android:paddingRight="20dp">
+
+		<TextView
+			android:id="@+id/card_alias"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="left"
+			android:textColor="@color/ui_text_black"
+			android:textSize="16dp"
+			tools:text="Wisa Professional"/>
+
+		<TextView
+			android:id="@+id/card_pan"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="6dp"
+			android:fontFamily="@string/font_fontFamily_medium"
+			android:gravity="left"
+			android:textColor="@color/ui_text_gray"
+			android:textSize="14dp"
+			tools:text="1234 2345 3456 4567"/>
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="25dp">
+
+			<TextView
+				android:id="@+id/card_debit_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:text="@string/_debit"
+				android:textColor="@color/ui_text_black"
+				android:textSize="20dp"
+				android:visibility="gone"
+				tools:visibility="visible"/>
+
+			<ImageView
+				android:id="@+id/card_credit_balance_imageview"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:layout_marginTop="6dp"
+				android:scaleType="centerInside"
+				android:visibility="gone"
+				tools:src="@drawable/bground_progress_2"
+				tools:visibility="gone"/>
+
+			<TextView
+				android:id="@+id/card_prepaid_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:textColor="@color/ui_text_black"
+				android:textSize="20dp"
+				android:visibility="gone"
+				tools:text="12,35€"
+				tools:visibility="gone"/>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
+</LinearLayout>

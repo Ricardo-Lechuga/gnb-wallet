@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
@@ -14,7 +16,9 @@ import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCCVInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetPinInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetTransactionsInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
+import es.ujaen.rlc00008.gnbwallet.domain.model.CardTransaction;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
@@ -189,7 +193,20 @@ public class MainActivity extends BaseActivity implements
 	public void homeTransactionsSelected(Card card) {
 		selectedCard = card;
 		//TODO!
-		Toast.makeText(this, "Transactions!", Toast.LENGTH_SHORT).show();
+		showLoading();
+		getTransactionsInteractor.getTransactions(selectedCard, new GetTransactionsInteractor.GetTransactionsCallback() {
+			@Override
+			public void transactionsResponse(List<CardTransaction> cardTransactions) {
+				hideLoading();
+				Toast.makeText(MainActivity.this, "OK! Size: " + cardTransactions.size(), Toast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			public void operativeError(String message) {
+				hideLoading();
+				showErrorFragment(message);
+			}
+		});
 	}
 
 	@Override

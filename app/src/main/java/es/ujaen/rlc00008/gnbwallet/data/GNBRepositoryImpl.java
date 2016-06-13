@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.data.entities.CardTransactionDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.ChallengeDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.FallbackMemory;
@@ -21,6 +22,7 @@ import es.ujaen.rlc00008.gnbwallet.data.source.net.GNBServices;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.ResponseWrapper;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CCVResponse;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CardTransactionsResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
@@ -357,6 +359,30 @@ public class GNBRepositoryImpl implements GNBRepository {
 
 			@Override
 			public void onFailure(Call<ResponseWrapper<CCVResponse>> call, Throwable t) {
+				callback.genericException(t);
+			}
+		});
+	}
+
+	@Override
+	public void getCardTransactions(CardDTO cardDTO, final RepositoryCallback<List<CardTransactionDTO>> callback) {
+		Call<ResponseWrapper<CardTransactionsResponse>> call = gnbServices.getCardTransactions(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<CardTransactionsResponse>>() {
+			@Override
+			public void onResponse(Call<ResponseWrapper<CardTransactionsResponse>> call, Response<ResponseWrapper<CardTransactionsResponse>> response) {
+				if (response.isSuccessful()) {
+					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
+						callback.resultOk(response.body().getResponse().getTransactions());
+					} else {
+						callback.resultError(response.body().getMeta());
+					}
+				} else {
+					callback.genericException(new RuntimeException(response.errorBody().toString()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<ResponseWrapper<CardTransactionsResponse>> call, Throwable t) {
 				callback.genericException(t);
 			}
 		});

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.data.entities.CardTransactionDTO;
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
@@ -49,4 +50,6 @@ public interface GNBRepository {
 	void getPIN(CardDTO cardDTO, String operationSignature, RepositoryCallback<String> callback);
 
 	void getCCV(CardDTO cardDTO, String operationSignature, RepositoryCallback<String> callback);
+
+	void getCardTransactions(CardDTO cardDTO, RepositoryCallback<List<CardTransactionDTO>> callback);
 }

@@ -2,6 +2,7 @@ package es.ujaen.rlc00008.gnbwallet.domain.interactors;
 
 import javax.inject.Inject;
 
+import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.data.RepositoryCallback;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.domain.base.BaseInteractor;
@@ -47,6 +48,7 @@ public class GetCCVInteractor extends BaseInteractor {
 
 					@Override
 					public void genericException(Throwable t) {
+						MyLog.printStackTrace(t);
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
