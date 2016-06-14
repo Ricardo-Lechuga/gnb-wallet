@@ -111,4 +111,9 @@
 	<string name="timer_2_sec">00:02</string>
 	<string name="timer_1_sec">00:01</string>
 	<string name="timer_0_sec">00:00</string>
+
+	<!-- Card Transactions-->
+	<string name="card_transactions_empty">No hay movimientos</string>
+	<string name="card_transactions_end_list">No hay más movimientos</string>
+
 </resources>

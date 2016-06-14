@@ -281,6 +281,11 @@ public class MainActivity extends BaseActivity implements
 		getSupportFragmentManager().popBackStack();
 	}
 
+	@Override
+	public void cardTransactionsLogout() {
+		askForLogout();
+	}
+
 	void generateChallenge(int signaturePurpose) {
 		this.signaturePurpose = signaturePurpose;
 		showLoading();
