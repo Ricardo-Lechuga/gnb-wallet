@@ -116,4 +116,17 @@
 	<string name="card_transactions_empty">No hay movimientos</string>
 	<string name="card_transactions_end_list">No hay más movimientos</string>
 
+	<!-- Card Detail-->
+	<string name="card_detail_expiration_date">Fecha caducidad</string>
+	<string name="card_detail_beneficiary">Beneficiario</string>
+	<string name="card_detail_status">Situación</string>
+	<string name="card_detail_status_activated">Activada</string>
+	<string name="card_detail_status_deactivated">Desactivada</string>
+	<string name="card_detail_nfc">Pagos NFC</string>
+	<string name="card_detail_type">Tipo Tarjeta</string>
+	<string name="card_detail_balance">Saldo actual</string>
+	<string name="card_detail_current_balance">Saldo dispuesto</string>
+	<string name="card_detail_available_amount">Saldo disponible</string>
+	<string name="card_detail_credit_limit">Límite de crédito</string>
+
 </resources>

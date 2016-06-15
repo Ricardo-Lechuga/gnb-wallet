@@ -3,7 +3,6 @@ package es.ujaen.rlc00008.gnbwallet.ui.fragments.landing;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
@@ -62,8 +61,7 @@ public class SplashFragment extends BaseFragment implements
 
 	@Override
 	public void operativeError(String message) {
-		//TODO Dialog
-		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+		showErrorFragment(message);
 	}
 
 }

@@ -5,6 +5,7 @@
 	<color name="colorAccent">@color/ui_green</color>
 
 	<color name="ui_divider">#C8C8C8</color>
+	<color name="ui_divider_light">#F0F0F0</color>
 
 	<color name="ui_translucent">#E02C3239</color>
 	<color name="ui_black_semi_transparent">#40000000</color>

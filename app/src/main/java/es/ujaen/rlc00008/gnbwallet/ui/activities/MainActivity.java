@@ -19,6 +19,7 @@ import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CCVFragment;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CardDetailFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CardTransactionsFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.HomeFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.OperationSignatureFragment;
@@ -30,7 +31,8 @@ public class MainActivity extends BaseActivity implements
 		OperationSignatureFragment.OperationSignatureListener,
 		PinFragment.PinListener,
 		CCVFragment.CCVListener,
-		CardTransactionsFragment.CardTransactionsListener {
+		CardTransactionsFragment.CardTransactionsListener,
+		CardDetailFragment.CardDetailListener {
 
 	public static void startActivity(Context context) {
 		context.startActivity(getStartIntent(context));
@@ -155,8 +157,7 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void homeDetailSelected(Card card) {
 		selectedCard = card;
-		//TODO!
-		Toast.makeText(this, "Go Detail!", Toast.LENGTH_SHORT).show();
+		replaceFragment(CardDetailFragment.newInstance(selectedCard), contentFrame, "");
 	}
 
 	@Override
@@ -196,7 +197,9 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void homePay(Card card) {
 		selectedCard = card;
-		generateChallenge(SIGNATURE_PURPOSE_PAY_NOW);
+		//TODO
+		Toast.makeText(this, "Operativa no disponible!", Toast.LENGTH_SHORT).show();
+		//generateChallenge(SIGNATURE_PURPOSE_PAY_NOW);
 	}
 
 	@Override
@@ -219,7 +222,7 @@ public class MainActivity extends BaseActivity implements
 				break;
 			}
 			case SIGNATURE_PURPOSE_PAY_NOW: {
-				//TODO
+				//TODO ?
 				break;
 			}
 		}
@@ -227,7 +230,7 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void pinSeeDetail() {
-		//TODO Go Detail!
+		replaceFragment(CardDetailFragment.newInstance(selectedCard), contentFrame);
 	}
 
 	@Override
@@ -252,7 +255,7 @@ public class MainActivity extends BaseActivity implements
 
 	@Override
 	public void ccvSeeDetail() {
-		//TODO Go Detail!
+		replaceFragment(CardDetailFragment.newInstance(selectedCard), contentFrame);
 	}
 
 	@Override
@@ -279,6 +282,17 @@ public class MainActivity extends BaseActivity implements
 	public void cardTransactionsClose() {
 		removeFragment(contentFrame);
 		getSupportFragmentManager().popBackStack();
+	}
+
+	@Override
+	public void cardDetailClose() {
+		removeFragment(contentFrame);
+		getSupportFragmentManager().popBackStack();
+	}
+
+	@Override
+	public void cardDetailLogout() {
+		askForLogout();
 	}
 
 	@Override

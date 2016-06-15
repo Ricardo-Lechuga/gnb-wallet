@@ -5,9 +5,15 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
+import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.data.entities.CardDTO;
+import es.ujaen.rlc00008.gnbwallet.domain.model.factories.GNBLocale;
 
 /**
  * Created by Ricardo on 3/6/16.
@@ -92,6 +98,21 @@ public abstract class Card implements Parcelable {
 		}
 
 		return brandType;
+	}
+
+	@Nullable
+	public Calendar getExpirationDateCalendar() {
+		Calendar expirationDateCalendar = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-yy", GNBLocale.get());
+		try {
+			Date expirationDate = sdf.parse(cardDTO.getExpirationDate());
+			expirationDateCalendar = Calendar.getInstance(GNBLocale.get());
+			expirationDateCalendar.setTime(expirationDate);
+			expirationDateCalendar.set(Calendar.DAY_OF_MONTH, expirationDateCalendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		} catch (ParseException e) {
+			MyLog.printStackTrace(e);
+		}
+		return expirationDateCalendar;
 	}
 
 	@Override

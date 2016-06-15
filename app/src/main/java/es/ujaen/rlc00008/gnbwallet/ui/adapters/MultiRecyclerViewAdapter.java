@@ -9,6 +9,7 @@ import java.util.List;
 
 import es.ujaen.rlc00008.gnbwallet.ui.adapters.types.RecyclerViewItem;
 import es.ujaen.rlc00008.gnbwallet.ui.adapters.types.RecyclerViewType;
+import es.ujaen.rlc00008.gnbwallet.ui.adapters.types.items.StringPairItem;
 import es.ujaen.rlc00008.gnbwallet.ui.adapters.types.items.TransactionItem;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseViewHolder;
 
@@ -84,6 +85,9 @@ public abstract class MultiRecyclerViewAdapter extends RecyclerView.Adapter<Base
 			case EMPTY:
 				baseViewHolder = onCreateEmptyHolder(parent);
 				break;
+			case STRING_PAIR:
+				baseViewHolder = onCreateStringPairHolder(parent);
+				break;
 			default:
 				throw new RuntimeException("value: " + viewType + " not supported in MultiRecyclerViewAdapter!");
 		}
@@ -106,6 +110,9 @@ public abstract class MultiRecyclerViewAdapter extends RecyclerView.Adapter<Base
 				break;
 			case EMPTY:
 				onBindEmptyHolder(holder, position);
+				break;
+			case STRING_PAIR:
+				onBindStringPairHolder(holder, (StringPairItem) items.get(position), position);
 				break;
 		}
 	}
@@ -132,5 +139,13 @@ public abstract class MultiRecyclerViewAdapter extends RecyclerView.Adapter<Base
 
 	protected void onBindEmptyHolder(BaseViewHolder holder, int position) {
 		throw new RuntimeException("RecyclerViewType.EMPTY not supported in current adapter! Did you forget to override onBindEmptyHolder()?");
+	}
+
+	protected BaseViewHolder onCreateStringPairHolder(ViewGroup parent) {
+		throw new RuntimeException("RecyclerViewType.STRING_PAIR not supported in current adapter! Did you forget to override onCreateStringPairHolder()?");
+	}
+
+	protected void onBindStringPairHolder(BaseViewHolder holder, StringPairItem stringPairItem, int position) {
+		throw new RuntimeException("RecyclerViewType.STRING_PAIR not supported in current adapter! Did you forget to override onBindStringPairHolder()?");
 	}
 }

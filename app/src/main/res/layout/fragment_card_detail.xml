@@ -14,10 +14,17 @@
 		android:layout_width="match_parent"
 		android:layout_height="90dp"/>
 
-	<android.support.v7.widget.RecyclerView
-		android:id="@+id/card_transactions_recyclerview"
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		tools:listitem="@layout/view_transaction_item"/>
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/card_detail_recyclerview"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:listitem="@layout/view_detail_item"/>
+
+	</LinearLayout>
 
 </LinearLayout>

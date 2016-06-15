@@ -11,7 +11,8 @@ public enum RecyclerViewType {
 
 	TRANSACTION(0),
 	END_LIST(1),
-	EMPTY(2);
+	EMPTY(2),
+	STRING_PAIR(3);
 
 	private final int value;
 

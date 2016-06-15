@@ -25,7 +25,7 @@ public class CardTransactionsAdapter extends MultiRecyclerViewAdapter {
 
 	@Override
 	protected BaseViewHolder onCreateTransactionViewHolder(ViewGroup parent) {
-		View view = LayoutInflater.from(context).inflate(R.layout.view_transaction, parent, false);
+		View view = LayoutInflater.from(context).inflate(R.layout.view_transaction_item, parent, false);
 		return new CardTransactionViewHolder(context, view);
 	}
 
