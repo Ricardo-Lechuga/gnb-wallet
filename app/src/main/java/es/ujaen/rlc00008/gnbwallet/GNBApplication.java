@@ -2,8 +2,6 @@ package es.ujaen.rlc00008.gnbwallet;
 
 import android.support.multidex.MultiDexApplication;
 
-import net.sqlcipher.database.SQLiteDatabase;
-
 import es.ujaen.rlc00008.gnbwallet.di.components.ApplicationComponent;
 import es.ujaen.rlc00008.gnbwallet.di.components.DaggerApplicationComponent;
 import es.ujaen.rlc00008.gnbwallet.di.modules.ApplicationModule;
@@ -26,9 +24,6 @@ public class GNBApplication extends MultiDexApplication {
 				.applicationModule(new ApplicationModule(this))
 				.build();
 
-		MyLog.i(LOG_TAG, "Loading SQL-Cipher libs...");
-		SQLiteDatabase.loadLibs(this);
-		MyLog.i(LOG_TAG, "Loaded SQL-Cipher libs!");
 	}
 
 	public ApplicationComponent component() {

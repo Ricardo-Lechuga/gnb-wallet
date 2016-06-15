@@ -141,7 +141,6 @@ android {
 dependencies {
 
 	// Attached libs
-	compile files('libs/sqlcipher.jar')
 	compile files('libs/valnif.jar')
 
 	// Android dependencies

@@ -1,14 +1,12 @@
 package es.ujaen.rlc00008.gnbwallet.data.source.persistence.db;
 
 import android.content.Context;
-
-import net.sqlcipher.database.SQLiteDatabase;
-import net.sqlcipher.database.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import es.ujaen.rlc00008.gnbwallet.MyLog;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.cards.CardPersistenceContract;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.user.UserPersistenceContract;
-import es.ujaen.rlc00008.gnbwallet.data.Installation;
 
 /**
  * La clase GNBCipheredDatabase representa la base de datos de nuestro sistema. Los
@@ -65,13 +63,9 @@ public class GNBCipheredDatabase extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-	public static String getDBPassword(Context context) {
-		return Installation.id(context);
-	}
-
 	public static void deleteAllData(Context context) {
 		MyLog.d(LOG_TAG, "Deleting all data...");
-		SQLiteDatabase db = new GNBCipheredDatabase(context).getWritableDatabase(getDBPassword(context));
+		SQLiteDatabase db = new GNBCipheredDatabase(context).getWritableDatabase();
 		db.delete(UserPersistenceContract.Entry.TABLE_NAME, "1", null);
 		db.delete(CardPersistenceContract.Entry.TABLE_NAME, "1", null);
 		db.close();

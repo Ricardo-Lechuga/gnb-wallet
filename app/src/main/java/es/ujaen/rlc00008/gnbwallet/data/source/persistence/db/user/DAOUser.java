@@ -3,8 +3,7 @@ package es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.user;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-
-import net.sqlcipher.database.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase;
 
 import es.ujaen.rlc00008.gnbwallet.data.entities.UserDTO;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.GNBCipheredDatabase;
@@ -44,7 +43,7 @@ public class DAOUser {
 
 	public static boolean setUser(Context context, GNBCipheredDatabase gnbCipheredDatabase, UserDTO userDTO) {
 		ContentValues values = userDTOToContentValues(userDTO);
-		SQLiteDatabase database = gnbCipheredDatabase.getWritableDatabase(GNBCipheredDatabase.getDBPassword(context));
+		SQLiteDatabase database = gnbCipheredDatabase.getWritableDatabase();
 		Cursor cursor = database.query(UserPersistenceContract.Entry.TABLE_NAME, allColumns, UserPersistenceContract.Entry.COLUMN_NAME_USER_ID
 				+ "='" + userDTO.getUserId() + "'", null, null, null, null);
 		boolean isInsert = true;
@@ -65,7 +64,7 @@ public class DAOUser {
 	}
 
 	public static UserDTO getUser(Context context, GNBCipheredDatabase gnbCipheredDatabase) {
-		SQLiteDatabase database = gnbCipheredDatabase.getReadableDatabase(GNBCipheredDatabase.getDBPassword(context));
+		SQLiteDatabase database = gnbCipheredDatabase.getReadableDatabase();
 		Cursor cursor = database.query(UserPersistenceContract.Entry.TABLE_NAME, allColumns, null, null, null, null, null);
 		UserDTO userDTO = null;
 		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
