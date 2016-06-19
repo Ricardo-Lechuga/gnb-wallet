@@ -4,6 +4,11 @@
 	package="es.ujaen.rlc00008.gnbwallet">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.NFC"/>
+
+	<uses-feature
+		android:name="android.hardware.nfc"
+		android:required="true"/>
 
 	<application
 		android:allowBackup="false"
