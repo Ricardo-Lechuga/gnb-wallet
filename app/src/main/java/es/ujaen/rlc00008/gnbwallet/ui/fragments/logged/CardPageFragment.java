@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.google.common.base.Preconditions;
 
+import butterknife.BindView;
 import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
@@ -17,7 +18,8 @@ import es.ujaen.rlc00008.gnbwallet.ui.views.CardView;
 public class CardPageFragment extends BaseFragment {
 
 	private Card mCard;
-	private View mView;
+
+	@BindView(R.id.card_nfc_imageview) View nfcView;
 
 	public static CardPageFragment newInstance(Card card) {
 		Preconditions.checkNotNull(card);
@@ -42,5 +44,6 @@ public class CardPageFragment extends BaseFragment {
 	@Override
 	protected void prepareInterface(View mainView) {
 		CardView.paint(mainView, mCard);
+		nfcView.setVisibility(mCard.isNfc() ? View.VISIBLE : View.GONE);
 	}
 }

@@ -14,6 +14,7 @@
 	<dimen name="card_view_date_margin_bottom">29dp</dimen>
 	<dimen name="card_view_name_margin_left">11dp</dimen>
 	<dimen name="card_view_name_margin_bottom">8dp</dimen>
+	<dimen name="card_nfc_icon_size">48dp</dimen>
 
 	<!--Operation Button-->
 	<dimen name="login_button_width">93dp</dimen>

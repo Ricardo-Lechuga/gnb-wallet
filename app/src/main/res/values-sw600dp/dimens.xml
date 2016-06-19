@@ -14,5 +14,6 @@
 	<dimen name="card_view_date_margin_bottom">58dp</dimen>
 	<dimen name="card_view_name_margin_left">22dp</dimen>
 	<dimen name="card_view_name_margin_bottom">17dp</dimen>
+	<dimen name="card_nfc_icon_size">60dp</dimen>
 
 </resources>

@@ -11,9 +11,19 @@
 		android:id="@+id/card_imageview"
 		android:layout_width="@dimen/cards_view_width"
 		android:layout_height="@dimen/cards_view_heigth"
-		android:adjustViewBounds="true"
 		android:layout_centerInParent="true"
+		android:adjustViewBounds="true"
 		android:scaleType="fitCenter"
 		tools:src="@drawable/black_card"/>
+
+	<ImageView
+		android:id="@+id/card_nfc_imageview"
+		android:layout_width="@dimen/card_nfc_icon_size"
+		android:layout_height="@dimen/card_nfc_icon_size"
+		android:layout_alignLeft="@+id/card_imageview"
+		android:layout_alignTop="@+id/card_imageview"
+		android:layout_marginLeft="-8dp"
+		android:layout_marginTop="-8dp"
+		android:src="@drawable/icn_hce"/>
 
 </RelativeLayout>
