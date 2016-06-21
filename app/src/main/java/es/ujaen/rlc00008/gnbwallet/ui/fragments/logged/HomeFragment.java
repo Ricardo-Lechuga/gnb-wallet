@@ -313,6 +313,15 @@ public class HomeFragment extends BaseFragment implements
 			}
 
 			@Override
+			public void setFavoriteOkWithWarning(Card card, String message) {
+				cards = loggedDataInteractor.getCards();
+				mAdapter.refreshList(cards);
+				selectCard(getSelectedCard());
+				hideLoading();
+				showErrorFragment(message);
+			}
+
+			@Override
 			public void operativeError(String message) {
 				hideLoading();
 				showErrorFragment(message);

@@ -129,4 +129,11 @@
 	<string name="card_detail_available_amount">Saldo disponible</string>
 	<string name="card_detail_credit_limit">Límite de crédito</string>
 
+	<!-- Payments-->
+	<string name="nfc_not_compatible">El dispositivo no es compatible con NFC</string>
+	<string name="nfc_not_enabled">NFC no está activado en el dispositivo</string>
+	<string name="nfc_favorite_but_not_enabled">Se ha establecido la tarjeta favorita, sin embargo, no podrá realizar pagos hasta que NFC no se encuentre
+		activado en el dispositivo
+	</string>
+
 </resources>

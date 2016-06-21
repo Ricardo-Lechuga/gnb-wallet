@@ -1,0 +1,11 @@
+<resources>
+	<string name="app_name">tpv</string>
+
+	<string name="_validate_amount_empty">Debe introducir un importe</string>
+	<string name="_validate_amount_zero">El importe debe ser superior a 0€</string>
+	<string name="_validate_amount_invalid">El importe introducido no es válido</string>
+
+	<string name="nfc_not_compatible">El TPV no es compatible con NFC!</string>
+	<string name="nfc_not_enabled">NFC no está activado en el TPV</string>
+
+</resources>

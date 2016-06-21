@@ -19,6 +19,8 @@ public class SetFavoriteInteractor extends BaseInteractor {
 	public interface SetFavoriteCallback extends BaseInteractorCallback {
 
 		void setFavoriteOk(Card card);
+
+		void setFavoriteOkWithWarning(Card card, String message);
 	}
 
 	@Inject
@@ -29,13 +31,21 @@ public class SetFavoriteInteractor extends BaseInteractor {
 		new Thread() {
 			@Override
 			public void run() {
+				if (!NFCUtils.isNfcCompatible(context)) {
+					callback.operativeError(context.getString(R.string.nfc_not_compatible));
+					return;
+				}
 				repository.setFavorite(card.getCardDTO(), new RepositoryCallback<CardDTO>() {
 					@Override
 					public void resultOk(final CardDTO cardDTO) {
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								callback.setFavoriteOk(CardFactory.get(cardDTO, card.isFavorite()));
+								if (NFCUtils.isNfcEnabled(context)) {
+									callback.setFavoriteOk(CardFactory.get(cardDTO, card.isFavorite()));
+								} else {
+									callback.setFavoriteOkWithWarning(CardFactory.get(cardDTO, card.isFavorite()), context.getString(R.string.nfc_favorite_but_not_enabled));
+								}
 							}
 						});
 					}
