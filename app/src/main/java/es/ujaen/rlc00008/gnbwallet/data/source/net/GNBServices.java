@@ -12,7 +12,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
 /**
- * Created by Mobilers on 18/1/16.
+ * Created by Ricardo Lechuga on 18/1/16.
  */
 public interface GNBServices {
 

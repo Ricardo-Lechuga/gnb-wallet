@@ -23,7 +23,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Mobilers on 18/1/16.
+ * Created by Ricardo Lechuga on 18/1/16.
  */
 @Module
 public class GNBRepositoryModule {

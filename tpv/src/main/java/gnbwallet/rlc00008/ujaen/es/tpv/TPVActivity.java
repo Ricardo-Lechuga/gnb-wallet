@@ -1,5 +1,9 @@
 package gnbwallet.rlc00008.ujaen.es.tpv;
 
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -8,9 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class TPVActivity extends AppCompatActivity {
+import java.math.BigDecimal;
 
-	private String amountString;
+import es.ujaen.rlc00008.transactions_library.NFCTransaction;
+import es.ujaen.rlc00008.transactions_library.NFCTransactionUtils;
+
+public class TPVActivity extends AppCompatActivity implements NfcAdapter.CreateNdefMessageCallback {
+
+	private BigDecimal amount;
 
 	private EditText amountEditText;
 	private Button okButton;
@@ -33,7 +42,7 @@ public class TPVActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				if (localValidations()) {
-					sendNFCMessage();
+					NfcAdapter.getDefaultAdapter(TPVActivity.this).setNdefPushMessageCallback(TPVActivity.this, TPVActivity.this);
 				}
 			}
 		});
@@ -51,7 +60,8 @@ public class TPVActivity extends AppCompatActivity {
 		}
 		if (validated) {
 			try {
-				amountString = amountEditText.getText().toString().replace(".", "").replace(",", ".");
+				String amountString = amountEditText.getText().toString().replace(".", "").replace(",", ".");
+				amount = new BigDecimal(amountString);
 			} catch (Exception e) {
 				validated = false;
 				Toast.makeText(this, R.string._validate_amount_invalid, Toast.LENGTH_SHORT).show();
@@ -70,8 +80,17 @@ public class TPVActivity extends AppCompatActivity {
 		return validated;
 	}
 
-	private void sendNFCMessage() {
+	@Override
+	public NdefMessage createNdefMessage(NfcEvent event) {
 
-		Toast.makeText(this, amountString, Toast.LENGTH_SHORT).show();
+		NFCTransaction nfcTransaction = TransactionBuilder.generateTransaction(this, amount);
+
+		//NdefRecord nDef = new NdefRecord()
+		NdefMessage msg = new NdefMessage(
+				new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE,
+						"es.ujaen.rlc00008.tpv-transaction".getBytes(),
+						new byte[] {},
+						NFCTransactionUtils.serialize(nfcTransaction)));
+		return msg;
 	}
 }

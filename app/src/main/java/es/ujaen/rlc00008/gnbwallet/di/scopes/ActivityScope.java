@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 /**
- * Created by Mobilers on 18/1/16.
+ * Created by Ricardo Lechuga on 18/1/16.
  */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)

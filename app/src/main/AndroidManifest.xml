@@ -41,6 +41,28 @@
 			android:name=".ui.activities.MainActivity"
 			android:screenOrientation="portrait"/>
 
+		<activity
+			android:configChanges="orientation|screenSize|keyboard"
+			android:name=".ui.activities.PayActivity"
+			android:screenOrientation="portrait">
+
+			<intent-filter>
+
+				<action
+					android:name="android.nfc.action.NDEF_DISCOVERED"/>
+
+				<category
+					android:name="android.intent.category.DEFAULT"/>
+
+				<data
+					android:host="ext"
+					android:pathPrefix="/es.ujaen.rlc00008.tpv-transaction"
+					android:scheme="vnd.android.nfc" />
+
+			</intent-filter>
+
+		</activity>
+
 	</application>
 
 </manifest>

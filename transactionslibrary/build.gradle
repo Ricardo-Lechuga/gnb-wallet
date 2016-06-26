@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+sourceCompatibility = "$rootProject.ext.sourceVersion"
+targetCompatibility = "$rootProject.ext.targetVersion"
+
+dependencies {
+
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	//Gson
+	compile "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+}

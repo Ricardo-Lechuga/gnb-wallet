@@ -9,7 +9,7 @@ import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseViewHolder;
 
 /**
- * Created by Mobilers on 20/1/16.
+ * Created by Ricardo Lechuga on 20/1/16.
  */
 @ActivityScope
 @Component(

@@ -30,6 +30,10 @@ task clean(type: Delete) {
 
 // Define versions in a single place
 ext {
+	// Java Version
+	targetVersion = "1.7"
+	sourceVersion = "1.7"
+
 	// Sdk and tools
 	minSdkVersion = 19
 	targetSdkVersion = 23

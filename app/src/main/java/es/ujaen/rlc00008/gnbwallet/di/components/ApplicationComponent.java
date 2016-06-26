@@ -12,7 +12,7 @@ import es.ujaen.rlc00008.gnbwallet.di.modules.MemoryModule;
 import es.ujaen.rlc00008.gnbwallet.di.modules.ServiceModule;
 
 /**
- * Created by Mobilers on 18/1/16.
+ * Created by Ricardo Lechuga on 18/1/16.
  */
 @Singleton
 @Component(
@@ -30,11 +30,4 @@ public interface ApplicationComponent {
 	GNBRepository gnbRepository();
 
 	GNBServices gnbServices();
-
-	//KidsServices restServices();
-	//
-	//SantanderServices santanderServices();
-	//
-	//KidsSharedPrefs kidsSharedPrefs();
-	//
 }

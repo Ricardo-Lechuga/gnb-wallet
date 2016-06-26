@@ -7,7 +7,7 @@ import dagger.Provides;
 import es.ujaen.rlc00008.gnbwallet.di.scopes.ActivityScope;
 
 /**
- * Created by Mobilers on 18/1/16.
+ * Created by Ricardo Lechuga on 18/1/16.
  */
 @Module
 public class ServiceModule {

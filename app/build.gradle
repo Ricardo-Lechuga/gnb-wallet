@@ -143,6 +143,9 @@ dependencies {
 	// Attached libs
 	compile files('libs/valnif.jar')
 
+	// Module dependencies
+	compile project(':transactionslibrary')
+
 	// Android dependencies
 	compile "com.android.support:multidex:$rootProject.ext.multidexVersion"
 	compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"

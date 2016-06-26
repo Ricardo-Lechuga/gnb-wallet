@@ -9,7 +9,7 @@ import dagger.Provides;
 import es.ujaen.rlc00008.gnbwallet.GNBApplication;
 
 /**
- * Created by Mobilers on 18/1/16.
+ * Created by Ricardo Lechuga on 18/1/16.
  */
 @Module
 public class ApplicationModule {

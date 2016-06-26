@@ -14,7 +14,7 @@ import es.ujaen.rlc00008.gnbwallet.ui.adapters.types.items.TransactionItem;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseViewHolder;
 
 /**
- * Created by Mobilers on 26/1/16. Modified by Toni on 08/5/16
+ * Created by Ricardo Lechuga on 26/1/16
  */
 public abstract class MultiRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
