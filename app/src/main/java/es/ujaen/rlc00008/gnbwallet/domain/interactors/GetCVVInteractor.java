@@ -11,18 +11,18 @@ import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 /**
  * Created by Ricardo on 22/5/16.
  */
-public class GetCCVInteractor extends BaseInteractor {
+public class GetCVVInteractor extends BaseInteractor {
 
-	public interface GetCCVCallback extends BaseInteractorCallback {
+	public interface GetCVVCallback extends BaseInteractorCallback {
 
-		void ccvResponse(String ccv);
+		void cvvResponse(String cvv);
 	}
 
 	@Inject
-	public GetCCVInteractor() {
+	public GetCVVInteractor() {
 	}
 
-	public void seeCCV(final Card card, final String operationSignature, final GetCCVCallback callback) {
+	public void seeCCV(final Card card, final String operationSignature, final GetCVVCallback callback) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -30,7 +30,7 @@ public class GetCCVInteractor extends BaseInteractor {
 					@Override
 					public void resultOk(final String response) {
 						if (callback != null) {
-							callback.ccvResponse(response);
+							callback.cvvResponse(response);
 						}
 					}
 
@@ -53,7 +53,7 @@ public class GetCCVInteractor extends BaseInteractor {
 							@Override
 							public void run() {
 								if (callback != null) {
-									callback.ccvResponse("123");
+									callback.cvvResponse("123");
 									//callback.operativeError(context.getString(R.string._generic_error_message));
 								}
 							}

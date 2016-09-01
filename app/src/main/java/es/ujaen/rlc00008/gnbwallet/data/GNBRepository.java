@@ -16,12 +16,6 @@ import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
  */
 public interface GNBRepository {
 
-	@Nullable
-	UserDTO getPersistedUser();
-
-	@Nullable
-	List<CardDTO> getPersistedCards();
-
 	void authenticateUser(String userDoc, String password, RepositoryCallback<LoginResponse> callback);
 
 	void loadGlobalPosition(RepositoryCallback<GlobalPositionResponse> callback);

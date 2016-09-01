@@ -28,7 +28,11 @@ public class CardDTO implements Parcelable {
 	private AmountDTO creditLimit;
 	private AmountDTO balance;
 
+	// Only for persistence - Temp init TS
+	private long tempTS;
+
 	public CardDTO() {
+		tempTS = -1;
 	}
 
 	public CardDTO(CardDTO cardDTO) {
@@ -45,22 +49,7 @@ public class CardDTO implements Parcelable {
 		this.availableCredit = cardDTO.availableCredit;
 		this.creditLimit = cardDTO.creditLimit;
 		this.balance = cardDTO.balance;
-	}
-
-	public CardDTO(String userId, String pan, String alias, boolean nfc, boolean enabled, String beneficiary, String visualCode, String type) {
-		this.userId = userId;
-		this.pan = pan;
-		this.alias = alias;
-		this.nfc = nfc;
-		this.enabled = enabled;
-		this.expirationDate = null;
-		this.beneficiary = beneficiary;
-		this.visualCode = visualCode;
-		this.type = type;
-		this.currentBalance = null;
-		this.availableCredit = null;
-		this.creditLimit = null;
-		this.balance = null;
+		this.tempTS = cardDTO.tempTS;
 	}
 
 	public String getUserId() {
@@ -167,6 +156,14 @@ public class CardDTO implements Parcelable {
 		this.balance = balance;
 	}
 
+	public long getTempTS() {
+		return tempTS;
+	}
+
+	public void setTempTS(long tempTS) {
+		this.tempTS = tempTS;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -193,6 +190,7 @@ public class CardDTO implements Parcelable {
 		availableCredit = (AmountDTO) in.readValue(AmountDTO.class.getClassLoader());
 		creditLimit = (AmountDTO) in.readValue(AmountDTO.class.getClassLoader());
 		balance = (AmountDTO) in.readValue(AmountDTO.class.getClassLoader());
+		tempTS = in.readLong();
 	}
 
 	@Override
@@ -215,6 +213,7 @@ public class CardDTO implements Parcelable {
 		dest.writeValue(availableCredit);
 		dest.writeValue(creditLimit);
 		dest.writeValue(balance);
+		dest.writeLong(tempTS);
 	}
 
 	@SuppressWarnings("unused")

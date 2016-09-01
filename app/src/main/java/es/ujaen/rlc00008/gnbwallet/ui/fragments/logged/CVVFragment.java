@@ -24,20 +24,20 @@ import es.ujaen.rlc00008.gnbwallet.ui.views.CardView;
 /**
  * Created by Ricardo on 12/6/16.
  */
-public class CCVFragment extends BaseFragment {
+public class CVVFragment extends BaseFragment {
 
-	public interface CCVListener {
+	public interface CVVListener {
 
-		void ccvSeeDetail();
+		void cvvSeeDetail();
 
-		void ccvSeePin();
+		void cvvSeePin();
 
-		void ccvClose();
+		void cvvClose();
 
-		void ccvSeeAgain();
+		void cvvSeeAgain();
 	}
 
-	private CCVListener callback;
+	private CVVListener callback;
 
 	private Card card;
 	private String ccv;
@@ -58,26 +58,26 @@ public class CCVFragment extends BaseFragment {
 
 	@OnClick(R.id.ccv_detail_textview)
 	void detailClick() {
-		callback.ccvSeeDetail();
+		callback.cvvSeeDetail();
 	}
 
 	@OnClick(R.id.ccv_pin_textview)
 	void ccvClick() {
-		callback.ccvSeePin();
+		callback.cvvSeePin();
 	}
 
 	@OnClick(R.id.ccv_close_button)
 	void closeClick() {
-		callback.ccvClose();
+		callback.cvvClose();
 	}
 
 	@OnClick(R.id.ccv_see_again_button)
 	void seeAgainClick() {
-		callback.ccvSeeAgain();
+		callback.cvvSeeAgain();
 	}
 
-	public static CCVFragment newInstance(Card card, String ccv) {
-		CCVFragment fragment = new CCVFragment();
+	public static CVVFragment newInstance(Card card, String ccv) {
+		CVVFragment fragment = new CVVFragment();
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("card", card);
 		bundle.putString("ccv", ccv);
@@ -88,9 +88,9 @@ public class CCVFragment extends BaseFragment {
 	@Override
 	public void onAttach(Context context) {
 		try {
-			callback = (CCVListener) context;
+			callback = (CVVListener) context;
 		} catch (ClassCastException e) {
-			throw new RuntimeException(context + " must implement CCVListener!");
+			throw new RuntimeException(context + " must implement CVVListener!");
 		}
 		super.onAttach(context);
 	}
@@ -109,7 +109,7 @@ public class CCVFragment extends BaseFragment {
 
 	@Override
 	protected int getContentView() {
-		return R.layout.fragment_ccv;
+		return R.layout.fragment_cvv;
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class CCVFragment extends BaseFragment {
 	}
 
 	private void hideCCV() {
-		ccvInfoTextView.setText(R.string.ccv_asterisk);
+		ccvInfoTextView.setText(R.string.cvv_asterisk);
 		timerTextView.setText(R.string.timer_0_sec);
 
 		// Prepare the View for the animation
@@ -214,7 +214,7 @@ public class CCVFragment extends BaseFragment {
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			if (CCVFragment.this.isAdded()) {
+			if (CVVFragment.this.isAdded()) {
 
 				final String timerText;
 
@@ -245,7 +245,7 @@ public class CCVFragment extends BaseFragment {
 		@Override
 		protected void onPostExecute(Void aVoid) {
 			super.onPostExecute(aVoid);
-			if (CCVFragment.this.isAdded()) {
+			if (CVVFragment.this.isAdded()) {
 				hideCCV();
 			}
 		}

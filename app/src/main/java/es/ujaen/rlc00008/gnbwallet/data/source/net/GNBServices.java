@@ -1,6 +1,6 @@
 package es.ujaen.rlc00008.gnbwallet.data.source.net;
 
-import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CCVResponse;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CVVResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CardTransactionsResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
@@ -60,7 +60,7 @@ public interface GNBServices {
 			"Content-Type: application/json",
 	})
 	@GET("/pfc/ws/cards/{pan}/getCCV.json")
-	Call<ResponseWrapper<CCVResponse>> getCCV(
+	Call<ResponseWrapper<CVVResponse>> getCCV(
 			@Path("pan") String cardPan
 	);
 

@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import es.ujaen.rlc00008.gnbwallet.data.source.persistence.PersistenceDataSource;
-import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.PersistenceDataSourceImpl;
+import es.ujaen.rlc00008.gnbwallet.data.source.persistence.PersistenceDataSourceImpl;
 
 /**
  * Created by Ricardo on 22/5/16.

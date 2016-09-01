@@ -22,10 +22,9 @@ import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
-import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCCVInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCVVInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetPinInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetTransactionsInteractor;
-import es.ujaen.rlc00008.gnbwallet.domain.interactors.InitInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoggedDataInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LoginInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.LogoutInteractor;
@@ -41,7 +40,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
 	@Inject protected Context context;
 
-	@Inject protected InitInteractor initInteractor;
 	@Inject protected LoginInteractor loginInteractor;
 	@Inject protected LogoutInteractor logoutInteractor;
 	@Inject protected LoggedDataInteractor loggedDataInteractor;
@@ -51,7 +49,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
 	@Inject protected SetFavoriteInteractor setFavoriteInteractor;
 	@Inject protected UnsetFavoriteInteractor unsetFavoriteInteractor;
 	@Inject protected GetPinInteractor getPinInteractor;
-	@Inject protected GetCCVInteractor getCCVInteractor;
+	@Inject protected GetCVVInteractor getCVVInteractor;
 	@Inject protected GetTransactionsInteractor getTransactionsInteractor;
 
 	protected View mainView;

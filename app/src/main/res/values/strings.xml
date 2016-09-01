@@ -68,7 +68,7 @@
 
 	<!-- Home -->
 	<string name="home_detail">Detalle</string>
-	<string name="home_ccv">CCV</string>
+	<string name="home_cvv">CVV2</string>
 	<string name="home_pin">PIN</string>
 	<string name="home_activate">Activar</string>
 	<string name="home_activate_card">Activar tarjeta</string>
@@ -94,10 +94,10 @@
 	<string name="deactivate_confirm">Desactivar</string>
 	<string name="deactivate_ok">Tarjeta desactivada con éxito.\nPuedes volver a activarla en cualquier momento.</string>
 
-	<!-- CCV -->
-	<string name="ccv_info">Tu código CCV es:</string>
-	<string name="ccv_see_again">Volver a ver</string>
-	<string name="ccv_asterisk">***</string>
+	<!-- CVV -->
+	<string name="cvv_info">Tu código CVV2 es:</string>
+	<string name="cvv_see_again">Volver a ver</string>
+	<string name="cvv_asterisk">***</string>
 
 	<!-- Pin -->
 	<string name="pin_info">Tu código PIN es:</string>

@@ -83,14 +83,12 @@ public class TPVActivity extends AppCompatActivity implements NfcAdapter.CreateN
 	@Override
 	public NdefMessage createNdefMessage(NfcEvent event) {
 
-		NFCTransaction nfcTransaction = TransactionBuilder.generateTransaction(this, amount);
+		NFCTransaction nfcTransaction = TransactionBuilder.generateTransaction(this, amount, "EUR");
 
-		//NdefRecord nDef = new NdefRecord()
-		NdefMessage msg = new NdefMessage(
+		return new NdefMessage(
 				new NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE,
 						"es.ujaen.rlc00008.tpv-transaction".getBytes(),
 						new byte[] {},
 						NFCTransactionUtils.serialize(nfcTransaction)));
-		return msg;
 	}
 }

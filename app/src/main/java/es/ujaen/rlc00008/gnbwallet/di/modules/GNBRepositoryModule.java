@@ -16,7 +16,7 @@ import es.ujaen.rlc00008.gnbwallet.data.gson.AnnotationExclusionStrategy;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.MemoryDataSourceImpl;
 import es.ujaen.rlc00008.gnbwallet.data.source.memory.fallback.MemoryFallbackDataSource;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.GNBServices;
-import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.PersistenceDataSourceImpl;
+import es.ujaen.rlc00008.gnbwallet.data.source.persistence.PersistenceDataSourceImpl;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

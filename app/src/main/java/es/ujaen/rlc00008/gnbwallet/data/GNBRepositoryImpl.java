@@ -21,13 +21,13 @@ import es.ujaen.rlc00008.gnbwallet.data.source.memory.fallback.MemoryFallbackDat
 import es.ujaen.rlc00008.gnbwallet.data.source.net.GNBServices;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.Meta;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.ResponseWrapper;
-import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CCVResponse;
+import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CVVResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.CardTransactionsResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.ChallengeResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.GlobalPositionResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.LoginResponse;
 import es.ujaen.rlc00008.gnbwallet.data.source.net.responses.PinResponse;
-import es.ujaen.rlc00008.gnbwallet.data.source.persistence.db.PersistenceDataSourceImpl;
+import es.ujaen.rlc00008.gnbwallet.data.source.persistence.PersistenceDataSourceImpl;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,22 +53,6 @@ public class GNBRepositoryImpl implements GNBRepository {
 		this.memoryFallbackDataSource = memoryFallbackDataSource;
 		this.persistenceDataSource = persistenceDataSource;
 		this.gnbServices = gnbServices;
-	}
-
-	@Nullable
-	@Override
-	public UserDTO getPersistedUser() {
-		return persistenceDataSource.getStoredUser();
-	}
-
-	@Nullable
-	@Override
-	public List<CardDTO> getPersistedCards() {
-		UserDTO userDTO = persistenceDataSource.getStoredUser();
-		if (userDTO != null) {
-			return persistenceDataSource.getUserCards(userDTO.getUserId());
-		}
-		return null;
 	}
 
 	@Override
@@ -342,10 +326,10 @@ public class GNBRepositoryImpl implements GNBRepository {
 
 	@Override
 	public void getCCV(CardDTO cardDTO, String operationSignature, final RepositoryCallback<String> callback) {
-		Call<ResponseWrapper<CCVResponse>> call = gnbServices.getCCV(cardDTO.getPan());
-		call.enqueue(new Callback<ResponseWrapper<CCVResponse>>() {
+		Call<ResponseWrapper<CVVResponse>> call = gnbServices.getCCV(cardDTO.getPan());
+		call.enqueue(new Callback<ResponseWrapper<CVVResponse>>() {
 			@Override
-			public void onResponse(Call<ResponseWrapper<CCVResponse>> call, Response<ResponseWrapper<CCVResponse>> response) {
+			public void onResponse(Call<ResponseWrapper<CVVResponse>> call, Response<ResponseWrapper<CVVResponse>> response) {
 				if (response.isSuccessful()) {
 					if (Meta.CODE_OK == response.body().getMeta().getCode()) {
 						callback.resultOk(response.body().getResponse().getCcv());
@@ -358,7 +342,7 @@ public class GNBRepositoryImpl implements GNBRepository {
 			}
 
 			@Override
-			public void onFailure(Call<ResponseWrapper<CCVResponse>> call, Throwable t) {
+			public void onFailure(Call<ResponseWrapper<CVVResponse>> call, Throwable t) {
 				callback.genericException(t);
 			}
 		});

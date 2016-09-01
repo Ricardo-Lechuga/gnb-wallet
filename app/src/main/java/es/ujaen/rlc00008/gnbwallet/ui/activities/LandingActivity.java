@@ -1,7 +1,6 @@
 package es.ujaen.rlc00008.gnbwallet.ui.activities;
 
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import es.ujaen.rlc00008.gnbwallet.R;
@@ -43,14 +42,8 @@ public class LandingActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void loadNoUser() {
+	public void splashOk() {
 		replaceFragment(new LoginFragment(), contentFrame);
-	}
-
-	@Override
-	public void loadUserOk() {
-		//TODO
-		Toast.makeText(this, "Load User OK!", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

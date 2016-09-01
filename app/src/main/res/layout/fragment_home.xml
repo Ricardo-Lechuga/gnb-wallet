@@ -43,7 +43,7 @@
 					android:layout_weight="1"
 					android:background="@drawable/tab_background_selector"
 					android:gravity="center"
-					android:text="@string/home_ccv"
+					android:text="@string/home_cvv"
 					android:textColor="@color/ui_text_light_gray"
 					android:textSize="16dp"/>
 

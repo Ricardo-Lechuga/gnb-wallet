@@ -43,7 +43,7 @@
 					android:layout_weight="1"
 					android:background="@color/ui_background_black_selected_tab"
 					android:gravity="center"
-					android:text="@string/home_ccv"
+					android:text="@string/home_cvv"
 					android:textColor="@color/ui_green"
 					android:textSize="16dp"/>
 
@@ -171,7 +171,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:scaleType="fitXY"
-					android:src="@drawable/bground_pin_ccv"/>
+					android:src="@drawable/bground_pin_cvv"/>
 
 				<LinearLayout
 					android:id="@+id/ccv_timer_view"
@@ -220,7 +220,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:fontFamily="@string/font_fontFamily_medium"
-						android:text="@string/ccv_info"
+						android:text="@string/cvv_info"
 						android:textColor="@color/ui_text_gray"
 						android:textSize="13dp"/>
 
@@ -234,7 +234,7 @@
 						<ImageView
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:src="@drawable/icn_ccv"/>
+							android:src="@drawable/icn_cvv"/>
 
 						<TextView
 							android:id="@+id/ccv_info_textview"
@@ -275,7 +275,7 @@
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_weight="1"
-					android:text="@string/ccv_see_again"
+					android:text="@string/cvv_see_again"
 					style="@style/AppButton.Green"/>
 
 			</LinearLayout>

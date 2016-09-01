@@ -1,5 +1,6 @@
 package es.ujaen.rlc00008.gnbwallet.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
@@ -19,6 +20,11 @@ import es.ujaen.rlc00008.transactions_library.NFCTransactionUtils;
 public class PayActivity extends BaseActivity {
 
 	@BindView(R.id.pay_content_frame) FrameLayout contentFrame;
+
+	public static void startActivity(Context context) {
+		Intent intent = new Intent(context, PayActivity.class);
+		context.startActivity(intent);
+	}
 
 	@Override
 	protected int getContentView() {
@@ -45,6 +51,11 @@ public class PayActivity extends BaseActivity {
 	}
 
 	private void processIntent(Intent intent) {
+
+		if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) {
+			return;
+		}
+
 		Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
 				NfcAdapter.EXTRA_NDEF_MESSAGES);
 		// only one message sent during the beam

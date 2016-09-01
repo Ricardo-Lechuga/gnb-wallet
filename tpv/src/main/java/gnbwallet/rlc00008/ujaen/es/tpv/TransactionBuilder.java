@@ -15,7 +15,7 @@ public class TransactionBuilder {
 	private static final String SP_NAME = "TPVData";
 	private static final String SP_TRANSACTION_COUNTER_TAG = "TransactionCounter";
 
-	public static NFCTransaction generateTransaction(Context context, BigDecimal amount) {
+	public static NFCTransaction generateTransaction(Context context, BigDecimal amount, String currency) {
 
 		SharedPreferences sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
 
@@ -24,6 +24,6 @@ public class TransactionBuilder {
 		ed.putInt(SP_TRANSACTION_COUNTER_TAG, counter + 1);
 		ed.commit();
 
-		return new NFCTransaction(TPVData.COMMERCE_NAME, amount, TPVData.getTransactionConcept(context, counter));
+		return new NFCTransaction(TPVData.COMMERCE_NAME, amount, currency, TPVData.getTransactionConcept(context, counter));
 	}
 }

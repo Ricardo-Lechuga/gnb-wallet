@@ -12,13 +12,13 @@ import es.ujaen.rlc00008.gnbwallet.R;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ActivateInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.ChallengeInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.DeactivateInteractor;
-import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCCVInteractor;
+import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetCVVInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.interactors.GetPinInteractor;
 import es.ujaen.rlc00008.gnbwallet.domain.model.Card;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseActivity;
 import es.ujaen.rlc00008.gnbwallet.ui.base.BaseFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.dialogs.GenericDialogFragment;
-import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CCVFragment;
+import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CVVFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CardDetailFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.CardTransactionsFragment;
 import es.ujaen.rlc00008.gnbwallet.ui.fragments.logged.HomeFragment;
@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity implements
 		HomeFragment.HomeListener,
 		OperationSignatureFragment.OperationSignatureListener,
 		PinFragment.PinListener,
-		CCVFragment.CCVListener,
+		CVVFragment.CVVListener,
 		CardTransactionsFragment.CardTransactionsListener,
 		CardDetailFragment.CardDetailListener {
 
@@ -254,25 +254,25 @@ public class MainActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void ccvSeeDetail() {
+	public void cvvSeeDetail() {
 		replaceFragment(CardDetailFragment.newInstance(selectedCard), contentFrame);
 	}
 
 	@Override
-	public void ccvSeePin() {
+	public void cvvSeePin() {
 		removeFragment(contentFrame);
 		getSupportFragmentManager().popBackStack();
 		generateChallenge(SIGNATURE_PURPOSE_PIN);
 	}
 
 	@Override
-	public void ccvClose() {
+	public void cvvClose() {
 		removeFragment(contentFrame);
 		getSupportFragmentManager().popBackStack();
 	}
 
 	@Override
-	public void ccvSeeAgain() {
+	public void cvvSeeAgain() {
 		removeFragment(contentFrame);
 		getSupportFragmentManager().popBackStack();
 		generateChallenge(SIGNATURE_PURPOSE_CCV);
@@ -364,11 +364,11 @@ public class MainActivity extends BaseActivity implements
 
 	private void seeSelectedCardCCV(String operationSignature) {
 		showLoading();
-		getCCVInteractor.seeCCV(selectedCard, operationSignature, new GetCCVInteractor.GetCCVCallback() {
+		getCVVInteractor.seeCCV(selectedCard, operationSignature, new GetCVVInteractor.GetCVVCallback() {
 			@Override
-			public void ccvResponse(String ccv) {
+			public void cvvResponse(String cvv) {
 				hideLoading();
-				replaceFragment(CCVFragment.newInstance(selectedCard, ccv), contentFrame);
+				replaceFragment(CVVFragment.newInstance(selectedCard, cvv), contentFrame);
 			}
 
 			@Override
