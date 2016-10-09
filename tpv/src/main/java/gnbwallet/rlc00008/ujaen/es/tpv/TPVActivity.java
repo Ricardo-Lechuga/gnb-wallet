@@ -43,6 +43,7 @@ public class TPVActivity extends AppCompatActivity implements NfcAdapter.CreateN
 			public void onClick(View v) {
 				if (localValidations()) {
 					NfcAdapter.getDefaultAdapter(TPVActivity.this).setNdefPushMessageCallback(TPVActivity.this, TPVActivity.this);
+					Toast.makeText(TPVActivity.this, R.string.payment_user_tap, Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

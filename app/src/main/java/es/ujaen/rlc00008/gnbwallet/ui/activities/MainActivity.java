@@ -197,9 +197,7 @@ public class MainActivity extends BaseActivity implements
 	@Override
 	public void homePay(Card card) {
 		selectedCard = card;
-		//TODO
-		Toast.makeText(this, "Operativa no disponible!", Toast.LENGTH_SHORT).show();
-		//generateChallenge(SIGNATURE_PURPOSE_PAY_NOW);
+		Toast.makeText(this, R.string.payment_user_tap, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

@@ -8,6 +8,8 @@
 	<string name="nfc_not_compatible">El TPV no es compatible con NFC!</string>
 	<string name="nfc_not_enabled">NFC no está activado en el TPV</string>
 
+	<string name="payment_user_tap">Aproxime el teléfono al TPV</string>
+
 	<string name="transaction_concept">Transaction Test %s</string>
 
 </resources>

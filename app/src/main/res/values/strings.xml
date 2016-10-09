@@ -136,4 +136,7 @@
 		activado en el dispositivo
 	</string>
 
+	<string name="payment_user_tap">Aproxime el teléfono al TPV</string>
+	<string name="payment_title">Compra con tarjeta</string>
+
 </resources>
